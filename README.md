@@ -8,6 +8,7 @@ Those decisions can be used to trigger events in your systems, add frictions, or
 
 Marble is built with compliance constraints in mind: everything is versioned and auditable without time limitations. 
 
+
 **Open-source, open architecture:**
 
 - Composable: connect Marble to any of your internal systems or tools (Transaction database, KYC solution, 3rd party data providers);
@@ -16,8 +17,8 @@ Marble is built with compliance constraints in mind: everything is versioned and
 
 NB : we’re not providing KYC services. There’s plenty of great players on the market we can connect with :) 
 
-### **🔖 License**
 
+### **🔖 License**
 ---
 
 Marble is available under ELv2 licence
@@ -26,8 +27,8 @@ The license terms are available here :
 
 [Licence terms](https://www.notion.so/Licence-terms-c07343af9e264ac2835d2169f88cfeed?pvs=21)
 
-### **✨Features**
 
+### **✨Features**
 ---
 
 **Marble core features** 
@@ -67,13 +68,11 @@ The license terms are available here :
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
 
 ### How to install Marble
-
 ---
+/coming soon/
 
-@Pascal Delange 
 
 ### **Why Open Source?**
-
 ---
 
 Risk management is broken for many companies. Currently you can either : 
@@ -99,8 +98,8 @@ Risk management is broken for many companies. Currently you can either :
 - **Evolutivity:**  You can use any data you want, and evolve the model in a second. Adding a new product, even with a payment scheme never seen before, takes minutes.
 - **You are part of it :** You can contribute, based on your needs: need a custom calculation? a 3rd party integration?  it’s a commit away.
 
-### **Contributing**
 
+### **Contributing**
 ---
 
 We want to create an open environment and appreciate all types of contributions that benefits all current and future users. Here are some ways you can contribute:
@@ -109,15 +108,17 @@ We want to create an open environment and appreciate all types of contributions 
 - Help with bugs and features on our Issues page
 - Submit a feature request or bug report
 
-### **Roadmap**
 
+### **Roadmap**
 ---
 
 **High level roadmap**
 
 Opensource
 
-- [ ]  Docker
+- [ ]  Docker for GCP
+- [ ]  Docker for AWS
+- [ ]  Docker for Azure
 
 **Rule Engine :** 
 
@@ -187,7 +188,8 @@ Opensource
 - [ ]  Scenario A/B testing
 - [ ]  Backtest
 
+
 ### Contact us
 
-Reach out to us on slack, on our website, or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble)# marble
-Marble's self-hosted entrypoint
+Reach out to us on slack, on our website, or ask for a demo [here]https://calendly.com/arnaudschwartz/discover-marble-1# marble
+
