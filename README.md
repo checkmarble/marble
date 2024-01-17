@@ -25,7 +25,7 @@ Marble is available under ELv2 licence
 
 The license terms are available here :
 
-[Licence terms](https://www.notion.so/Licence-terms-c07343af9e264ac2835d2169f88cfeed?pvs=21)
+[Licence terms](https://www.elastic.co/fr/licensing/elastic-license/)
 
 
 ### **✨Features**
@@ -114,7 +114,7 @@ We want to create an open environment and appreciate all types of contributions 
 
 **High level roadmap**
 
-Opensource
+Opensource - self installation
 
 - [ ]  Docker for GCP
 - [ ]  Docker for AWS
