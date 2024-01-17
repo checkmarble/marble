@@ -191,7 +191,7 @@ Opensource
 
 ### Contact us
 
-Reach out to us on slack, on our website, or ask for a demo [Here](https://calendly.com/arnaudschwartz/discover-marble-1)
+Reach out to us on slack, on our website, or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
 # marble
 
