@@ -67,6 +67,20 @@ The license terms are available here :
 - Supervised Machine Learning: use previous results to create a custom ML detection model
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
 
+
+### Example of use cases
+---
+Marble is incredibly felxible thanks to its fully open data model. Here are a few application already happening with Marble : 
+- transaction monitoring for financial institution (AML & fraud), for every type of payement scheme (even the ones really exotic : Marble handles any type of data)
+- User / account monitoring
+- User risk score calculation at onboarding or during its lifecycle
+- Event scoring : adding new beneficiary, subscribing to a new product...
+- Vendor / buyer checks for marketplaces : return abuse, fake transactions...
+- Condition abuse : robocalling for telco, bot management on social networks and apps
+- Embeded in a financial SaaS : fine control of expenses for end users
+Feel free to try other use cases and let us know ! We'd love to hear from you.
+
+
 ### How to install Marble
 ---
 /coming soon/
