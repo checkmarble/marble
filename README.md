@@ -15,9 +15,9 @@ Marble is built with compliance constraints in mind: everything is versioned and
 - Pricing: Our self-hosted version is free. Our cloud version is priced like a SaaS, and surprisingly cheaper than market leaders :)
 - Privacy: your data never has to leave your infrastructure.
 
-NB : we’re not providing KYC services. There’s plenty of great players on the market we can connect with :) 
+NB : we’re not providing KYC services. There’s plenty of awesome players on the market you can connect with :) 
 
-
+<br><br> 
 ### **🔖 License**
 ---
 
@@ -26,8 +26,7 @@ Marble is available under ELv2 licence
 The license terms are available here :
 
 [Licence terms](https://www.elastic.co/fr/licensing/elastic-license/)
-
-
+<br><br> 
 ### **✨Features**
 ---
 
@@ -66,9 +65,8 @@ The license terms are available here :
 - Backtest: check scenario efficiency on your past data before pushing to production
 - Supervised Machine Learning: use previous results to create a custom ML detection model
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
-
-
-### Example of use cases
+<br><br>  
+### :thought_balloon: Example of use cases
 ---
 Marble is incredibly felxible thanks to its fully open data model. Here are a few application already happening with Marble : 
 - transaction monitoring for financial institution (AML & fraud), for every type of payement scheme (even the ones really exotic : Marble handles any type of data)
@@ -80,13 +78,12 @@ Marble is incredibly felxible thanks to its fully open data model. Here are a fe
 - Embeded in a financial SaaS : fine control of expenses for end users
 Feel free to try other use cases and let us know ! We'd love to hear from you.
 
-
-### How to install Marble
+<br><br> 
+### :wrench: How to install Marble
 ---
-/coming soon/
-
-
-### **Why Open Source?**
+_coming soon_
+<br><br> 
+### :penguin: **Why Open Source?**
 ---
 
 Risk management is broken for many companies. Currently you can either : 
@@ -111,9 +108,8 @@ Risk management is broken for many companies. Currently you can either :
 - **Total transparency:** the code is open, you can see everything happening within the engine. You KNOW why there’s an alert or not every time, you don’t guess.
 - **Evolutivity:**  You can use any data you want, and evolve the model in a second. Adding a new product, even with a payment scheme never seen before, takes minutes.
 - **You are part of it :** You can contribute, based on your needs: need a custom calculation? a 3rd party integration?  it’s a commit away.
-
-
-### **Contributing**
+<br><br> 
+### :sparkling_heart: **Contributing**
 ---
 
 We want to create an open environment and appreciate all types of contributions that benefits all current and future users. Here are some ways you can contribute:
@@ -121,9 +117,8 @@ We want to create an open environment and appreciate all types of contributions 
 - Give us feedback in our Slack community
 - Help with bugs and features on our Issues page
 - Submit a feature request or bug report
-
-
-### **Roadmap**
+<br><br> 
+### :running: **Roadmap**
 ---
 
 **High level roadmap**
@@ -201,11 +196,11 @@ Opensource - self installation
 - [ ]  Scenario performance analytics
 - [ ]  Scenario A/B testing
 - [ ]  Backtest
-
+<br> 
 
 ### Contact us
 
 Reach out to us on slack, on our website, or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
-# marble
+Made with :heart: in :fr: by Marble
 
