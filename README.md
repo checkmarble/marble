@@ -1,3 +1,8 @@
+
+![logo-modified](https://github.com/checkmarble/marble/assets/130587542/d4f9f4ea-eaf0-442c-99fb-e3ce4811fdeb)
+
+
+
 Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
 
 We provide an easy-to-use rule builder that can leverage any type of data, an engine capable of running checks in batch or in real-time, and a case manager to improve operational efficiency.
@@ -15,6 +20,8 @@ Marble is developed with compliance requirements in mind, ensuring that everythi
 - Privacy: Your data never has to leave your infrastructure.
 
 NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with :)
+<br>
+<img width="600" alt="Rule example" src="https://github.com/checkmarble/marble/assets/130587542/e4016997-9329-49ed-b62f-266b911367e2" class="center">
 <br><br>
 
 ### **🔖 License**
