@@ -71,58 +71,54 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
   <br><br>
 
-### :thought_balloon: Example of use cases
+### 💭 **Example Use Cases**
 
 ---
 
-Marble is incredibly felxible thanks to its fully open data model. Here are a few application already happening with Marble :
+Marble's incredible flexibility is due to its fully open data model. Here are some applications already in use with Marble:
 
-- transaction monitoring for financial institution (AML & fraud), for every type of payement scheme (even the ones really exotic : Marble handles any type of data)
-- User / account monitoring
-- User risk score calculation at onboarding or during its lifecycle
-- Event scoring : adding new beneficiary, subscribing to a new product...
-- Vendor / buyer checks for marketplaces : return abuse, fake transactions...
-- Condition abuse : robocalling for telco, bot management on social networks and apps
-- Embeded in a financial SaaS : fine control of expenses for end users
-  Feel free to try other use cases and let us know ! We'd love to hear from you.
+- Transaction monitoring for financial institutions (AML & fraud), supporting every type of payment scheme (including the exotic ones: Marble handles any type of data).
+- User/account monitoring.
+- User risk score calculation at onboarding and throughout their lifecycle.
+- Event scoring: adding new beneficiaries, subscribing to new products, etc.
+- Vendor/buyer checks for marketplaces: return abuse, fake transactions, etc.
+- Condition abuse: robocalling for telecom companies, bot management on social networks and apps.
+- Embedded in financial SaaS: fine control of expenses for end users.
 
-<br><br>
+Feel free to try other use cases and let us know! We'd love to hear from you.
 
-### :wrench: How to install Marble
-
----
-
-_coming soon_
-<br><br>
-
-### :penguin: **Why Open Source?**
+### 🔧 **How to Install Marble**
 
 ---
 
-Risk management is broken for many companies. Currently you can either :
+Coming soon.
 
-- Build your own risk infrastructure :
+### 🐧 **Why Open Source?**
 
-  - It’s a never-ending work
-  - Building from the ground up takes months, and is usually sub-par with expectations end-users expectations
-  - You usually miss non user essential key elements, like versioning and audit trails
-  - Risk teams need their updates ASAP, but dev teams need to scope and prioritize first
+---
 
-- Or you have to spend hundreds of thousands to buy a service where :
-  - Set up cost and time are significant
-  - You might not have total control over the rules applied
-  - The scoring algorithm is “proprietary” which means you can’t explain it
-  - There’s limited flexibility to connect your data and product specifics : limited payment schemes covered for eg.
-  - Contract renewal is a pain
+Risk management is challenging for many companies. Currently, you can either:
 
-**Marble provides a clear 3rd path :**
+- Build your own risk infrastructure:
+    - It’s a never-ending task.
+    - Building from scratch takes months and often falls short of end-user expectations.
+    - Essential elements like versioning and audit trails are often overlooked.
+    - Risk teams need updates urgently, but development teams need to scope and prioritize first.
+- Or, spend a significant amount to buy a service where:
+    - Setup costs and time are substantial.
+    - You might lack full control over the applied rules.
+    - The scoring algorithm is “proprietary,” meaning you can’t explain it.
+    - There’s limited flexibility to connect your data and product specifics, such as limited payment schemes covered.
+    - Contract renewal is burdensome.
 
-- **Start great** : You can benefit from one of the best engines on the market for free. There’s no excuse for not having great monitoring even from day 1.
-- **Privacy :** Your data stays your own, forever
-- **Total transparency:** the code is open, you can see everything happening within the engine. You KNOW why there’s an alert or not every time, you don’t guess.
-- **Evolutivity:** You can use any data you want, and evolve the model in a second. Adding a new product, even with a payment scheme never seen before, takes minutes.
-- **You are part of it :** You can contribute, based on your needs: need a custom calculation? a 3rd party integration? it’s a commit away.
-  <br><br>
+Marble offers a clear third option:
+
+- Start Strong: Benefit from one of the best engines on the market for free. There’s no excuse for not having top-notch monitoring from day one.
+- Privacy: Your data remains yours, always.
+- Total Transparency: The code is open; you can see everything within the engine. You KNOW why an alert is raised every time; you don’t have to guess.
+- Evolutivity: Use any data you want and evolve the model instantly. Adding a new product, even with a never-before-seen payment scheme, takes minutes.
+- Community Driven: Contribute based on your needs: need a custom calculation? A third-party integration? It’s just a commit away.
+<br><br> 
 
 ### :sparkling_heart: **Contributing**
 
