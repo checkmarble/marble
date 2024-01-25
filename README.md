@@ -215,6 +215,6 @@ Opensource - self installation
 
 ### Contact us
 
-Reach out to us on slack, on our [website](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
+Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
 Made with :heart: in :fr: by Marble
