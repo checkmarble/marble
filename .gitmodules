@@ -1,3 +1,6 @@
 [submodule "api"]
 	path = api
 	url = git@github.com:checkmarble/marble-backend.git
+[submodule "front"]
+	path = front
+	url = git@github.com:checkmarble/marble-frontend.git
