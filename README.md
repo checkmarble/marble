@@ -1,5 +1,6 @@
 
-![logo-modified](https://github.com/checkmarble/marble/assets/130587542/d4f9f4ea-eaf0-442c-99fb-e3ce4811fdeb)
+
+![GITHUB](https://github.com/checkmarble/marble/assets/130587542/f5b6e99c-9e26-4c92-a6d4-37d7ea4b900e)
 
 
 
