@@ -204,11 +204,11 @@ Opensource - self installation
   - [ ] Graph relationship
   - [ ] Set a reminder
 - [ ] Case feedback to rule engine
-- [ ] Case manager analytics
+- [x] Case manager analytics
 
 **Analytics**
 
-- [ ] Scenario performance analytics
+- [x] Scenario performance analytics
 - [ ] Scenario A/B testing
 - [ ] Backtest
       <br>
