@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: marble-postgres
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER:-postgres}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-marble}
+      POSTGRES_DB: ${POSTGRES_DB:-marble}
+      PGDATA: /data/postgres
+      PGPORT: ${PG_PORT:-5432}
+    ports:
+      - ${PG_PORT:-5432}:${PG_PORT:-5432}
+    volumes:
+      - marble-db:/data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 1s
+      retries: 5
+  api:
+    container_name: marble-api
+    image: marble-api-test
+    # image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest
+    restart: always
+    depends_on:
+      - db
+    entrypoint: ["./app", "--server"]
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:${API_PORT:-8080}/liveness || exit 1
+      interval: 10s
+      timeout: 60s
+      retries: 1
+      start_period: 30s
+    ports: 
+      - ${HOST_API_PORT:-8080}:${API_PORT:-8080}
+    environment:
+      ENV: ${ENV:-development}
+      PORT: ${API_PORT:-8080}
+      PG_HOSTNAME: ${PG_HOSTNAME:-localhost}
+      PG_PORT: ${PG_PORT:-5432}
+      PG_USER: ${PG_USER:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-marble}
+      AUTHENTICATION_JWT_SIGNING_KEY: ${AUTHENTICATION_JWT_SIGNING_KEY:-}
+      GCS_INGESTION_BUCKET: ${GCS_INGESTION_BUCKET:-}
+      GCS_CASE_MANAGER_BUCKET: ${GCS_CASE_MANAGER_BUCKET:-}
+      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST:-localhost:9099}
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-placeholder}
+      MARBLE_ADMIN_EMAIL: ${MARBLE_ADMIN_EMAIL:-admin@checkmarble.com}
+      AWS_REGION: ${AWS_REGION:-eu-west-3}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY:-}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY:-}
+      FAKE_AWS_S3: ${FAKE_AWS_S3:-true}
+      FAKE_GCS: ${FAKE_GCS:-true}
+      SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      METABASE_SITE_URL: ${METABASE_SITE_URL:-https://your_subdomain.metabaseapp.com}
+      METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-placeholder}
+      METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
+  app:
+    container_name: marble-app
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest
+    # image: marble-app-test
+    restart: always
+    depends_on:
+      - api
+    ports: 
+      - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
+    environment:
+      ENV: ${ENV:-development}
+      NODE_ENV: ${NODE_ENV:-development}
+      SESSION_SECRET: ${SESSION_SECRET:-placeholder}
+      SESSION_MAX_AGE: ${SESSION_MAX_AGE:-43200}
+      MARBLE_API_DOMAIN: ${MARBLE_API_DOMAIN:-http://localhost:${HOST_API_PORT:-8080}}
+      MARBLE_APP_DOMAIN: ${MARBLE_APP_DOMAIN:-http://localhost:${HOST_APP_PORT:-8080}}
+      FIREBASE_AUTH_EMULATOR: ${FIREBASE_AUTH_EMULATOR:-true}
+      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST:-http://localhost:9099}
+      FIREBASE_API_KEY: ${FIREBASE_API_KEY:-placeholder}
+      FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN:-placeholder}
+      FIREBASE_PROJECT_ID: ${GOOGLE_CLOUD_PROJECT:-placeholder}
+      FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET:-placeholder}
+      FIREBASE_MESSAGING_SENDER_ID: ${FIREBASE_MESSAGING_SENDER_ID:-placeholder}
+      FIREBASE_APP_ID: ${FIREBASE_APP_ID:-placeholder}
+      SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
+      PORT: ${APP_PORT:-8080}
+
+volumes:
+  marble-db:
+    driver: local
