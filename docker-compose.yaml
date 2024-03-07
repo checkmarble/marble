@@ -46,8 +46,9 @@ services:
       AUTHENTICATION_JWT_SIGNING_KEY: ${AUTHENTICATION_JWT_SIGNING_KEY:-}
       GCS_INGESTION_BUCKET: ${GCS_INGESTION_BUCKET:-}
       GCS_CASE_MANAGER_BUCKET: ${GCS_CASE_MANAGER_BUCKET:-}
-      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST:-localhost:9099}
-      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-placeholder}
+      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_OVERRIDE:-host.docker.internal}:${FIREBASE_AUTH_EMULATOR_PORT:-9099}
+      # default value must be kept if working with the emulator
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-test-project}
       MARBLE_ADMIN_EMAIL: ${MARBLE_ADMIN_EMAIL:-admin@checkmarble.com}
       AWS_REGION: ${AWS_REGION:-eu-west-3}
       AWS_ACCESS_KEY: ${AWS_ACCESS_KEY:-}
@@ -61,11 +62,12 @@ services:
       METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
   app:
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest
-    # image: marble-app-test
+    # image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest
+    image: marble-app-test
     restart: always
     depends_on:
       - api
+      - firebase_auth
     ports: 
       - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
     environment:
@@ -73,10 +75,9 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       SESSION_SECRET: ${SESSION_SECRET:-placeholder}
       SESSION_MAX_AGE: ${SESSION_MAX_AGE:-43200}
-      MARBLE_API_DOMAIN: ${MARBLE_API_DOMAIN:-http://localhost:${HOST_API_PORT:-8080}}
+      MARBLE_API_DOMAIN: ${MARBLE_API_DOMAIN:-http://localhost:8080}
       MARBLE_APP_DOMAIN: ${MARBLE_APP_DOMAIN:-http://localhost:${HOST_APP_PORT:-8080}}
-      FIREBASE_AUTH_EMULATOR: ${FIREBASE_AUTH_EMULATOR:-true}
-      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST:-http://localhost:9099}
+      FIREBASE_AUTH_EMULATOR_HOST: http://localhost:${FIREBASE_AUTH_EMULATOR_PORT:-9099}
       FIREBASE_API_KEY: ${FIREBASE_API_KEY:-placeholder}
       FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN:-placeholder}
       FIREBASE_PROJECT_ID: ${GOOGLE_CLOUD_PROJECT:-placeholder}
@@ -85,6 +86,13 @@ services:
       FIREBASE_APP_ID: ${FIREBASE_APP_ID:-placeholder}
       SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
       PORT: ${APP_PORT:-8080}
+  firebase_auth:
+    container_name: firebase-auth
+    image: firebase-auth
+    restart: always
+    ports:
+      - ${FIREBASE_AUTH_EMULATOR_PORT:-9099}:9099
+      - 4000:4000
 
 volumes:
   marble-db:
