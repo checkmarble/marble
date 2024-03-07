@@ -1,0 +1,10 @@
+FROM node:alpine
+RUN apk add openjdk11
+
+RUN npm install -g firebase-tools
+
+WORKDIR /app
+COPY firebase.json .
+COPY ./firebase-local-data /app/firebase-local-data
+
+CMD [ "firebase", "--project=test-project", "emulators:start", "--only", "auth" , "--import", "firebase-local-data"]
