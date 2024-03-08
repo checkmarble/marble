@@ -1,6 +1,5 @@
 version: "3.8"
 
-
 services:
   db:
     container_name: marble-postgres
@@ -51,6 +50,8 @@ services:
       # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-test-project}
       ENABLE_GCP_TRACING: ${ENABLE_GCP_TRACING:-false}
+      REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL:-all}
+      LOGGING_FORMAT: ${LOGGING_FORMAT:-text}
       MARBLE_ADMIN_EMAIL: ${MARBLE_ADMIN_EMAIL:-admin@checkmarble.com}
       AWS_REGION: ${AWS_REGION:-}
       AWS_ACCESS_KEY: ${AWS_ACCESS_KEY:-}
@@ -70,17 +71,23 @@ services:
     depends_on:
       - api
       - firebase_auth
+    healthcheck:
+      test: curl --fail http://localhost:${APP_PORT:-8080}/healthcheck || exit 1
+      interval: 10s
+      timeout: 60s
+      retries: 1
+      start_period: 30s
     ports: 
-      - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
+      - ${HOST_APP_PORT:-3000}:8080
     environment:
       ENV: ${ENV:-development}
       NODE_ENV: ${NODE_ENV:-production}
       SESSION_SECRET: ${SESSION_SECRET:-placeholder}
       SESSION_MAX_AGE: ${SESSION_MAX_AGE:-43200}
-      MARBLE_API_DOMAIN_CLIENT: ${MARBLE_API_DOMAIN:-http://localhost:8080}
-      MARBLE_API_DOMAIN_SERVER: ${MARBLE_API_DOMAIN:-http://db:8080}
+      MARBLE_API_DOMAIN_CLIENT: ${MARBLE_API_DOMAIN_CLIENT:-http://localhost:8080}
+      MARBLE_API_DOMAIN_SERVER: ${MARBLE_API_DOMAIN_SERVER:-http://api:8080}
       MARBLE_APP_DOMAIN: ${MARBLE_APP_DOMAIN:-http://localhost:${HOST_APP_PORT:-8080}}
-      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_CLIENT:-}
+      FIREBASE_AUTH_EMULATOR_HOST: http://localhost:9099
       FIREBASE_API_KEY: ${FIREBASE_API_KEY:-placeholder}
       FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN:-placeholder}
       FIREBASE_PROJECT_ID: ${GOOGLE_CLOUD_PROJECT:-placeholder}
@@ -88,7 +95,6 @@ services:
       FIREBASE_MESSAGING_SENDER_ID: ${FIREBASE_MESSAGING_SENDER_ID:-placeholder}
       FIREBASE_APP_ID: ${FIREBASE_APP_ID:-placeholder}
       SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
-      PORT: ${APP_PORT:-8080}
   firebase_auth:
     container_name: firebase-auth
     image: firebase-auth
