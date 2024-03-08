@@ -28,7 +28,7 @@ services:
     restart: always
     depends_on:
       - db
-    entrypoint: ["./app", "--server"]
+    entrypoint: ["./app", "--server", "--migrations"]
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:${API_PORT:-8080}/liveness || exit 1
       interval: 10s
