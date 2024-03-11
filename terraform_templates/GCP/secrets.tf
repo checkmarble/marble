@@ -10,7 +10,6 @@ resource "google_secret_manager_secret" "postgres_password" {
 }
 
 resource "google_secret_manager_secret" "authentication_jwt_signing_key" {
-
   secret_id = "AUTHENTICATION_JWT_SIGNING_KEY"
 
   replication {
@@ -22,7 +21,7 @@ resource "google_secret_manager_secret" "authentication_jwt_signing_key" {
   }
 }
 
-resource "google_secret_manager_secret" "metabase_jwt_signing_key" {
+resource "google_secret_manager_secret" "cookie_session_secret" {
   secret_id = "COOKIE_SESSION_SECRET"
   replication {
     user_managed {
@@ -32,3 +31,6 @@ resource "google_secret_manager_secret" "metabase_jwt_signing_key" {
     }
   }
 }
+
+
+# SECRET VERSIONS TO CREATE MANUALLY

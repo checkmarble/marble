@@ -37,7 +37,7 @@ resource "google_cloud_run_v2_service" "backend" {
 
       env {
         name  = "PG_USER"
-        value = google_sql_user.users.name
+        value = "postgres"
       }
 
       env {

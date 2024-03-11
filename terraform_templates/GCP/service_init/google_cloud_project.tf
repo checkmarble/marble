@@ -1,7 +1,7 @@
-
 resource "google_project" "default" {
   project_id = local.project_id
-  org_id     = 577386927588
+  # TO CONFIGURE
+  org_id = 123456789
 
   name = data.google_project.project.name
 
@@ -12,6 +12,7 @@ resource "google_project" "default" {
 
 data "google_project" "project" {
   project_id = local.project_id
+  depends_on = [google_project_service.services]
 }
 
 resource "google_project_service" "services" {

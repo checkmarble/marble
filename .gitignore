@@ -1,0 +1,4 @@
+*/service-account-key/*
+*/*terraform.tfstate.d*/*
+**/.terraform/*
+**/.terraform.lock.hcl
