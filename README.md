@@ -1,8 +1,4 @@
-
-
 ![GITHUB](https://github.com/checkmarble/marble/assets/130587542/f5b6e99c-9e26-4c92-a6d4-37d7ea4b900e)
-
-
 
 Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
 
@@ -92,7 +88,10 @@ Feel free to try other use cases and let us know! We'd love to hear from you.
 
 ---
 
-Coming soon.
+Simply run `docker compose --env-file .env-example up` (customize the .env-example file or provide your own copy).
+It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
+
+You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
 
 ### 🐧 **Why Open Source?**
 
@@ -101,16 +100,16 @@ Coming soon.
 Risk management is challenging for many companies. Currently, you can either:
 
 - Build your own risk infrastructure:
-    - It’s a never-ending task.
-    - Building from scratch takes months and often falls short of end-user expectations.
-    - Essential elements like versioning and audit trails are often overlooked.
-    - Risk teams need updates urgently, but development teams need to scope and prioritize first.
+  - It’s a never-ending task.
+  - Building from scratch takes months and often falls short of end-user expectations.
+  - Essential elements like versioning and audit trails are often overlooked.
+  - Risk teams need updates urgently, but development teams need to scope and prioritize first.
 - Or, spend a significant amount to buy a service where:
-    - Setup costs and time are substantial.
-    - You might lack full control over the applied rules.
-    - The scoring algorithm is “proprietary,” meaning you can’t explain it.
-    - There’s limited flexibility to connect your data and product specifics, such as limited payment schemes covered.
-    - Contract renewal is burdensome.
+  - Setup costs and time are substantial.
+  - You might lack full control over the applied rules.
+  - The scoring algorithm is “proprietary,” meaning you can’t explain it.
+  - There’s limited flexibility to connect your data and product specifics, such as limited payment schemes covered.
+  - Contract renewal is burdensome.
 
 Marble offers a clear third option:
 
@@ -119,7 +118,7 @@ Marble offers a clear third option:
 - Total Transparency: The code is open; you can see everything within the engine. You KNOW why an alert is raised every time; you don’t have to guess.
 - Evolutivity: Use any data you want and evolve the model instantly. Adding a new product, even with a never-before-seen payment scheme, takes minutes.
 - Community Driven: Contribute based on your needs: need a custom calculation? A third-party integration? It’s just a commit away.
-<br><br> 
+  <br><br>
 
 ### :sparkling_heart: **Contributing**
 
