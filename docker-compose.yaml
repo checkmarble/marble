@@ -22,8 +22,7 @@ services:
       retries: 5
   api:
     container_name: marble-api
-    # image: marble-api-test
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend@sha256:848f49d37a080aa8c867d1871e556e9a878806452b19540b1eb7ff18f49be45d
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.0.44
     platform: linux/amd64
     restart: always
     depends_on:
@@ -66,8 +65,7 @@ services:
       METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
   app:
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend@sha256:e4c60c64ea419ba181780508a6aeca2fa0ee413eaaf02e33d6b888c5aefee7aa
-    # image: marble-app-test
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.0.26
     platform: linux/amd64
     restart: always
     depends_on:
@@ -99,8 +97,6 @@ services:
       SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
   firebase_auth:
     container_name: firebase-auth
-    # platform: linux/arm64/v8
-    # image: firebase-auth
     image: europe-west1-docker.pkg.dev/marble-infra/marble/firebase-emulator:latest
     restart: always
     ports:
