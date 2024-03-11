@@ -22,8 +22,6 @@ resource "google_project_iam_member" "backend_service_account_cron_run_invoker" 
   member  = google_service_account.backend_service_account.member
 }
 
-
-
 resource "google_service_account" "frontend_service_account" {
   account_id   = "marble-frontend-cloud-run"
   display_name = "Marble FrontEnd Service Account"

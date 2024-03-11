@@ -3,11 +3,12 @@ locals {
   environments = {
 
     production = {
-      project_id                    = "marble-prod-1"
-      terraform_service_account_key = "../service-account-key/marble-prod-1.json"
+      # TO CONFIGURE
+      project_id                    = "project-id"
+      terraform_service_account_key = "../service-account-key/project-id.json"
 
       marble_cloud_sql = {
-        name              = "marble-prod"
+        name              = "marble-db"
         location          = local.location
         tier              = "db-custom-4-16384"
         availability_type = "REGIONAL"
@@ -25,13 +26,13 @@ locals {
       }
 
       frontend = {
-        image  = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.0.25"
+        image  = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest"
         domain = "app.mydomain.com"
         url    = "https://app.mydomain.com"
       }
 
       backend = {
-        image              = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.0.43"
+        image              = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest"
         domain             = "api.mydomain.com"
         url                = "https://api.mydomain.com"
         max_instance_count = 10

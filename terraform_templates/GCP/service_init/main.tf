@@ -9,6 +9,7 @@ terraform {
     # TO CONFIGURE
     # name of the GCS bucket where the TF state is stored
     bucket = "my-bucket-for-tfstates"
+    prefix = "service_init"
   }
 }
 
