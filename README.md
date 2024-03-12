@@ -93,6 +93,8 @@ It will run out of the box with the firebase auth emulator. If you wish to run M
 
 You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
 
+The first time you run the code, you should enter an organization name and organization admin user email to create using the CREATE_ORG_NAME and CREATE_ORG_ADMIN_EMAIL environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
+
 ### 🐧 **Why Open Source?**
 
 ---
