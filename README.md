@@ -88,7 +88,7 @@ Feel free to try other use cases and let us know! We'd love to hear from you.
 
 ---
 
-Simply clone this repository and run `docker compose --env-file .env-example up` (customize the .env-example file or provide your own copy).
+Simply clone this repository and run `docker compose --env-file .env.example up` (customize the .env-example file or provide your own copy).
 It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
 
 You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
