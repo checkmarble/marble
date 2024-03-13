@@ -95,6 +95,17 @@ You can also take inspiration from the terraform templates provided in the repos
 
 The first time you run the code, you should enter an organization name and organization admin user email to create using the CREATE_ORG_NAME and CREATE_ORG_ADMIN_EMAIL environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
 
+In a local demo setup:
+
+- just run the docker-compose as it is, it should work
+- give the firebase emulator a moment to get started, it's a bit slow when first launched
+
+In a production setup:
+
+- set the `FIREBASE_AUTH_EMULATOR_HOST_SERVER` and `FIREBASE_AUTH_EMULATOR_HOST_CLIENT` env variables to empty strings in your .env file
+- create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
+- if you plan to use the batch ingestion feature or the case manager with file storign feature, make sure you create the Google Cloud Storage buckets, set the corresponding env variables and run your code in a setup that will allow default application credentials detection
+
 ### 🐧 **Why Open Source?**
 
 ---
