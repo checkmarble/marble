@@ -22,7 +22,7 @@ services:
       retries: 5
   api:
     container_name: marble-api
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.3
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.4
     platform: linux/amd64
     restart: always
     depends_on:
