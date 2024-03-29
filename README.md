@@ -152,8 +152,8 @@ We want to create an open environment and appreciate all types of contributions 
 
 Opensource - self installation
 
-- [ ] Docker for GCP
-- [ ] Docker for AWS
+- [x] Docker for GCP
+- [x] Docker for AWS
 - [ ] Docker for Azure
 
 **Rule Engine :**
