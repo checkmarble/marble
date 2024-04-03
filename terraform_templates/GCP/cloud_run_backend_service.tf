@@ -105,6 +105,11 @@ resource "google_cloud_run_v2_service" "backend" {
         value = "true"
       }
 
+      env {
+        name  = "MARBLE_APP_HOST"
+        value = local.environment.frontend.domain
+      }
+
       volume_mounts {
         name       = "cloudsql"
         mount_path = "/cloudsql"
