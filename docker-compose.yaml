@@ -66,6 +66,44 @@ services:
       METABASE_SITE_URL: ${METABASE_SITE_URL:-https://your_subdomain.metabaseapp.com}
       METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-placeholder}
       METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
+  cron:
+    container_name: marble-api-cron
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.5
+    platform: linux/amd64
+    restart: always
+    depends_on:
+      - api
+    entrypoint: ["./app", "--cron-scheduler"]
+    environment:
+      ENV: ${ENV:-development}
+      PORT: ${API_PORT:-8080}
+      PG_HOSTNAME: ${PG_HOSTNAME:-db}
+      PG_PORT: ${PG_PORT:-5432}
+      PG_USER: ${PG_USER:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-marble}
+      AUTHENTICATION_JWT_SIGNING_KEY: ${AUTHENTICATION_JWT_SIGNING_KEY:-}
+      GCS_INGESTION_BUCKET: ${GCS_INGESTION_BUCKET:-}
+      GCS_CASE_MANAGER_BUCKET: ${GCS_CASE_MANAGER_BUCKET:-}
+      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_SERVER:-}
+      MARBLE_APP_HOST: ${MARBLE_APP_HOST:-localhost:${HOST_APP_PORT:-3000}}
+      # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-test-project}
+      ENABLE_GCP_TRACING: ${ENABLE_GCP_TRACING:-false}
+      REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL:-all}
+      LOGGING_FORMAT: ${LOGGING_FORMAT:-text}
+      CREATE_GLOBAL_ADMIN_EMAIL: ${CREATE_GLOBAL_ADMIN_EMAIL:-admin@checkmarble.com}
+      CREATE_ORG_NAME: ${CREATE_ORG_NAME:-Zorg}
+      CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-jbe@zorg.com}
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY:-}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY:-}
+      FAKE_AWS_S3: ${FAKE_AWS_S3:-true}
+      FAKE_GCS: ${FAKE_GCS:-true}
+      SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY_BACKEND:-UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      METABASE_SITE_URL: ${METABASE_SITE_URL:-https://your_subdomain.metabaseapp.com}
+      METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-placeholder}
+      METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
   app:
     container_name: marble-app
     image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.1.3
