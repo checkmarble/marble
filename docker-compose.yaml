@@ -47,6 +47,7 @@ services:
       GCS_INGESTION_BUCKET: ${GCS_INGESTION_BUCKET:-}
       GCS_CASE_MANAGER_BUCKET: ${GCS_CASE_MANAGER_BUCKET:-}
       FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_SERVER:-}
+      MARBLE_APP_HOST: ${MARBLE_APP_HOST:-localhost:${HOST_APP_PORT:-3000}}
       # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-test-project}
       ENABLE_GCP_TRACING: ${ENABLE_GCP_TRACING:-false}
