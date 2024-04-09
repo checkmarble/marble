@@ -106,7 +106,7 @@ services:
       METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-123}
   app:
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.1.4
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.1.5
     platform: linux/amd64
     restart: always
     depends_on:
