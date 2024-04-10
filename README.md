@@ -180,7 +180,7 @@ Opensource - self installation
   - [x] Nesting (sub-calculation within a single rule line)
   - [ ] Previous results use (Has been flagged previously by)
   - [ ] Unstructured data connectors (document contains, distance between GPS points…)
-  - [ ] Fuzzy text connectors (is close to…)
+  - [x] Fuzzy text connectors (is close to…)
 - [x] Score based decision
 - [ ] Supervised learning
   - [ ] ML model creation
