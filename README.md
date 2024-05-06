@@ -91,6 +91,8 @@ Feel free to try other use cases and let us know! We'd love to hear from you.
 Simply clone this repository and run `docker compose --env-file .env.example up` (customize the .env-example file or provide your own copy).
 It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
 
+Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
+
 You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
 
 The first time you run the code, you should enter an organization name and organization admin user email to create using the CREATE_ORG_NAME and CREATE_ORG_ADMIN_EMAIL environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
