@@ -108,6 +108,12 @@ In a production setup:
 - create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
 - if you plan to use the batch ingestion feature or the case manager with file storign feature, make sure you create the Google Cloud Storage buckets, set the corresponding env variables and run your code in a setup that will allow default application credentials detection
 
+### 🕵 **How to use Marble**
+
+---
+
+You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble-copy), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
+
 ### 🐧 **Why Open Source?**
 
 ---
