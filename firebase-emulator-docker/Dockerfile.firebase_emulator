@@ -7,4 +7,4 @@ WORKDIR /app
 COPY firebase.json .
 COPY ./firebase-local-data /app/firebase-local-data
 
-CMD [ "firebase", "--project=test-project", "emulators:start", "--only", "auth" , "--import", "firebase-local-data"]
+CMD [ "firebase", "--project=test-project", "emulators:start", "--only", "auth" , "--import", "firebase-local-data", "--export-on-exit", "firebase-local-data"]

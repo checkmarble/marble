@@ -88,25 +88,27 @@ Feel free to try other use cases and let us know! We'd love to hear from you.
 
 ---
 
+> The following instructions are for a docker-compose setup. You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
+
 Simply clone this repository and run `docker compose --env-file .env.example up` (customize the .env-example file or provide your own copy).
 It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
 
-Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
-
-You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
-
-The first time you run the code, you should enter an organization name and organization admin user email to create using the CREATE_ORG_NAME and CREATE_ORG_ADMIN_EMAIL environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
+The first time you run the code, you should enter an organization name and organization admin user email to create using the `CREATE_ORG_NAME` and `CREATE_ORG_ADMIN_EMAIL` environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
 
 In a local demo setup:
 
 - just run the docker-compose as it is, it should work
 - give the firebase emulator a moment to get started, it's a bit slow when first launched
+- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
 
 In a production setup:
 
 - set the `FIREBASE_AUTH_EMULATOR_HOST_SERVER` and `FIREBASE_AUTH_EMULATOR_HOST_CLIENT` env variables to empty strings in your .env file
 - create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
 - if you plan to use the batch ingestion feature or the case manager with file storign feature, make sure you create the Google Cloud Storage buckets, set the corresponding env variables and run your code in a setup that will allow default application credentials detection
+- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
+
+Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
 
 ### 🕵 **How to use Marble**
 
