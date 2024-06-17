@@ -34,7 +34,7 @@ services:
       timeout: 60s
       retries: 1
       start_period: 30s
-    ports: 
+    ports:
       - ${HOST_API_PORT:-8080}:${API_PORT:-8080}
     volumes:
       - marble-tempfiles:/tempFiles
@@ -122,7 +122,7 @@ services:
       timeout: 60s
       retries: 1
       start_period: 30s
-    ports: 
+    ports:
       - ${HOST_APP_PORT:-3000}:8080
     environment:
       ENV: ${ENV:-development}
