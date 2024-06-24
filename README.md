@@ -97,6 +97,8 @@ The first time you run the code, you should enter an organization name and organ
 
 In a local demo setup:
 
+> In a local setup, the License key is not required. You can leave it empty. The full feature set is available.
+
 - just run the docker-compose as it is, it should work
 - give the firebase emulator a moment to get started, it's a bit slow when first launched
 - create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
@@ -107,6 +109,7 @@ In a production setup:
 - create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
 - if you plan to use the batch ingestion feature or the case manager with file storign feature, make sure you create the Google Cloud Storage buckets, set the corresponding env variables and run your code in a setup that will allow default application credentials detection
 - create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
+- if you have a license key, set it in the `LICENSE_KEY` env variable in your .env file
 
 Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
 
