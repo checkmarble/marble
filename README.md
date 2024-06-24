@@ -68,6 +68,12 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
   <br><br>
 
+#### Premium features
+
+The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense (in our cloud offering or on-premise). You can find the list of available features in our [pricing page](https://www.checkmarble.com/pricing).
+
+As long as you are runnig Marble locally with a test setup (using the Firebase auth emulator for end user authentication), you will see all the features, but you will be restricted if you authenticate with a real Firebase auth app.
+
 ### 💭 **Example Use Cases**
 
 ---
