@@ -22,7 +22,7 @@ services:
       retries: 5
   api:
     container_name: marble-api
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.11
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.13
     platform: linux/amd64
     restart: always
     depends_on:
@@ -64,7 +64,7 @@ services:
       METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-}
   cron:
     container_name: marble-api-cron
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.11
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.1.13
     platform: linux/amd64
     restart: always
     depends_on:
@@ -88,7 +88,7 @@ services:
       FAKE_GCS: ${FAKE_GCS:-}
   app:
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.1.11
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.1.12
     platform: linux/amd64
     restart: always
     depends_on:
@@ -104,6 +104,7 @@ services:
       - ${HOST_APP_PORT:-3000}:8080
     environment:
       ENV: ${ENV:-development}
+      LICENSE_KEY: ${LICENSE_KEY:-LICENSE_KEY}
       NODE_ENV: ${NODE_ENV:-production}
       SESSION_SECRET: ${SESSION_SECRET:-placeholder}
       SESSION_MAX_AGE: ${SESSION_MAX_AGE:-43200}
