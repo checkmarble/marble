@@ -97,7 +97,7 @@ The first time you run the code, you should enter an organization name and organ
 
 In a local demo setup:
 
-> In a local setup, the License key is not required. You can leave it empty. The full feature set is available.
+> In a local test setup (meaning if you are running with the firebase auth emulator), the License key is not required. You can leave it empty. The full feature set is available.
 
 - just run the docker-compose as it is, it should work
 - give the firebase emulator a moment to get started, it's a bit slow when first launched
