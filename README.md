@@ -31,6 +31,26 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 
 ---
 
+**Open-source vs licensed**
+
+|                                            | Open-source (Elastic V2) | Licensed to Marble |
+| :----------------------------------------: | :----------------------: | :----------------: |
+|         Scenario and rule builder          |            ✅            |         ✅         |
+|             Real time & batch              |            ✅            |         ✅         |
+|                Audit trail                 |            ✅            |         ✅         |
+|                Case manager                |            ✅            |         ✅         |
+|          Decision & Ingestion API          |            ✅            |         ✅         |
+|                   Lists                    |            ✅            |         ✅         |
+|                 Workflows                  |            ❌            |         ✅         |
+|                    SSO                     |            ❌            |         ✅         |
+|              Role management               |            ❌            |         ✅         |
+|                  Webhooks                  |            ❌            |         ✅         |
+| Direct tech support with SLA & hot patches |            ❌            |         ✅         |
+|       Rule snoozing by end customer        |            ❌            |         ✅         |
+|             Community support              |            ✅            |         ✅         |
+
+---
+
 **Marble core features**
 
 - Create detection scenarios based on rules.
