@@ -121,6 +121,8 @@ It will run out of the box with the firebase auth emulator. If you wish to run M
 
 The first time you run the code, you should enter an organization name and organization admin user email to create using the `CREATE_ORG_NAME` and `CREATE_ORG_ADMIN_EMAIL` environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
 
+> `CREATE_GLOBAL_ADMIN_EMAIL` is optional. It is useful if you want to access cross organization data. If you provide it, the user will be created as a global admin. It must be different from `CREATE_ORG_ADMIN_EMAIL`.
+
 **In a local demo setup:**
 
 > In a local test setup (meaning if you are running with the firebase auth emulator), the License key is not required. You can leave it empty. The full feature set is available.
