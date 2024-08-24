@@ -8,6 +8,8 @@ They are largely inspired from Marble's internal cloud deployment, but while bei
 
 ## Usage
 
+### GCP
+
 - Create a new project
 - Create a GCS bucket (in this project, or another) to store the terraform state
 - create an admin service account in the project & download a service account key
@@ -16,3 +18,17 @@ They are largely inspired from Marble's internal cloud deployment, but while bei
 - Run `terraform apply` in `GCP/service_init` first (in order to activate the required APIs)
 - Run `terraform apply` in `GCP`
 - Create the Secret Manager versions on the newly created Secret Manager secrets (create DB user postgres with a password, create the cookie session secret, create the jwt sigining secret)
+
+
+### AWS
+
+- Modify the property bucket in the file providers.tf to match your bucket name (in this case, it is marble-deployment-state-bucket)
+- Set the variables in vars.tf to match your environment
+    - aws_key_pair : SSH RSA key pair to connect to the instances
+    - aws_region : AWS region where to deploy the resources
+    - aws_zones : List of availability zones to deploy the resources in (in this case, eu-west-1a and eu-west-1b)
+- Run `terraform apply` in `AWS`
+
+At the end of the deployment, you should be able to access the application at the URL provided by terraform.
+
+`echo $(terraform output --raw alb_url)`
