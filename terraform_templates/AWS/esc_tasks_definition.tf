@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "app" {
   family             = "marble"
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.ecs_exec_role.arn
-  network_mode       = "awsvpc"
+  network_mode       = "bridge"
   cpu                = 256
   memory             = 256
 

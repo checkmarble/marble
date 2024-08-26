@@ -26,11 +26,6 @@ resource "aws_ecs_service" "app" {
   task_definition = aws_ecs_task_definition.app.arn
   desired_count   = 2
 
-  network_configuration {
-    security_groups = [aws_security_group.ecs_task.id]
-    subnets         = aws_subnet.public[*].id
-  }
-
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.main.name
     base              = 1

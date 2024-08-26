@@ -12,7 +12,7 @@ resource "aws_security_group" "http" {
   vpc_id      = aws_vpc.main.id
 
   dynamic "ingress" {
-    for_each = [80, 443, 8080]
+    for_each = [80, 443]
     content {
       protocol    = "tcp"
       from_port   = ingress.value
@@ -41,12 +41,11 @@ resource "aws_lb_target_group" "app" {
   vpc_id      = aws_vpc.main.id
   protocol    = "HTTP"
   port        = 80
-  target_type = "ip"
+  target_type = "instance"
 
   health_check {
     enabled             = true
     path                = "/"
-    port                = 80
     matcher             = 200
     interval            = 10
     timeout             = 5
@@ -60,14 +59,13 @@ resource "aws_lb_target_group" "api" {
   vpc_id      = aws_vpc.main.id
   protocol    = "HTTP"
   port        = 8080
-  target_type = "ip"
+  target_type = "instance"
 
   health_check {
     enabled             = true
     path                = "/"
     matcher             = 200
     interval            = 10
-    port                = 8080
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 3
