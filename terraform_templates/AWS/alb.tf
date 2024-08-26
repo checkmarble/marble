@@ -1,7 +1,7 @@
 # --- ALB ---
 
 data "aws_acm_certificate" "amazon_issued" {
-  domain      = "*.pixpay.app"
+  domain      = "*.${var.domain}"
   types       = ["AMAZON_ISSUED"] // Change if your certificate has not been issued by AMAZON
   most_recent = true
 }
@@ -131,7 +131,7 @@ resource "aws_lb_listener_rule" "api" {
 
   condition {
     host_header {
-      values = ["api.pixpay.app"]
+      values = ["api.${var.domain}"]
     }
   }
 }
