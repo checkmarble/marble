@@ -17,10 +17,16 @@ variable "aws_key_pair" {
   default     = "nklein" // TO BE CHANGED
 }
 
+variable "domain" {
+  type        = string
+  description = "Domain associated with the site (An SSL Certificate must be associated to this domain *.aws_domain)"
+  default     = "pixpay.app" // TO BE CHANGED
+}
+
 variable "aws_region" {
   type        = string
   description = "Region to use"
-  default     = "eu-west-3"
+  default     = "eu-west-3" // TO BE CHANGED
 }
 
 variable "aws_zones" {
