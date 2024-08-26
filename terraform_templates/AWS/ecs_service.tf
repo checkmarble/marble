@@ -52,5 +52,11 @@ resource "aws_ecs_service" "app" {
     container_port   = 80
   }
 
-  depends_on = [aws_lb_target_group.app]
+   load_balancer {
+    target_group_arn = aws_lb_target_group.api.arn
+    container_name   = "api"
+    container_port   = 8080
+  }
+
+  depends_on = [aws_ecs_task_definition.app, aws_lb_target_group.app, aws_lb_target_group.api]
 }
