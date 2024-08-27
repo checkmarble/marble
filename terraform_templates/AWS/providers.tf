@@ -9,10 +9,11 @@ terraform {
       version = "~> 3.0"
     }
   }
+  // TO BE CHANGED TO YOUR OWN S3 BUCKET NAME
   backend "s3" {
-    bucket = "pixpay-terraform" // TO BE CHANGED
-    key    = "marble"
-    region = "eu-west-3"
+    bucket = "pixpay-terraform" // Bucket for storing terraform state
+    key    = "marble" // State file name
+    region = "eu-west-3" // Bucket Region
   }
 }
 

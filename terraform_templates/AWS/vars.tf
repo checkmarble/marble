@@ -11,6 +11,19 @@ variable "aws_secret_access_key" {
   type        = string
 }
 
+variable "aws_region" {
+  type        = string
+  description = "Region to use"
+  default     = "eu-west-3" // TO BE CHANGED
+}
+
+
+variable "aws_zones" {
+  type        = list(string)
+  description = "List of availability zones to use"
+  default     = ["eu-west-3a", "eu-west-3b"] // TO BE CHANGED
+}
+
 variable "aws_key_pair" {
   type        = string
   description = "Region to use"
@@ -19,18 +32,6 @@ variable "aws_key_pair" {
 
 variable "domain" {
   type        = string
-  description = "Domain associated with the site (An SSL Certificate must be associated to this domain *.aws_domain)"
-  default     = "pixpay.app" // TO BE CHANGED
-}
-
-variable "aws_region" {
-  type        = string
-  description = "Region to use"
-  default     = "eu-west-3" // TO BE CHANGED
-}
-
-variable "aws_zones" {
-  type        = list(string)
-  description = "List of availability zones to use"
-  default     = ["eu-west-3a", "eu-west-3b"]
+  description = "Domain associated with the site (An SSL Certificate must be associated to this domain *)"
+  default     = "*.pixpay.app" // TO BE CHANGED
 }
