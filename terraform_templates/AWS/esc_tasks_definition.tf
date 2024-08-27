@@ -46,12 +46,16 @@ resource "aws_ecs_task_definition" "app" {
     },
     {
       name         = "api",
-      image        = "testcontainers/helloworld:latest",
-      essential    = false,
+      image        = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest",
+      essential    = true,
       portMappings = [{ containerPort = 8080, hostPort = 8080 }],
 
+      entryPoint: ["./app", "--server", "--migrations"],
+      
       environment = [
-        { name = "EXAMPLE", value = "example" }
+         { name = "ENV", value = "production" },
+         { name = "NODE_ENV", value = "production" },
+         { name = "LICENSE_KEY", value = "" }
       ]
 
       logConfiguration = {
