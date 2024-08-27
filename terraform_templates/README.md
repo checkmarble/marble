@@ -25,11 +25,17 @@ The GCP terraform files are largely inspired from Marble's internal cloud deploy
 
 ### AWS
 
-- Modify the property bucket in the file providers.tf to match your bucket name (in this case, it is marble-deployment-state-bucket)
+- Modify the property bucket for the Terraform State File in providers.tf to match your bucket name (in this case, it is marble-deployment-state-bucket)
 - Set the variables in vars.tf to match your environment
     - aws_key_pair : SSH RSA key pair to connect to the instances
     - aws_region : AWS region where to deploy the resources
     - aws_zones : List of availability zones to deploy the resources in (in this case, eu-west-1a and eu-west-1b)
+- Setup all your environment variables 
+    - Run `terraform workspace new production`in the `terraform_templates/AWS`
+    - Edit the file locals_environments.tf to match your environment variables
+        - Firebase : Copy this information for Firebase configuration from your firebase project. 
+                     In the project parameters page, add a application, select configuration and copy all the parameters in the node locals.environments.production.firebase {}
+        
 - Run `terraform apply` in `AWS`
 
 At the end of the deployment, you should be able to access the application at the URL provided by terraform.
