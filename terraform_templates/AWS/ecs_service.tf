@@ -14,8 +14,8 @@ resource "aws_security_group" "ecs_task" {
 
   egress {
     from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    to_port     = 65535
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -44,7 +44,7 @@ resource "aws_ecs_service" "app" {
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "app"
-    container_port   = 80
+    container_port   = 3000
   }
 
    load_balancer {

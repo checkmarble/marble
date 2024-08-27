@@ -1,7 +1,7 @@
 # --- ALB ---
 
 data "aws_acm_certificate" "amazon_issued" {
-  domain      = "*.${var.domain}"
+  domain      = "${var.domain}"
   types       = ["AMAZON_ISSUED"] // Change if your certificate has not been issued by AMAZON
   most_recent = true
 }
@@ -40,7 +40,7 @@ resource "aws_lb_target_group" "app" {
   name_prefix = "app-"
   vpc_id      = aws_vpc.main.id
   protocol    = "HTTP"
-  port        = 80
+  port        = 3000
   target_type = "instance"
 
   health_check {
@@ -70,6 +70,9 @@ resource "aws_lb_target_group" "api" {
     healthy_threshold   = 2
     unhealthy_threshold = 3
   }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_lb_listener" "http" {
@@ -85,6 +88,9 @@ resource "aws_lb_listener" "http" {
       protocol    = "HTTPS"
       status_code = "HTTP_301"
     }
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
  resource "aws_lb_listener" "https" {
@@ -113,8 +119,12 @@ resource "aws_lb_listener_rule" "app" {
 
   condition {
     host_header {
-      values = ["*.*"]
+      values = ["${replace(local.environment.frontend.url, "https://", "")}"]
     }
+  }
+
+  lifecycle {
+    replace_triggered_by = [aws_lb_target_group.app]
   }
 }
 
@@ -129,8 +139,12 @@ resource "aws_lb_listener_rule" "api" {
 
   condition {
     host_header {
-      values = ["api.${var.domain}"]
+      values = ["${replace(local.environment.backend.url, "https://", "")}"]
     }
+  }
+
+   lifecycle {
+    replace_triggered_by = [aws_lb_target_group.api]
   }
 }
 
