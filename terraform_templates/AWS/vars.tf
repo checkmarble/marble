@@ -2,7 +2,6 @@
  * Code to declare the variables for terraform
  */
 
-
 variable "aws_access_key_id" {
   type        = string
 }
@@ -13,7 +12,7 @@ variable "aws_secret_access_key" {
 
 variable "aws_region" {
   type        = string
-  description = "Region to use"
+  description = "AWS Region to use"
   default     = "eu-west-3" // TO BE CHANGED
 }
 
@@ -26,8 +25,8 @@ variable "aws_zones" {
 
 variable "aws_key_pair" {
   type        = string
-  description = "Region to use"
-  default     = "nklein" // TO BE CHANGED
+  description = "Name of the Key pair (used for SSH Access to EC2)"
+  default     = "nklein" // TO BE CHANGED with the name of the key pair
 }
 
 variable "domain" {
