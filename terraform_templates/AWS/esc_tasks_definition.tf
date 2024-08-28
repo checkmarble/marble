@@ -31,11 +31,10 @@ resource "aws_ecs_task_definition" "app" {
       { name = "FIREBASE_MESSAGING_SENDER_ID", value = local.environment.firebase.messagingSenderId },
       { name = "FIREBASE_APP_ID", value = local.environment.firebase.appId },
       { name = "SESSION_SECRET", value = local.environment.session.secret },
-      { name = "SESSION_MAX_AGE", value = "43200" },
-      { name = "LICENSE_KEY", value = "" },
-      { name = "FIREBASE_AUTH_EMULATOR_HOST", value = "" },
-      { name = "SENTRY_ENVIRONMENT", value = "prod" },
-      { name = "SENTRY_DSN", value = "https://35baab2abd1e46e4d6c28b4963766727@o226978.ingest.us.sentry.io/4507621335367680" }
+      { name = "SESSION_MAX_AGE", value = local.environment.session.max_age },
+      { name = "LICENSE_KEY", value = local.environment.licence_key },
+      { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.frontend.env},
+      { name = "SENTRY_DSN", value = local.environment.sentry.frontend.dsn },
     ]
 
     logConfiguration = {
@@ -70,13 +69,12 @@ resource "aws_ecs_task_definition" "app" {
         { name = "MARBLE_APP_HOST", value = local.environment.frontend.domain },
         { name = "MARBLE_BACKOFFICE_HOST", value = local.environment.backend.domain },
         { name = "SESSION_SECRET", value = local.environment.session.secret },
-        { name = "SESSION_MAX_AGE", value = "43200" },
-        { name = "LICENSE_KEY", value = "" },
-        { name = "FIREBASE_AUTH_EMULATOR_HOST", value = "" },
-        { name = "SENTRY_ENVIRONMENT", value = "prod" },
-        { name = "SENTRY_DSN", value = "https://e2e1767e50571d033eb55a4bdf5f26d9@o226978.ingest.us.sentry.io/4507856676126720" },
-        { name = "SEGMENT_WRITE_KEY", value = "-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u"},
-        { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgHLR51CUQpjMUwU6qmt9ZmDBR348sN7fNtvzmKPEkGp8Fd/uYA+Q\nvs92FWSbiYM5x4XgUJzzmE3BF2lC85usSLqEw1dj+75Ae9bcpqPdz/im8ylV/ihh\nnTUU0ufjY6dugdoP6VoSuSqPG3rnq6Be07qtMBXs44nBaU4XvpF/rkFJAgMBAAEC\ngYA5kYqz+RIHAHMjrQ1jRYV+P4oz/gQEStB7qYA/pD9wVHS3SRJ6220AIcmKHv3s\ngJzMP/LLLsuPOKAfU8VGqTPxOns9XZG7fTaZ+H3GgvVR/BnpN6+JbSLANei5DBJn\nBzqR8zoC1+VPTzMa5iDLV7r1dDPeIgMN2Lex6gi3IODTnQJBAMojx1nzBMkrjZPC\nRulAMdAOuhJ/pFAQtmcNVtO9mZOVzEojwnxc9Y/rOR7xrAcywu4G434a+fVGaX+W\n1NtNcdcCQQCRaex6sm6yk/jL7bZNktTIIyINMZyE0jBwE4+zBwC6/Y74U7plzGzO\nfgxIS9+pSFBnzqghWT05TDP2RZEcI8HfAkEAvXQrM7MBmUqotwQvUg5Ioagr3Yqk\nhiYjzxJBftMFTb3oatR5Q/YccXcVYls/0L9S06TBM0A1Zh1IY70KY0CCoQJBAIjX\nHkQksAl7OHFoBNuhZn3kmgHCgyF2z0BZGCyIVYaiYC2OVWXA50+2zIYoaJTcSVY2\n4n9nhDbsYCXMN488kw8CQFQz7x5heNKXZ/b9fzFeYbme9WHA5swjdsKMWHn3cSV4\nsQ/6QaRTlW/OYIxf6BK0zYmYjS2fKLjxgPbpLrLhDP0=\n-----END RSA PRIVATE KEY-----"}
+        { name = "SESSION_MAX_AGE", value = local.environment.session.max_age },
+        { name = "LICENSE_KEY", value = local.environment.licence_key },
+        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env},
+        { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
+        { name = "SEGMENT_WRITE_KEY", value = local.environment.segment_write_key.backend },
+        { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "${file("config/private.key")}"}
       ]
 
       logConfiguration = {
