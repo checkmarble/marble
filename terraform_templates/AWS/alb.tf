@@ -119,7 +119,7 @@ resource "aws_lb_listener_rule" "app" {
 
   condition {
     host_header {
-      values = ["${replace(local.environment.frontend.url, "https://", "")}"]
+      values = ["${local.environment.frontend.domain}"]
     }
   }
 
@@ -139,7 +139,7 @@ resource "aws_lb_listener_rule" "api" {
 
   condition {
     host_header {
-      values = ["${replace(local.environment.backend.url, "https://", "")}"]
+      values = ["${local.environment.backend.domain}"]
     }
   }
 
