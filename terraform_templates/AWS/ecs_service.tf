@@ -7,8 +7,8 @@ resource "aws_security_group" "ecs_task" {
 
   ingress {
     from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    to_port     = 65535
+    protocol    = "tcp"
     cidr_blocks = [aws_vpc.main.cidr_block]
   }
 
@@ -36,11 +36,11 @@ resource "aws_ecs_service" "app" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-
+/*
   lifecycle {
     ignore_changes = [desired_count]
   }
-
+*/
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "app"
