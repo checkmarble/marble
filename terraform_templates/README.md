@@ -26,6 +26,7 @@ The GCP terraform files are largely inspired from Marble's internal cloud deploy
 ### AWS
 
 - Modify the property bucket for the Terraform State File in providers.tf to match your bucket name (in this case, it is marble-deployment-state-bucket)
+- Run `terraform init`in the `terraform_templates/AWS`
 - Set the variables in vars.tf to match your environment
     - aws_key_pair : SSH RSA key pair to connect to the instances
     - aws_region : AWS region where to deploy the resources
