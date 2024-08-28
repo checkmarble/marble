@@ -37,7 +37,7 @@ They are largely inspired from Marble's internal cloud deployment, but while bei
         - Sentry : Copy this information for Sentry configuration from your sentry Admin
         - Domains : Your custom domains for app & api (both defined as CNAME record for  `echo $(terraform output --raw alb_url)`
 - Setup all your sensitive informations 
-    - Create a folder named config under `terraform_templates/AWS`
+    - Create a folder named config (gitignored) under `terraform_templates/AWS`
     - Copy in this folder the file credentials.json (Downloaded from Google console and associated to your service account)
     - Genrate a RSA Private key (2048 Bits) and copy its content into a file named private.key
         
