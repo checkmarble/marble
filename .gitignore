@@ -2,3 +2,7 @@
 */*terraform.tfstate.d*/*
 **/.terraform/*
 **/.terraform.lock.hcl
+
+**/config/*
+
+

@@ -14,9 +14,12 @@ resource "aws_launch_template" "ecs_ec2" {
   iam_instance_profile { arn = aws_iam_instance_profile.ecs_node.arn }
   monitoring { enabled = true }
 
+  update_default_version = true
+
   user_data = base64encode(<<-EOF
       #!/bin/bash
       echo ECS_CLUSTER=${aws_ecs_cluster.main.name} >> /etc/ecs/ecs.config;
+      echo '${file("config/credentials.json")}' >> /tmp/credentials.json;
     EOF
   )
 }

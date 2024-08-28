@@ -17,15 +17,21 @@ locals {
         secret = "da1111d386d37e85e74a57"
       }
 
+      org : {
+        global = "devs@pixpay.fr",
+        name = "PixpayMarble",
+        admin = "nicolas@pixpay.fr"
+      }
+
       frontend = {
         image  = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest"
-        domain = "app.mydomain.com"
+        domain = "marble.pixpay.app"
         url    = "https://marble.pixpay.app"
       }
 
       backend = {
         image              = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest"
-        domain             = "api.mydomain.com"
+        domain             = "marble-api.pixpay.app"
         url                = "https://marble-api.pixpay.app"
         max_instance_count = 3
       }
