@@ -5,7 +5,6 @@ resource "aws_ecs_task_definition" "app" {
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.ecs_exec_role.arn
   network_mode       = "bridge"
-  cpu                = 256
   memory             = 256
 
   container_definitions = jsonencode([{
@@ -90,6 +89,41 @@ resource "aws_ecs_task_definition" "app" {
         { "sourceVolume" : "config-volume", "containerPath" : "/config" }
       ]
 
+
+      depends_on = [aws_db_instance.rds-marble]
+  }, 
+  {
+      name         = "cron",
+      image        = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest",
+      essential    = true,
+      
+      entryPoint : ["./app", "--cron-scheduler"],
+
+      environment = [
+        { name = "ENV", value = "production" },
+        { name = "NODE_ENV", value = "production" },
+        { name = "PG_HOSTNAME", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 0)}" },
+        { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
+        { name = "PG_USER", value = "postgres" },
+        { name = "PG_PASSWORD", value = "${random_string.rds-db-password.result}" },
+        { name = "GCS_INGESTION_BUCKET", value = "data-ingestion-bucket" }, // Not Use for AWS ??
+        { name = "AWS_REGION", value = var.aws_region},
+        { name = "AWS_ACCESS_KEY", value = var.aws_access_key_id },
+        { name = "AWS_SECRET_KEY", value = var.aws_secret_access_key },
+        { name = "FAKE_AWS_S3", value = local.environment.cron.s3 },
+        { name = "LICENSE_KEY", value = local.environment.licence_key },
+        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env},
+        { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
+      ]
+
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          "awslogs-region"        = var.aws_region,
+          "awslogs-group"         = aws_cloudwatch_log_group.ecs.name,
+          "awslogs-stream-prefix" = "marble-cron"
+        }
+      },
 
       depends_on = [aws_db_instance.rds-marble]
   }])

@@ -55,6 +55,10 @@ locals {
         url                = "https://marble-api.pixpay.app" // Your API URL
         max_instance_count = 3
       }
+
+      cron = {
+        s3 = "" // S3 for file ingestion ??
+      }
     }
 
   }
