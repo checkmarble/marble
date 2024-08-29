@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "app" {
 
   container_definitions = jsonencode([{
     name         = "app",
-    image        = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest",
+    image        = local.environment.frontend.image,
     essential    = true,
     portMappings = [{ containerPort = 3000, hostPort = 3000 }],
 
@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "app" {
     },
     {
       name         = "api",
-      image        = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest",
+      image        = local.environment.backend.image,
       essential    = true,
       portMappings = [{ containerPort = 8080, hostPort = 8080 }],
 
@@ -94,7 +94,7 @@ resource "aws_ecs_task_definition" "app" {
   }, 
   {
       name         = "cron",
-      image        = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest",
+      image        = local.environment.backend.image,
       essential    = true,
       
       entryPoint : ["./app", "--cron-scheduler"],
