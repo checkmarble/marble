@@ -107,7 +107,7 @@ resource "google_cloud_run_v2_service" "frontend" {
 
       startup_probe {
         failure_threshold     = 4
-        period_seconds        = 30
+        period_seconds        = 5
         initial_delay_seconds = 10
         http_get {
           path = "/healthcheck"
