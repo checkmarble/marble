@@ -149,6 +149,14 @@ In a production setup, you need to authenticate to GCP to use Firebase and Cloud
 
 Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
 
+#### **How to upgrade your Marble version**
+
+You upgrade your Marble version by checking out the release of your choice, and simply running it. By running the docker image with the options `"--server", "--migrations"`, you execute the database migrations of the version and then start the server again.
+
+If you are running in a production environment, remember that while the migrations are running, your server will not be responding. You should preferably upgrade your version outside of the busy hours of the week.
+
+You should always increase the version of Marble one version at a time, giving the time to version N to migrate and deploy before you upgrade to version N+1.
+
 ### 🕵 **How to use Marble**
 
 ---
