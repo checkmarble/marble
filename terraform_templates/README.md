@@ -2,9 +2,12 @@
 
 ## Disclaimer
 
-The terraform templates shared in this folder are purely indicative of what a marble deployment on a GCP/AWS environment could look like.
-They come wihout guarantee and support. Be advised that a successful deployment may require several rounds of iterative tweaking of ressources/values, as some steps require manual actions to succeed. For instance, the backend service on Cloud Run will only deploy successfully after the relevant secrets versions have been created in GCP Secret Manager (secret versions are not created in terraform so that their values are not stored in the terraform state in plain text).
-They are largely inspired from Marble's internal cloud deployment, but while being much simplified to match a "bare bones" deployment needs.
+The terraform templates shared in this folder are community contributions and are purely indicative of what a marble deployment on a cloud environment could look like.
+They come wihout guarantee and support.
+
+Be advised that a successful deployment may require several rounds of iterative tweaking of ressources/values, as some steps require manual actions to succeed. For instance, using the GCP terraform files, the backend service on Cloud Run will only deploy successfully after the relevant secrets versions have been created in GCP Secret Manager (secret versions are not created in terraform so that their values are not stored in the terraform state in plain text).
+
+The GCP terraform files are largely inspired from Marble's internal cloud deployment, but are simplified to match a "bare bones" deployment needs.
 
 ## Usage
 
