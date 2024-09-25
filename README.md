@@ -51,42 +51,8 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 
 ---
 
-**Marble core features**
 
-- Create detection scenarios based on rules.
-- Run those scenarios in batch or real-time to generate decisions.
-- Investigate decisions in your own system or within Marble's case manager.
-- Manage custom lists such as known users, VPN IPs, and keywords.
-- Create any type of data model to feed into Marble.
 
-**Released** (overview)
-
-- Rule engine: executes detection scenarios in batch or real-time.
-  - Batch run: can be scheduled or run on-demand.
-  - Real-time: triggered through an API.
-- Data management: allows you to create your own data model for using Marble.
-  - Data interface: set up and describe the objects you want to send to Marble.
-  - Ingestion API: send any data to Marble.
-- Rule builder: easily create detection scenarios using a user-friendly interface.
-  - Create scenarios.
-  - Create rules.
-  - Score-weighted final decision.
-- Lists: create internal lists and keep them updated for use in rules.
-- Case management: investigate decisions and create escalations.
-  - View decisions.
-  - Investigate a case.
-- User management.
-
-**In development**
-
-- On-premise self-installation
-
-**Planned on roadmap**
-
-- Backtest: check scenario efficiency on your past data before pushing to production
-- Supervised Machine Learning: use previous results to create a custom ML detection model
-- Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
-  <br><br>
 
 #### Premium features
 
@@ -110,52 +76,10 @@ Marble's incredible flexibility is due to its fully open data model. Here are so
 
 Feel free to try other use cases and let us know! We'd love to hear from you.
 
-### 🔧 **How to Install Marble**
+### :running: **Roadmap**
+--- 
+We're transparent on what we're working on, see [here](https://github.com/checkmarble/marble/blob/main/roadmap.md)
 
----
-
-> The following instructions are for a docker-compose setup. You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
-
-Simply clone this repository and run `docker compose --env-file .env.example up` (customize the .env-example file or provide your own copy).
-It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
-
-The first time you run the code, you should enter an organization name and organization admin user email to create using the `CREATE_ORG_NAME` and `CREATE_ORG_ADMIN_EMAIL` environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
-
-> `CREATE_GLOBAL_ADMIN_EMAIL` is optional. It is useful if you want to access cross organization data. If you provide it, the user will be created as a global admin. It must be different from `CREATE_ORG_ADMIN_EMAIL`.
-
-**In a local demo setup:**
-
-> In a local test setup (meaning if you are running with the firebase auth emulator), the License key is not required. You can leave it empty. The full feature set is available.
-
-- just run the docker-compose as it is, it should work
-- give the firebase emulator a moment to get started, it's a bit slow when first launched
-- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
-
-**In a production setup:**
-
-- set the `FIREBASE_AUTH_EMULATOR_HOST_SERVER` and `FIREBASE_AUTH_EMULATOR_HOST_CLIENT` env variables to empty strings in your .env file
-- create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
-- if you plan to use the batch ingestion feature or the case manager with file storign feature, make sure you create the Google Cloud Storage buckets, set the corresponding env variables and run your code in a setup that will allow default application credentials detection
-- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
-- if you have a license key, set it in the `LICENSE_KEY` env variable in your .env file
-
-**Firebase authentication:**
-
-In a production setup, you need to authenticate to GCP to use Firebase and Cloud Storage. If you are not running the container directly in a GCP environment, here is how you could do this:
-
-- create a volume attached to the marble-api container (see the )
-- place the json service account key for GCP in the local shared folder (or otherwise inject it into the docker container, depending on how you run Marble)
-- set the `GOOGLE_APPLICATION_CREDENTIALS` variable equal to the path to the service account key
-
-Open the Marble console by visiting `http://localhost:3000`, and interact with the Marble API at `http://localhost:8080` (assuming you use the default ports). Change those values accordingly if you configured a different port or if you are calling a specific host.
-
-#### **How to upgrade your Marble version**
-
-You upgrade your Marble version by checking out the release of your choice, and simply running it. By running the docker image with the options `"--server", "--migrations"`, you execute the database migrations of the version and then start the server again.
-
-If you are running in a production environment, remember that while the migrations are running, your server will not be responding. You should preferably upgrade your version outside of the busy hours of the week.
-
-You should always increase the version of Marble one version at a time, giving the time to version N to migrate and deploy before you upgrade to version N+1.
 
 ### 🕵 **How to use Marble**
 
@@ -163,9 +87,14 @@ You should always increase the version of Marble one version at a time, giving t
 
 You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble-copy), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
 
+### 🔧 **How to Install Marble**
+--- 
+Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/blob/main/Installation.md)
+
 ### 🐧 **Why Open Source?**
 
 ---
+**We need your ⭐️**
 
 Risk management is challenging for many companies. Currently, you can either:
 
@@ -196,94 +125,17 @@ Marble offers a clear third option:
 
 We want to create an open environment and appreciate all types of contributions that benefits all current and future users. Here are some ways you can contribute:
 
+- Leave us a ⭐️
 - Give us feedback in our Slack community
-- Help with bugs and features on our Issues page
-- Submit a feature request or bug report
+- Help with bugs and features on our Issues page
+- Submit a feature request or bug report
   <br><br>
 
-### :running: **Roadmap**
 
----
-
-**High level roadmap**
-
-Opensource - self installation
-
-- [x] Docker for GCP
-- [x] Docker for AWS
-- [ ] Docker for Azure
-
-**Rule Engine :**
-
-- [x] Realtime decision through API
-- [x] Scheduled batch decisions
-- [x] On-demand batch decisions
-
-**Rule builder**
-
-- [x] Create and update a scenario
-- [x] Create and update lists
-- [x] No code rule creation
-- [x] Create Rules with group (OR) and conditions (AND)
-- [x] Associate a score weight with each rule
-- [ ] Aggregate creation
-  - [x] Use aggregates to manage one to many relations and searchs
-  - [x] Duplicate agregates
-  - [ ] Nest agregates
-- [ ] Connectors
-  - [x] Boolean connectors (>,<,=,<>…)
-  - [x] Text connectors (is in, is not in, contains, contains partially)
-  - [x] Date connectors (before, within…)
-  - [x] Nesting (sub-calculation within a single rule line)
-  - [ ] Previous results use (Has been flagged previously by)
-  - [ ] Unstructured data connectors (document contains, distance between GPS points…)
-  - [x] Fuzzy text connectors (is close to…)
-- [x] Score based decision
-- [ ] Supervised learning
-  - [ ] ML model creation
-  - [ ] ML model test
-
-**Data**
-
-- [x] Define data model with objects and fields
-  - [x] Define Enums
-  - [x] Non-breaking update of data model
-  - [ ] Breaking update of data model
-- [x] Ingestion API
-- [ ] Zapier connector for 3rd party
-
-**Audit**
-
-- [x] Scenario, data and list versioning
-- [ ] Front-accessible run logs
-
-**Case management**
-
-- [x] Manage
-  - [x] Create inboxes
-  - [x] Create tags
-  - [x] Create users
-- [ ] **Case investigation**
-  - [x] Create a case from a decision or from scratch
-  - [x] Associate multiple decisions to a case
-  - [x] Add commentary to a case
-  - [x] Add documents
-  - [x] View timeline
-  - [ ] View the environment of a case (linked users / transactions…)
-  - [ ] Graph relationship
-  - [ ] Set a reminder
-- [ ] Case feedback to rule engine
-- [x] Case manager analytics
-
-**Analytics**
-
-- [x] Scenario performance analytics
-- [ ] Scenario A/B testing
-- [ ] Backtest
-      <br>
 
 ### Contact us
 
 Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
 Made with :heart: in :fr: by Marble
+
