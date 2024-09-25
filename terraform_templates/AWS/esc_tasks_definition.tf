@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "app" {
       { name = "SESSION_SECRET", value = local.environment.session.secret },
       { name = "SESSION_MAX_AGE", value = local.environment.session.max_age },
       { name = "LICENSE_KEY", value = local.environment.licence_key },
-      { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.frontend.env},
+      { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.frontend.env },
       { name = "SENTRY_DSN", value = local.environment.sentry.frontend.dsn },
     ]
 
@@ -70,10 +70,10 @@ resource "aws_ecs_task_definition" "app" {
         { name = "SESSION_SECRET", value = local.environment.session.secret },
         { name = "SESSION_MAX_AGE", value = local.environment.session.max_age },
         { name = "LICENSE_KEY", value = local.environment.licence_key },
-        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env},
+        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env },
         { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
         { name = "SEGMENT_WRITE_KEY", value = local.environment.segment_write_key.backend },
-        { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "${file("config/private.key")}"}
+        { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "${file("config/private.key")}" }
       ]
 
       logConfiguration = {
@@ -91,12 +91,12 @@ resource "aws_ecs_task_definition" "app" {
 
 
       depends_on = [aws_db_instance.rds-marble]
-  }, 
-  {
-      name         = "cron",
-      image        = local.environment.backend.image,
-      essential    = true,
-      
+    },
+    {
+      name      = "cron",
+      image     = local.environment.backend.image,
+      essential = true,
+
       entryPoint : ["./app", "--cron-scheduler"],
 
       environment = [
@@ -106,13 +106,12 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
         { name = "PG_USER", value = "postgres" },
         { name = "PG_PASSWORD", value = "${random_string.rds-db-password.result}" },
-        { name = "GCS_INGESTION_BUCKET", value = "data-ingestion-bucket" }, // Not Use for AWS ??
-        { name = "AWS_REGION", value = var.aws_region},
+        # { name = "INGESTION_BUCKET_URL", value = "data-ingestion-bucket" },
+        { name = "AWS_REGION", value = var.aws_region },
         { name = "AWS_ACCESS_KEY", value = var.aws_access_key_id },
         { name = "AWS_SECRET_KEY", value = var.aws_secret_access_key },
-        { name = "FAKE_AWS_S3", value = local.environment.cron.s3 },
         { name = "LICENSE_KEY", value = local.environment.licence_key },
-        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env},
+        { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env },
         { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
       ]
 

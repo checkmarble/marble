@@ -1,7 +1,9 @@
 ### :running: **Roadmap**
 
 ---
+
 **Marble core features**
+
 - On premise self installation
 - Create detection scenarios based on rules.
 - Run those scenarios in batch or real-time to generate decisions.
@@ -33,14 +35,16 @@
 - Supervised Machine Learning: use previous results to create a custom ML detection model
 - Advanced connectors for unstructured data: use documents, GPS points, images… in your rules.
   <br><br>
---- 
+
+---
+
 **High level roadmap**
 
 Opensource - self installation
 
 - [x] Docker for GCP
 - [x] Docker for AWS
-- [ ] Docker for Azure
+- [x] Docker for Azure
 
 **Rule Engine :**
 
@@ -113,4 +117,3 @@ Opensource - self installation
 - [ ] Scenario A/B testing
 - [ ] Backtest
       <br>
-

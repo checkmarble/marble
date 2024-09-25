@@ -61,13 +61,13 @@ resource "google_cloud_run_v2_service" "backend" {
       }
 
       env {
-        name  = "GCS_INGESTION_BUCKET"
-        value = google_storage_bucket.data_ingestion.name
+        name  = "INGESTION_BUCKET_URL"
+        value = "gs://${google_storage_bucket.data_ingestion.name}"
       }
 
       env {
-        name  = "GCS_CASE_MANAGER_BUCKET"
-        value = google_storage_bucket.case_manager.name
+        name  = "CASE_MANAGER_BUCKET_URL"
+        value = "gs://${google_storage_bucket.case_manager.name}"
       }
 
       env {
