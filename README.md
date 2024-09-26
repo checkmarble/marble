@@ -51,9 +51,6 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 
 ---
 
-
-
-
 #### Premium features
 
 The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense (in our cloud offering or on-premise). You can find the list of available features in our [pricing page](https://www.checkmarble.com/pricing).
@@ -77,9 +74,10 @@ Marble's incredible flexibility is due to its fully open data model. Here are so
 Feel free to try other use cases and let us know! We'd love to hear from you.
 
 ### :running: **Roadmap**
---- 
-We're transparent on what we're working on, see [here](https://github.com/checkmarble/marble/blob/main/roadmap.md)
 
+---
+
+We're transparent on what we're working on, see [here](https://github.com/checkmarble/marble/tree/main/roadmap)
 
 ### 🕵 **How to use Marble**
 
@@ -88,12 +86,15 @@ We're transparent on what we're working on, see [here](https://github.com/checkm
 You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble-copy), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
 
 ### 🔧 **How to Install Marble**
---- 
-Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/blob/main/installation.md)
+
+---
+
+Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/tree/main/installation)
 
 ### 🐧 **Why Open Source?**
 
 ---
+
 **We need your ⭐️**
 
 Risk management is challenging for many companies. Currently, you can either:
@@ -131,11 +132,8 @@ We want to create an open environment and appreciate all types of contributions 
 - Submit a feature request or bug report
   <br><br>
 
-
-
 ### Contact us
 
 Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
 Made with :heart: in :fr: by Marble
-
