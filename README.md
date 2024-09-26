@@ -89,7 +89,7 @@ You will find a functional documentation of how to use Marble [here](https://doc
 
 ### 🔧 **How to Install Marble**
 --- 
-Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/blob/main/Installation.md)
+Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/blob/main/installation.md)
 
 ### 🐧 **Why Open Source?**
 
