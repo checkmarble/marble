@@ -1,0 +1,85 @@
+# Default values for security.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+namespace: "checkmarble"
+
+configMap:
+  env: "ENV"
+  name: "marble-settings-config"
+  host: ""
+  port: 50052
+  pgHostname: "marbledb-svc.checkmarble.svc.cluster.local"
+  pgPort: 5432
+  pgUser: "postgres"
+  pgPassword: "marble"
+  marbleAppHost: "localhost:3000"
+  authJwtSignKey: ""
+  ingestionBucketUrl: "file:///tempFiles/data-ingestion-bucket?create_dir=true"
+  caseManagerUrl: "file:///tempFiles/case-manager-bucket?create_dir=true"
+  firebaseAuthEmulatorHost: "localhost:9099"
+  googleCloudProject: "test-project"
+  googleAppCredentials: ""
+  requestLoggingLevel: "all"
+  loggingFormat: "text"
+  createGlobalAdminEmail: "admin@checkmarble.com"
+  createOrgName: "Zorg"
+  createOrgAdminEmail: "jbe@zorg.com"
+  segmentWriteKeyBackend: "UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ"
+  metabaseSiteUrl: "https://your_subdomain.metabaseapp.com"
+  metabaseJwtSigningKey: "dummy"
+  metabaseGlobalDashboardID: "123"
+
+service:
+  name: "marble-backend"
+  label: "marble"
+  selector: "marble-backend"
+  port : 8090
+  targetPort: 8080
+  type: ClusterIP
+ 
+
+deployment:
+ name: "marble-backend"
+ replicas: 2
+ marbleversion: v0.1.22
+ container:
+  image: "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend"
+  limits:
+   memory: "512Mi"
+   cpu: "500m"
+  requests:
+   memory: "256Mi"
+   cpu: "200m"
+  imagePullPolicy: "Always"
+  ports:
+   containerPort : 8080
+ 
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

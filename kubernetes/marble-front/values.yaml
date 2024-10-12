@@ -1,0 +1,80 @@
+# Default values for security.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+namespace: "checkmarble"
+
+configMap:
+  env: "ENV"
+  name: "marble-front-config"
+  host: ""
+  licenseKey: "LICENSE_KEY"
+  nodeEnv: "production"
+  sessionSecret: "placeholder"
+  sessionMaxAge: 43200
+  marbleApiDomainClient: "http://localhost:8080"
+  marbleApiDomainServer: "http://marble-backend.checkmarble.svc.cluster.local:8090"
+  marbleAppDomain: "http://localhost:8080"
+  firebaseAuthEmulatorHost: "firebase-auth:9099"
+  firebaseApiKey: "placeholder"
+  firebaseAuthDomain: "placeholder"
+  firebaseProjectID: "placeholder"
+  firebaseStorageBucket: "placeholder"
+  firebaseMessagingSenderID: "placeholder"
+  firebaseAppID: "placeholder"
+  segmentWriteKey: "hC8qrY2OLhUpl1Xycw523tbuClxlQR6u"
+
+  
+service:
+  name: "marble-front"
+  label: "marble"
+  selector: "marble-front"
+  port : 8092
+  targetPort: 8080
+  type: ClusterIP
+ 
+
+deployment:
+ name: "marble-front"
+ replicas: 2
+ marbleversion: v0.1.24
+ container:
+  image: "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend"
+  limits:
+   memory: "512Mi"
+   cpu: "500m"
+  requests:
+   memory: "256Mi"
+   cpu: "200m"
+  imagePullPolicy: "Always"
+  ports:
+   containerPort : 8080
+ 
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

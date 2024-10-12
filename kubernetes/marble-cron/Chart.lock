@@ -1,0 +1,6 @@
+dependencies:
+- name: marble-backend
+  repository: file://../marble-backend
+  version: 0.1.0
+digest: sha256:686d67f45b5658fbd410bf240e9d136c074459eadd4fca90d02d8bd72261ecf7
+generated: "2024-10-11T16:38:25.266873235+02:00"

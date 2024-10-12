@@ -1,0 +1,6 @@
+dependencies:
+- name: marble-postgres
+  repository: file://../marble-postgres
+  version: 0.1.0
+digest: sha256:94abc256701acde6c85aff6bdb48b464d8060a9edc172647793fc89f9b63fae0
+generated: "2024-10-11T09:57:00.881257986+02:00"
