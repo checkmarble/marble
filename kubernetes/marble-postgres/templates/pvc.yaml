@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.persistenceVolumeClaim.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.persistenceVolumeClaim.labels }}
+spec:
+  #storageClassName: do-block-storage
+  accessModes:
+    - {{ .Values.persistenceVolumeClaim.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.persistenceVolumeClaim.storage }}

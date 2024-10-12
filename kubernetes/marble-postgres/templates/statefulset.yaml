@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: {{ .Values.statefulset.name }}
+  namespace: {{ .Values.namespace }}
+  # labels:
+  #   chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.name }}
+  serviceName: {{ .Values.service.name }}
+  replicas: {{ default 1 .Values.statefulset.replicas | int }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.name }}
+    spec:
+      containers:
+      - name: {{ .Values.statefulset.name }}
+        image: "{{ .Values.statefulset.container.image }}:{{ .Values.statefulset.dbversion }}"
+        envFrom:
+         - configMapRef:
+            name: {{ .Values.statefulset.container.configMapRef.name }}
+
+        resources:
+         limits:
+           memory: {{ .Values.statefulset.container.limits.memory }}
+           cpu: {{ .Values.statefulset.container.limits.cpu }}
+         requests:
+          memory: {{ .Values.statefulset.container.request.memory }}
+          cpu: {{ .Values.statefulset.container.request.cpu }}
+
+        imagePullPolicy: {{ .Values.statefulset.container.imagePullPolicy }}
+        ports:
+         - containerPort: {{ .Values.statefulset.container.ports.containerPort | int }}
+        volumeMounts:
+         - mountPath: {{ .Values.statefulset.container.volumeMounts.mountpath }}
+           name: {{ .Values.statefulset.container.volumeMounts.name }}
+
+      volumes:
+       - name: {{ .Values.statefulset.volumes.name }}
+         persistentVolumeClaim:
+          claimName: {{ .Values.statefulset.volumes.persistenceVolumeClaim.name }}
+        

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Values.deployment.name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.name }}
+        image: "{{ .Values.deployment.container.image }}:{{ .Values.deployment.marbleversion }}"
+        envFrom:
+          - configMapRef:
+              name:  {{ .Values.configMap.name }}
+        resources:
+         requests:
+           memory: {{ .Values.deployment.container.requests.memory }}
+           cpu: {{ .Values.deployment.container.requests.cpu }}
+         limits:
+           memory: {{ .Values.deployment.container.limits.memory }}
+           cpu: {{ .Values.deployment.container.limits.cpu }}
+        imagePullPolicy: {{ .Values.deployment.container.imagePullPolicy }}
+
+        ports:
+          - containerPort: {{ .Values.deployment.container.ports.containerPort }}   
