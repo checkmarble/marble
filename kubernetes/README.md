@@ -51,9 +51,6 @@ the star means the current kubectl command will be applied on this cluster which
 
 In order to deploy the helm packages, the associated images must be available on the newly created cluster. So we must upload the images to the cluster by executing the command `make upload_images`
 
-#### Build dependencies
-
-The marble application is built around many services which depend from one another. so we need to make sure all the dependencies are fullfiled. Execute the command `make build_dependencies` to resolve the dependencies of the marble application.
 
 #### Deploy the application
 
