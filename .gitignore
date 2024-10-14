@@ -4,5 +4,6 @@
 **/.terraform.lock.hcl
 
 **/config/*
+/kubernetes/**/*.tgz
 
 .DS_Store

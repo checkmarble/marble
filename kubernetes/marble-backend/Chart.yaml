@@ -23,8 +23,8 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
 
-dependencies:
-  - name: "marble-postgres"
-    version: 0.1.0
-    repository: file://../marble-postgres
+# dependencies:
+#   - name: "marble-postgres"
+#     version: 0.1.0
+#     repository: file://../marble-postgres
 

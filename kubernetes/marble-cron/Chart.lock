@@ -1,6 +1,6 @@
 dependencies:
-- name: marble-api
-  repository: file://../marble-backend
+- name: marble-postgres
+  repository: file://../marble-postgres
   version: 0.1.0
-digest: sha256:7a3713721ad2af973e1e5ec1544269f6dd88c6bf8873b9546df56f87d2e1aa58
-generated: "2024-10-14T11:57:53.403874+02:00"
+digest: sha256:94abc256701acde6c85aff6bdb48b464d8060a9edc172647793fc89f9b63fae0
+generated: "2024-10-14T14:07:10.392023543+02:00"

@@ -1,8 +1,11 @@
 BACKEND_FOLDER := ./marble-backend
 CRON_FOLDER := ./marble-cron
 FRONT_FOLDER := ./marble-front
-APP_NAME := marble-app
+PG_FOLDER := ./marble-postgres
+BACK_APP_NAME := marble-api
+FRONT_APP_NAME := marble-app
 CRON_APP_NAME := marble-cron
+DB_APP_NAME := marble-pg
 MARBLE_BACKEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
 MARBLE_BACKEND_LOCAL_IMAGE := marble-backend
 MARBLE_BACKEND_VERSION := v0.1.22
@@ -38,14 +41,19 @@ update_dependencies:
 .PHONY: install
 install:
 	@kubectl create namespace checkmarble --dry-run=client -o yaml | kubectl apply -f -
-	@helm upgrade -i $(APP_NAME) $(FRONT_FOLDER) 
-	#@helm upgrade -i $(CRON_APP_NAME) $(CRON_FOLDER) 
+	@helm upgrade -i $(DB_APP_NAME) $(PG_FOLDER) 
+	@helm upgrade -i $(BACK_APP_NAME) $(BACKEND_FOLDER) 
+	@helm upgrade -i $(CRON_APP_NAME) $(CRON_FOLDER) 
+	@helm upgrade -i $(FRONT_APP_NAME) $(FRONT_FOLDER) 
+	
 
 
 .PHONY: uninstall
 uninstall:
-	@helm uninstall $(APP_NAME)
+	@helm uninstall $(FRONT_APP_NAME)
 	@helm uninstall $(CRON_APP_NAME)
+	@helm uninstall $(BACK_APP_NAME)
+	@helm uninstall $(DB_APP_NAME)
 
 
 ## for maintenance purpose only
