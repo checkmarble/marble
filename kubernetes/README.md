@@ -58,3 +58,11 @@ The marble application is built around many services which depend from one anoth
 #### Deploy the application
 
 to deploy the application, just run `make install`. It will deploy the marble application on your cluster named `marble` with the dependencies needed. 
+
+## Uninstall
+
+### Uninstall marble-app
+In order to uninstall the app, execute the command `make uninstall`.
+
+### Delete the cluster
+In order to delete the cluster, execute the command `make delete_cluster`
