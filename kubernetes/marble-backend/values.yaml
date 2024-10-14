@@ -29,7 +29,7 @@ namespace: "checkmarble"
 
 configMap:
   env: "ENV"
-  name: "marble-settings-config"
+  name: "marble-api-config"
   host: ""
   port: 50052
   pgHostname: "marbledb-svc.checkmarble.svc.cluster.local"
@@ -67,7 +67,7 @@ deployment:
  replicas: 2
  marbleversion: v0.1.22
  container:
-  image: "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend"
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
   limits:
    memory: "512Mi"
    cpu: "500m"

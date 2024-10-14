@@ -23,6 +23,6 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
 dependencies:
-  - name: "marble-backend"
+  - name: "marble-api"
     version: 0.1.0
     repository: file://../marble-backend
