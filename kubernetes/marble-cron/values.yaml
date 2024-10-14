@@ -32,7 +32,19 @@ service:
   port : 8091
   targetPort: 8080
   type: ClusterIP
- 
+
+configMap:
+  env: "ENV"
+  name: "marble-cron-config"
+  port: 50052
+  pgHostname: "marbledb-svc.checkmarble.svc.cluster.local"
+  pgPort: 5432
+  pgUser: "postgres"
+  pgPassword: "marble"
+  ingestionBucketUrl: "file:///tempFiles/data-ingestion-bucket?create_dir=true"
+  requestLoggingLevel: "all"
+  loggingFormat: "text"
+
 
 deployment:
  name: "marble-cron"

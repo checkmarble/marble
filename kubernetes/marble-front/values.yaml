@@ -62,7 +62,7 @@ deployment:
  replicas: 2
  marbleversion: v0.1.24
  container:
-  image: "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend"
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
   limits:
    memory: "512Mi"
    cpu: "500m"
