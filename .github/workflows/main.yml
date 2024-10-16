@@ -1,0 +1,67 @@
+name: Release Charts
+
+on:
+  release:
+    types:
+      - created
+    # branches:
+    #   - main
+env:
+  CHART_NAME: marble-application
+  ARTIFACT_REGISTRY_HOST_NAME: europe-west1-docker-.pkg.dev
+  PROJECT_ID: marble-infra
+  ARTIFACT_REGISTRY_REPOSITORY: helm-chart-tests
+
+jobs:
+  release:
+    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
+    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Google Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+         project_id: 'my-project'
+         workload_identity_provider: '${{ secrets.WI_POOL_PROVIDER_ID }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+        with:
+         version: '>= 363.0.0'
+
+      - name: Login to artifact registry
+        run: |
+          gcloud auth configure-docker ${ARTIFACT_REGISTRY_HOST_NAME} --quiet
+
+      - name: Helm package
+        run: |
+          helm package . --version $IMAGE_TAG
+
+      - name: Helm push
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://${ARTIFACT_REGISTRY_HOST_NAME}/${PROJECT_ID}/${ARTIFACT_REGISTRY_REPOSITORY}
+      # - name: Run chart-releaser
+      #   uses: helm/chart-releaser-action@v1.6.0
+      #   with:
+      #     charts_dir: kubernetes/charts
+      #     version: 1.16.0
+      #   env:
+      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
