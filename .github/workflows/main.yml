@@ -8,9 +8,10 @@ on:
     #   - main
 env:
   CHART_NAME: marble-application
-  ARTIFACT_REGISTRY_HOST_NAME: europe-west1-docker-.pkg.dev
-  PROJECT_ID: marble-infra
-  ARTIFACT_REGISTRY_REPOSITORY: helm-chart-tests
+  IMAGE_TAG: 0.1.0
+  # ARTIFACT_REGISTRY_HOST_NAME: europe-west1-docker-.pkg.dev
+  # INFRA_PROJECT_ID: marble-infra
+  # ARTIFACT_REGISTRY_REPOSITORY: helm-chart-tests
 
 jobs:
   release:
@@ -22,13 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
         uses: azure/setup-helm@v4
@@ -38,8 +32,7 @@ jobs:
       - name: Google Auth
         uses: 'google-github-actions/auth@v2'
         with:
-         project_id: 'my-project'
-         workload_identity_provider: '${{ secrets.WI_POOL_PROVIDER_ID }}'
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
@@ -48,7 +41,7 @@ jobs:
 
       - name: Login to artifact registry
         run: |
-          gcloud auth configure-docker ${ARTIFACT_REGISTRY_HOST_NAME} --quiet
+          gcloud auth configure-docker ${{vars.ARTIFACT_REGISTRY_HOST_NAME}} --quiet
 
       - name: Helm package
         run: |
@@ -57,7 +50,7 @@ jobs:
       - name: Helm push
         if: ${{ github.event_name == 'push' }}
         run: |
-          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://${ARTIFACT_REGISTRY_HOST_NAME}/${PROJECT_ID}/${ARTIFACT_REGISTRY_REPOSITORY}
+          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}/${{vars.INFRA_PROJECT_ID}}/${{vars.ARTIFACT_REGISTRY_REPOSITORY}}
       # - name: Run chart-releaser
       #   uses: helm/chart-releaser-action@v1.6.0
       #   with:
