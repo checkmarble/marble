@@ -15,7 +15,7 @@ MARBLE_FRONTEND_VERSION := v0.1.24
 
 .PHONY: create_cluster
 create_cluster:
-	kind create cluster --config kind-cluster-config.yaml --name marble 
+	@kind create cluster --config kind-cluster-config.yaml --name marble 
 
 .PHONY: delete_cluster
 delete_cluster:
@@ -28,15 +28,15 @@ upload_images:
 
 .PHONY: build_dependencies
 build_dependencies:
-	@helm dependency build $(BACKEND_FOLDER)
-	@helm dependency build $(CRON_FOLDER)
-	@helm dependency build $(FRONT_FOLDER)
+	@helm dependency build ./marble
 
 .PHONY: update_dependencies
 update_dependencies:
-	@helm dependency update $(BACKEND_FOLDER)
-	@helm dependency update $(CRON_FOLDER)
-	@helm dependency update $(FRONT_FOLDER)
+	@helm dependency update ./marble
+
+.PHONY: pack
+pack: update_dependencies
+	@helm package ./marble
 
 .PHONY: install
 install:
@@ -57,6 +57,10 @@ uninstall:
 
 
 ## for maintenance purpose only
+
+.PHONY: lint
+lint:
+	@helm lint ./charts
 
 .PHONY: list_k8s-contexts
 list_k8s-contexts:
