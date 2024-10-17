@@ -26,14 +26,14 @@ appVersion: "1.16.0"
 dependencies:
   - name: "marble-postgres"
     version: 0.1.0
-    repository: file://./charts/marble-postgres
+    repository: file://./marble-postgres
   - name: "marble-api"
     version: 0.1.0
-    repository: file://./charts/marble-backend
+    repository: file://./marble-backend
   - name: "marble-cron"
     version: 0.1.0
-    repository: file://./charts/marble-cron
+    repository: file://./marble-cron
   - name: "marble-front"
     version: 0.1.0
-    repository: file://./charts/marble-front
+    repository: file://./marble-front
 
