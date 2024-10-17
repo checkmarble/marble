@@ -63,3 +63,9 @@ In order to uninstall the app, execute the command `make uninstall`.
 
 ### Delete the cluster
 In order to delete the cluster, execute the command `make delete_cluster`
+
+# Execute github workflows locally
+
+If you want to execute the github workflow locally, you need to install [act tool](https://nektosact.com/installation/index.html).
+
+Then run the command `act --container-architecture linux/amd64  --var-file kubernetes/.vars --secret-file kubernetes/.secrets` . the option `--var-file` is to define variables that will be used during the execution of the github workflow; you can change and add your own var file; the current one is for demo purpose only. the same logic applies for the `--secret-file` option.
