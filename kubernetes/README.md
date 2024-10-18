@@ -88,7 +88,7 @@ Then run the command `act --container-architecture linux/amd64  --var-file myfol
 ````json
 GCP_SA_KEY={"type": "service_account","project_id": "tokyo-country-381508","private_key_id": "my_priv_key_id","private_key": "-----BEGIN PRIVATE KEY-----\nprivate\n-----END PRIVATE KEY-----\n","client_email": "my-test-service-acc@tokyo-country-381508.iam.gserviceaccount.com","client_id": "myClientID","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-test-service-acc%40tokyo-country-381508.iam.gserviceaccount.com","universe_domain": "googleapis.com"}
 ````
-- `KEY_FILE`: used to authenticate to the google artifact registry. here below is an example
+- `KEY_FILE`: the json file used to authenticate to the google artifact registry. here below is an example
 ````json
 {
     "type": "service_account",
@@ -105,7 +105,7 @@ GCP_SA_KEY={"type": "service_account","project_id": "tokyo-country-381508","priv
   }
 ````
 
-This action is part of the workflow and in order for this to work, you need to provide a key.json file, that mus
+
 
 # The version file `.versions`
 
@@ -125,4 +125,4 @@ APPLICATION-VERSION=0.2.0
 once modified, this file will be used when builind and publishing the helm package of the marble application. here is how to use it
 
 - Change the docker image version or the helm package version in the `.versions` file
-- Launch the github workflow or if you want to test, you can execute the makefile target `update_dependencies`. It will use the `.versions`file to update the versions of the different dependencie, as described in the `.versions`file.
+- Launch the github workflow or if you want to test, you can execute the makefile target `update_dependencies`. It will use the `.versions`file to update the versions of the different dependencies.
