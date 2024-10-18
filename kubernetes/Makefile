@@ -3,13 +3,11 @@ APPLICATION_VERSION := $(shell cat .versions| grep -w "APPLICATION-VERSION" | cu
 NAMESPACE := checkmarble
 ## BACKEND VERSION CONFIGURATION
 MARBLE_BACKEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
-#OLD_MARBLE_BACKEND_VERSION := $(shell cat marble/marble-backend/Chart.yaml  | grep -w "version:" | cut -d: -d':' -f2)
 MARBLE_BACKEND_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-IMG" | cut -d: -d'=' -f2)
 MARBLE_BACKEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-VERSION" | cut -d: -d'=' -f2)
 
 ## FRONTEND VERSION CONFIGURATION
 MARBLE_FRONTEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
-#OLD_MARBLE_FRONTEND_VERSION := $(shell cat marble/marble-front/Chart.yaml  | grep -w "version:" | cut -d: -d':' -f2)
 MARBLE_FRONTEND_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-IMG" | cut -d: -d'=' -f2)
 MARBLE_FRONTEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-VERSION" | cut -d: -d'=' -f2)
 
