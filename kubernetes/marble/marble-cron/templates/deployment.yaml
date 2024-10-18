@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.deployment.name }}
-        image: "{{ .Values.deployment.container.image }}:{{ .Values.deployment.marbleversion }}"
+        image: "{{ .Values.deployment.container.image }}:{{ .Values.global.deployment.marbleBack.version }}"
         command: ["./app"]
         args: ["--cron-scheduler"]
         envFrom:

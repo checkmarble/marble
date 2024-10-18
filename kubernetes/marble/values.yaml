@@ -1,0 +1,6 @@
+global:
+  deployment:
+    marbleFront:
+      version: v0.1.24
+    marbleBack:
+      version: v0.1.22

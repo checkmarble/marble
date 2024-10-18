@@ -60,7 +60,6 @@ service:
 deployment:
  name: "marble-front"
  replicas: 2
- marbleversion: v0.1.24
  container:
   image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
   limits:

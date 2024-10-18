@@ -49,7 +49,6 @@ configMap:
 deployment:
  name: "marble-cron"
  replicas: 2
- marbleversion: v0.1.22
  container:
   image: "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend"
   limits:
