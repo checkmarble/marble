@@ -11,7 +11,7 @@ concurrency:
     #   - main
 env:
   CHART_NAME: marble-application
-  IMAGE_TAG: 0.1.0
+  IMAGE_TAG: 0.2.0
 
 jobs:
   release:
@@ -40,6 +40,18 @@ jobs:
           cd kubernetes
           gcloud auth activate-service-account ${{vars.ACCOUNT}} --key-file key.json
           cat key.json | helm registry login -u  _json_key --password-stdin https://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}
+
+      - name: Prepare YQ
+        uses: dcarbone/install-yq-action@v1.1.1
+        with:
+          version: 'v4.44.3'
+          download-compressed: 'false'
+          force: 'false'
+
+      - name: Update dependencies
+        run: |
+          cd kubernetes
+          make update_dependencies
 
       - name: Helm package
         run: |

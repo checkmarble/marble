@@ -4,12 +4,12 @@ dependencies:
   version: 0.1.0
 - name: marble-api
   repository: file://./marble-backend
-  version: 0.1.0
+  version: 0.2.2
 - name: marble-cron
   repository: file://./marble-cron
-  version: 0.1.0
+  version: 0.2.2
 - name: marble-front
   repository: file://./marble-front
-  version: 0.1.0
-digest: sha256:dea24969fb50fd6c41cd0b71be6f31efdfcdd549ec445e5b56474e7b892e9740
-generated: "2024-10-16T16:39:23.455913+02:00"
+  version: 0.2.1
+digest: sha256:74deee219082b00d9997bbbb9a9d9de514211d0f41db019aa857694780ef4a9e
+generated: "2024-10-18T13:45:12.79423+02:00"

@@ -1,10 +1,17 @@
 APPLICATION_NAME := marble-application
-APPLICATION_VERSION := 0.1.0
+APPLICATION_VERSION := $(shell cat .versions| grep -w "APPLICATION-VERSION" | cut -d: -d'=' -f2)
 NAMESPACE := checkmarble
+## BACKEND VERSION CONFIGURATION
 MARBLE_BACKEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
-MARBLE_BACKEND_VERSION := v0.1.22
+#OLD_MARBLE_BACKEND_VERSION := $(shell cat marble/marble-backend/Chart.yaml  | grep -w "version:" | cut -d: -d':' -f2)
+MARBLE_BACKEND_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-IMG" | cut -d: -d'=' -f2)
+MARBLE_BACKEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-VERSION" | cut -d: -d'=' -f2)
+
+## FRONTEND VERSION CONFIGURATION
 MARBLE_FRONTEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
-MARBLE_FRONTEND_VERSION := v0.1.24
+#OLD_MARBLE_FRONTEND_VERSION := $(shell cat marble/marble-front/Chart.yaml  | grep -w "version:" | cut -d: -d':' -f2)
+MARBLE_FRONTEND_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-IMG" | cut -d: -d'=' -f2)
+MARBLE_FRONTEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-VERSION" | cut -d: -d'=' -f2)
 
 .PHONY: create_cluster
 create_cluster:
@@ -26,17 +33,28 @@ upload_images: pull_images
 
 .PHONY: update_dependencies
 update_dependencies:
+	@yq -i '.version="$(MARBLE_BACKEND_APP_VERSION)"' marble/marble-backend/Chart.yaml
+	@yq -i '.version="$(MARBLE_BACKEND_APP_VERSION)"' marble/marble-cron/Chart.yaml
+	@yq -i '.version="$(MARBLE_FRONTEND_APP_VERSION)"' marble/marble-front/Chart.yaml
+	@yq -i '.dependencies |= map(select(.name == "marble-api").version="$(MARBLE_BACKEND_APP_VERSION)")' marble/Chart.yaml
+	@yq -i '.dependencies |= map(select(.name == "marble-cron").version="$(MARBLE_BACKEND_APP_VERSION)")' marble/Chart.yaml
+	@yq -i '.dependencies |= map(select(.name == "marble-front").version="$(MARBLE_FRONTEND_APP_VERSION)")' marble/Chart.yaml
+	@yq -i '.version="$(APPLICATION_VERSION)"' marble/Chart.yaml
 	@helm dependency update ./marble
 
 .PHONY: pack
 pack: update_dependencies
-	@helm package ./marble
+	@helm plugin install https://github.com/thynquest/helm-pack.git
+	@helm pack ./marble --set global.deployment.marbleFront.version=$(MARBLE_FRONTEND_VERSION) \
+	--set global.deployment.marbleBack.version=$(MARBLE_BACKEND_VERSION)
+	@helm plugin uninstall pack
+	
 
 .PHONY: install
 install: pack
 	@kubectl create namespace $(NAMESPACE) --dry-run=client -o yaml | kubectl apply -f -
 	@helm upgrade -i $(APPLICATION_NAME)  $(APPLICATION_NAME)-$(APPLICATION_VERSION).tgz
-	
+
 .PHONY: uninstall
 uninstall:
 	@helm uninstall $(APPLICATION_NAME)
