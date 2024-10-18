@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  DBSERVER: {{ .Values.configMap.server }}
+  DBPORT: !!str {{ .Values.configMap.port }}
+  DBNAME: {{ .Values.configMap.dbname }}
+  DBUSER: {{ .Values.configMap.pguser }}
+  DBPASSWORD: {{ .Values.configMap.pgpassword }}
+  POSTGRES_PASSWORD: {{ .Values.configMap.pgpassword }}
+  POSTGRES_DB: {{ .Values.configMap.pgdb }}
+  

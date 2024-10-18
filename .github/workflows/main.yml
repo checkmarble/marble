@@ -1,0 +1,62 @@
+name: Release Charts
+
+on:
+  release:
+    types:
+      - created
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+env:
+  CHART_NAME: ${{vars.CHART_NAME}}
+  CHART_VERSION: ${{vars.CHART_VERSION}}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Google Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+        with:
+         version: '>= 363.0.0'
+
+      - name: Login to artifact registry
+        run: |
+          cd kubernetes
+          gcloud auth activate-service-account ${{vars.ACCOUNT}} --key-file ${{secrets.KEY_FILE}}
+          cat key.json | helm registry login -u  _json_key --password-stdin https://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}
+
+      - name: Prepare YQ
+        uses: dcarbone/install-yq-action@v1.1.1
+        with:
+          version: 'v4.44.3'
+          download-compressed: 'false'
+          force: 'false'
+
+      - name: Update dependencies
+        run: |
+          cd kubernetes
+          make update_dependencies
+
+      - name: Helm package
+        run: |
+          cd kubernetes
+          make pack
+
+      - name: Helm push
+        run: |
+          cd kubernetes
+          helm push $CHART_NAME-$CHART_VERSION.tgz oci://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}/${{vars.INFRA_PROJECT_ID}}/${{vars.ARTIFACT_REGISTRY_REPOSITORY}}

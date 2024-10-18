@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  ENV: {{ .Values.configMap.env }}
+  PG_HOSTNAME: {{ .Values.configMap.pgHostname }}
+  PG_PORT: !!str {{ .Values.configMap.pgPort }}
+
+  PG_USER: {{ .Values.configMap.pgUser }}
+  PG_PASSWORD: !!str {{ .Values.configMap.pgPassword }}
+
+  MARBLE_APP_HOST: {{ .Values.configMap.marbleAppHost }}
+  
+  AUTHENTICATION_JWT_SIGNING_KEY: {{ .Values.configMap.authJwtSignKey }}
+  INGESTION_BUCKET_URL: !!str {{ .Values.configMap.ingestionBucketUrl }}
+
+  CASE_MANAGER_BUCKET_URL: {{ .Values.configMap.caseManagerUrl }}
+  FIREBASE_AUTH_EMULATOR_HOST: !!str {{ .Values.configMap.firebaseAuthEmulatorHost }}
+
+  GOOGLE_CLOUD_PROJECT: {{ .Values.configMap.googleCloudProject }}
+  GOOGLE_APPLICATION_CREDENTIALS: {{ .Values.configMap.googleAppCredentials }}
+
+  REQUEST_LOGGING_LEVEL: {{ .Values.configMap.requestLoggingLevel }}
+  LOGGING_FORMAT: !!str {{ .Values.configMap.loggingFormat }}
+
+  CREATE_GLOBAL_ADMIN_EMAIL: {{ .Values.configMap.createGlobalAdminEmail }}
+  CREATE_ORG_NAME: !!str {{ .Values.configMap.createOrgName }}
+
+  CREATE_ORG_ADMIN_EMAIL: {{ .Values.configMap.createOrgAdminEmail }}
+  SEGMENT_WRITE_KEY: !!str {{ .Values.configMap.segmentWriteKeyBackend }}
+
+  METABASE_SITE_URL: {{ .Values.configMap.metabaseSiteUrl }}
+  METABASE_JWT_SIGNING_KEY: !!str {{ .Values.configMap.metabaseJwtSigningKey }}
+  METABASE_GLOBAL_DASHBOARD_ID: !!str {{ .Values.configMap.metabaseGlobalDashboardID }}

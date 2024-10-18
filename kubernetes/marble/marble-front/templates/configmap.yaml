@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  ENV: {{ .Values.configMap.env }}
+  LICENSE_KEY: !!str {{ .Values.configMap.licenseKey }}
+  NODE_ENV: !!str {{ .Values.configMap.nodeEnv }}
+
+  SESSION_SECRET: !!str {{ .Values.configMap.sessionSecret }}
+  SESSION_MAX_AGE: !!str {{ .Values.configMap.sessionMaxAge }}
+
+  MARBLE_API_DOMAIN_CLIENT: !!str {{ .Values.configMap.marbleApiDomainClient }}
+  
+  MARBLE_API_DOMAIN_SERVER:  !!str {{ .Values.configMap.marbleApiDomainServer }}
+  MARBLE_APP_DOMAIN: !!str {{ .Values.configMap.marbleAppDomain }}
+
+  FIREBASE_AUTH_EMULATOR_HOST: !!str {{ .Values.configMap.firebaseAuthEmulatorHost }}
+
+  FIREBASE_API_KEY: !!str {{ .Values.configMap.firebaseApiKey }}
+  FIREBASE_AUTH_DOMAIN: !!str {{ .Values.configMap.firebaseAuthDomain }}
+
+  FIREBASE_PROJECT_ID: !!str {{ .Values.configMap.firebaseProjectID }}
+  FIREBASE_STORAGE_BUCKET: !!str {{ .Values.configMap.firebaseStorageBucket }}
+
+  FIREBASE_MESSAGING_SENDER_ID: !!str {{ .Values.configMap.firebaseMessagingSenderID }}
+  FIREBASE_APP_ID: !!str {{ .Values.configMap.firebaseAppID }}
+
+  SEGMENT_WRITE_KEY: !!str {{ .Values.configMap.segmentWriteKey }}
