@@ -1,16 +1,9 @@
-BACKEND_FOLDER := ./marble-backend
-CRON_FOLDER := ./marble-cron
-FRONT_FOLDER := ./marble-front
-PG_FOLDER := ./marble-postgres
-BACK_APP_NAME := marble-api
-FRONT_APP_NAME := marble-app
-CRON_APP_NAME := marble-cron
-DB_APP_NAME := marble-pg
+APPLICATION_NAME := marble-application
+APPLICATION_VERSION := 0.1.0
+NAMESPACE := checkmarble
 MARBLE_BACKEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
-MARBLE_BACKEND_LOCAL_IMAGE := marble-backend
 MARBLE_BACKEND_VERSION := v0.1.22
 MARBLE_FRONTEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
-MARBLE_FRONTEND_LOCAL_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
 MARBLE_FRONTEND_VERSION := v0.1.24
 
 .PHONY: create_cluster
@@ -21,14 +14,15 @@ create_cluster:
 delete_cluster:
 	@kind delete cluster --name marble
 
+.PHONY: pull_images
+pull_images:
+	@docker pull $(MARBLE_BACKEND_IMAGE):$(MARBLE_BACKEND_VERSION) --platform=linux/amd64
+	@docker pull $(MARBLE_FRONTEND_IMAGE):$(MARBLE_FRONTEND_VERSION) --platform=linux/amd64
+
 .PHONY: upload_images
-upload_images:
+upload_images: pull_images
 	@kind load docker-image $(MARBLE_BACKEND_IMAGE):$(MARBLE_BACKEND_VERSION)   --name  marble
 	@kind load docker-image $(MARBLE_FRONTEND_IMAGE):$(MARBLE_FRONTEND_VERSION) --name  marble
-
-.PHONY: build_dependencies
-build_dependencies:
-	@helm dependency build ./marble
 
 .PHONY: update_dependencies
 update_dependencies:
@@ -39,21 +33,17 @@ pack: update_dependencies
 	@helm package ./marble
 
 .PHONY: install
-install:
-	@kubectl create namespace checkmarble --dry-run=client -o yaml | kubectl apply -f -
-	@helm upgrade -i $(DB_APP_NAME) $(PG_FOLDER) 
-	@helm upgrade -i $(BACK_APP_NAME) $(BACKEND_FOLDER) 
-	@helm upgrade -i $(CRON_APP_NAME) $(CRON_FOLDER) 
-	@helm upgrade -i $(FRONT_APP_NAME) $(FRONT_FOLDER) 
+install: pack
+	@kubectl create namespace $(NAMESPACE) --dry-run=client -o yaml | kubectl apply -f -
+	@helm upgrade -i $(APPLICATION_NAME)  $(APPLICATION_NAME)-$(APPLICATION_VERSION).tgz
 	
-
-
 .PHONY: uninstall
 uninstall:
-	@helm uninstall $(FRONT_APP_NAME)
-	@helm uninstall $(CRON_APP_NAME)
-	@helm uninstall $(BACK_APP_NAME)
-	@helm uninstall $(DB_APP_NAME)
+	@helm uninstall $(APPLICATION_NAME)
+	@kubectl delete namespace $(NAMESPACE)
+	@docker rmi $(MARBLE_BACKEND_IMAGE):$(MARBLE_BACKEND_VERSION)
+	@docker rmi $(MARBLE_FRONTEND_IMAGE):$(MARBLE_FRONTEND_VERSION)
+	
 
 
 ## for maintenance purpose only

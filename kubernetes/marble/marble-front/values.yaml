@@ -69,7 +69,7 @@ deployment:
   requests:
    memory: "256Mi"
    cpu: "200m"
-  imagePullPolicy: "Always"
+  imagePullPolicy: "IfNotPresent"
   ports:
    containerPort : 8080
  
