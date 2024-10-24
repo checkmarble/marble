@@ -3,14 +3,14 @@ name: Release Charts
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 env:
   CHART_NAME: ${{vars.CHART_NAME}}
-  CHART_VERSION: ${{vars.CHART_VERSION}}
+  CHART_VERSION: ${{ github.ref_name }}
 
 jobs:
   release:
@@ -24,11 +24,6 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Google Auth
-        uses: "google-github-actions/auth@v2"
-        with:
-          credentials_json: "${{ secrets.GCP_SA_KEY_PRODUCTION }}"
-
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v2"
         with:
@@ -37,7 +32,7 @@ jobs:
       - name: Login to artifact registry
         run: |
           cd kubernetes
-          gcloud auth activate-service-account ${{vars.ACCOUNT}} --key-file ${{secrets.KEY_FILE}}
+          gcloud auth activate-service-account ${{vars.SERVICE_ACCOUNT_NAME}} --key-file ${{secrets.GCP_SA_KEY_PRODUCTION}}
           cat key.json | helm registry login -u  _json_key --password-stdin https://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}
 
       - name: Prepare YQ
@@ -60,4 +55,4 @@ jobs:
       - name: Helm push
         run: |
           cd kubernetes
-          helm push $CHART_NAME-$CHART_VERSION.tgz oci://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}/${{vars.INFRA_PROJECT_ID}}/${{vars.ARTIFACT_REGISTRY_REPOSITORY}}
+          helm push $CHART_NAME-${{ github.ref_name }}.tgz oci://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}/${{vars.INFRA_PROJECT_ID}}/${{vars.ARTIFACT_REGISTRY_REPOSITORY}}
