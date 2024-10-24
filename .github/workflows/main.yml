@@ -1,9 +1,10 @@
 name: Release Charts
 
 on:
-  release:
-    types:
-      - created
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -24,14 +25,14 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Google Auth
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v2"
         with:
-         version: '>= 363.0.0'
+          version: ">= 363.0.0"
 
       - name: Login to artifact registry
         run: |
@@ -42,9 +43,9 @@ jobs:
       - name: Prepare YQ
         uses: dcarbone/install-yq-action@v1.1.1
         with:
-          version: 'v4.44.3'
-          download-compressed: 'false'
-          force: 'false'
+          version: "v4.44.3"
+          download-compressed: "false"
+          force: "false"
 
       - name: Update dependencies
         run: |
