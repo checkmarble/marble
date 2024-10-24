@@ -97,7 +97,7 @@ resource "aws_ecs_task_definition" "app" {
       image     = local.environment.backend.image,
       essential = true,
 
-      entryPoint : ["./app", "--cron-scheduler"],
+      entryPoint : ["./app", "--worker"],
 
       environment = [
         { name = "ENV", value = "production" },
