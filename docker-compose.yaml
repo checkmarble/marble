@@ -70,7 +70,7 @@ services:
     restart: always
     depends_on:
       - api
-    entrypoint: ["./app", "--cron-scheduler"]
+    entrypoint: ["./app", "--worker"]
     volumes:
       - marble-tempfiles:/tempFiles
     environment:
