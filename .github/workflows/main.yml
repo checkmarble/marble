@@ -37,8 +37,8 @@ jobs:
       - name: Login to artifact registry
         run: |
           cd kubernetes
-          gcloud auth activate-service-account ${{vars.SERVICE_ACCOUNT_NAME}} --key-file ${{secrets.GCP_SA_KEY_PRODUCTION}}
-          cat key.json | helm registry login -u  _json_key --password-stdin https://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}
+          gcloud auth activate-service-account ${{vars.SERVICE_ACCOUNT_NAME}} --key-file $GOOGLE_APPLICATION_CREDENTIALS
+          cat $GOOGLE_APPLICATION_CREDENTIALS | helm registry login -u  _json_key --password-stdin https://${{vars.ARTIFACT_REGISTRY_HOST_NAME}}
 
       - name: Prepare YQ
         uses: dcarbone/install-yq-action@v1.1.1
