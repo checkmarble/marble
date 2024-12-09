@@ -44,7 +44,8 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 |                 Workflows                  |            ❌            |         ✅         |
 |                    SSO                     |            ❌            |         ✅         |
 |              Role management               |            ❌            |         ✅         |
-|                  Webhooks                  |            ❌            |         ✅         |
+|                  Webhooks                  |       Partial            |         ✅         |
+|                 Test mode                  |            ❌            |         ✅         |
 | Direct tech support with SLA & hot patches |            ❌            |         ✅         |
 |       Rule snoozing by end customer        |            ❌            |         ✅         |
 |             Community support              |            ✅            |         ✅         |
