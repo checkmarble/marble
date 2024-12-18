@@ -27,13 +27,20 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 
 [Elastic License 2.0 (ELv2)](./LICENSE)
 
+The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-sublicensable, non-transferable license to use, copy, distribute, make available, and prepare derivative works of the software, subject to the limitations and conditions below.<br><br>
+**1) You may not provide the software to third parties as a hosted or managed service, where the service provides users with access to any substantial set of the features or functionality of the software.**<br><br>
+2) You may not move, change, disable, or circumvent the license key functionality in the software, and you may not remove or obscure any functionality in the software that is protected by the license key.<br><br>
+3) You may not alter, remove, or obscure any licensing, copyright, or other notices of the licensor in the software. Any use of the licensor’s trademarks is subject to applicable law.<br><br>
+
+*See full licence for details*<br><br>
+
 ### **✨Features**
 
 ---
 
 **Open-source vs licensed**
 
-|                                            | Open-source (Elastic V2) | Licensed to Marble |
+|                                            | Open-source (Elastic V2) | Licenced by Marble |
 | :----------------------------------------: | :----------------------: | :----------------: |
 |         Scenario and rule builder          |            ✅            |         ✅         |
 |             Real time & batch              |            ✅            |         ✅         |
@@ -49,6 +56,7 @@ NB: We do not provide KYC services. There are plenty of awesome players in the m
 | Direct tech support with SLA & hot patches |            ❌            |         ✅         |
 |       Rule snoozing by end customer        |            ❌            |         ✅         |
 |             Community support              |            ✅            |         ✅         |
+| Rights to use for 3rd party services       |            ❌            |         ✅         |
 
 ---
 
