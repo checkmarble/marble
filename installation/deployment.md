@@ -4,8 +4,11 @@
 
 #### Components
 
-At it's simplest, Marble's software can be described as below:
-<img width="3568" alt="Software architecture" src="https://github.com/checkmarble/marble/assets/128643171/781eab91-3027-4683-af0e-73548737747a">
+The typical architecture of a self-hosted Marble deployment is as below:
+<img width="3568" alt="Deployment architecture" src="https://github.com/user-attachments/assets/80d7a9d3-10d0-4a14-ac14-d6badcc5393d">
+
+The corresponding functional architecture is the following:
+<img width="3568" alt="Deployment architecture" src="https://github.com/user-attachments/assets/d9b85e87-532c-4efc-9367-b63eaf93a2da">
 
 The Marble software is composed of 2 docker images and 3 parts:
 
@@ -28,7 +31,7 @@ The docker images for Marble are stored on the registry `europe-west1-docker.pkg
 #### Marble cloud
 
 For reference, below is a schematic of Marble's cloud offering architecture. It is essentially a variation of the architecture described above, with some infrastructure choices that work well for our cloud offering specifically.
-<img width="5400" alt="Software architecture (2)" src="https://github.com/checkmarble/marble/assets/128643171/dedc2c73-ef5a-4fed-bf2f-cb6ee34dc332">
+<img width="5400" alt="Software architecture (2)" src="https://github.com/user-attachments/assets/03f135e2-aef4-44a0-90cd-ffc15bdf6bbc">
 
 ## Deploy Marble serverless
 
