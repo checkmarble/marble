@@ -24,7 +24,7 @@
   - Create scenarios.
   - Create rules.
   - Score-weighted final decision.
-  - Scenario versions paralel run 
+  - Scenario versions parallel run 
 - Lists: create internal lists and keep them updated for use in rules.
 - Case management: investigate decisions and create escalations.
   - View decisions.
