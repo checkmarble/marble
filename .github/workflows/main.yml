@@ -15,6 +15,10 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: "write" # needed for using open id token to authenticate with GCP services
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,10 +28,14 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Google Auth
-        uses: "google-github-actions/auth@v2"
+      - name: auth github actions to GCP
+        id: auth
+        uses: google-github-actions/auth@v2
         with:
-          credentials_json: "${{ secrets.GCP_SA_KEY_PRODUCTION }}"
+          token_format: access_token
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_ID }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_EMAIL}}
 
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v2"
