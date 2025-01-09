@@ -20,7 +20,7 @@ It relies on the existence of a basic set of infrastructure to work:
 
 1. A Postgresql database
 2. A scheduler for the cron jobs
-3. A set of object storage buckets, to store documents uploaded in the case manager and csv files for batch data ingestion (currently, only Google Cloud Storage: compatibility for ASW S3 and Azure Blob Storage planned soon)
+3. A set of object storage buckets, to store documents uploaded in the case manager and csv files for batch data ingestion (compatible with Google Cloud Storage, AWS S3 and Azure Blob Storage)
 4. A load balancer with TLS termination to expose the APIs
 5. A configured Firebase app for end user authentication
 
