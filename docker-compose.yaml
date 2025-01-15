@@ -85,7 +85,7 @@ services:
       LOGGING_FORMAT: ${LOGGING_FORMAT:-}
   app:
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.32.0
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.32.1
     platform: linux/amd64
     restart: always
     depends_on:
