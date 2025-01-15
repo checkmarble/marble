@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   ENV: {{ .Values.configMap.env }}
+  LICENSE_KEY: !!str {{ .Values.configMap.licenseKey }}
   PG_HOSTNAME: {{ .Values.configMap.pgHostname }}
   PG_PORT: !!str {{ .Values.configMap.pgPort }}
 

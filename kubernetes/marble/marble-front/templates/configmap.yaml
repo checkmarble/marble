@@ -5,7 +5,6 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   ENV: {{ .Values.configMap.env }}
-  LICENSE_KEY: !!str {{ .Values.configMap.licenseKey }}
   NODE_ENV: !!str {{ .Values.configMap.nodeEnv }}
 
   SESSION_SECRET: !!str {{ .Values.configMap.sessionSecret }}
