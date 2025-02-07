@@ -1,5 +1,6 @@
 version: "3.8"
 
+name: marble
 services:
   db:
     container_name: marble-postgres
@@ -27,6 +28,7 @@ services:
     restart: always
     depends_on:
       - db
+      - yente
     entrypoint: ["./app", "--server", "--migrations"]
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:${API_PORT:-8080}/liveness || exit 1
@@ -122,8 +124,42 @@ services:
     ports:
       - ${FIREBASE_AUTH_EMULATOR_PORT:-9099}:9099
       - 4000:4000
+  elasticsearch:
+    container_name: marble-es
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    ports:
+      - ${ES_PORT:-9200}:${ES_PORT:-9200}
+    environment:
+      - node.name=es
+      - cluster.name=marble-es
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - marble-es:/usr/share/elasticsearch/data
+  yente:
+    container_name: marble-yente
+    image: ghcr.io/opensanctions/yente:4.2.1
+    depends_on:
+      - elasticsearch
+    ports:
+      - ${YENTE_PORT:-8000}:${YENTE_PORT:-8000}
+    volumes:
+      - ./contrib/yente-datasets.yml:/app/manifests/default.yml
+    environment:
+      YENTE_INDEX_TYPE: elasticsearch
+      YENTE_INDEX_URL: "${YENTE_ELASTICSEARCH_HOST:-http://marble-es:9200}"
+      YENTE_UPDATE_TOKEN: ""
 
 volumes:
   marble-db:
     driver: local
+  marble-es:
+    driver: local
   marble-tempfiles:
+
