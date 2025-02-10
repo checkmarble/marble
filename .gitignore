@@ -11,3 +11,4 @@
 .vscode/
 .secrets
 key.json
+.env
