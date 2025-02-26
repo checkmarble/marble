@@ -36,7 +36,7 @@ configMap:
   pgPort: 5432
   pgUser: "postgres"
   pgPassword: "marble"
-  marbleAppHost: "localhost:3000"
+  marbleAppUrl: "http://localhost:3000"
   authJwtSignKey: ""
   ingestionBucketUrl: "file:///tempFiles/data-ingestion-bucket?create_dir=true"
   caseManagerUrl: "file:///tempFiles/case-manager-bucket?create_dir=true"

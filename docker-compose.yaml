@@ -1,14 +1,80 @@
-version: "3.8"
-
 name: marble
+
+x-backend-image-version: &backend-image-version
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.37.0
+x-frontend-image-version: &frontend-image-version
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.37.0
+
+x-shared-environment: &shared-env
+  ENV: ${ENV}
+  MARBLE_APP_URL: ${MARBLE_APP_URL}
+  SENTRY_DSN: ${SENTRY_DSN}
+x-backend-environment: &backend-env
+  LICENSE_KEY: ${LICENSE_KEY}
+
+  PORT: ${API_PORT:-8080}
+
+  PG_HOSTNAME: ${PG_HOSTNAME}
+  PG_PORT: ${PG_PORT}
+  PG_USER: ${PG_USER}
+  PG_PASSWORD: ${PG_PASSWORD}
+  PG_SSL_MODE: ${PG_SSL_MODE}
+  PG_CONNECTION_STRING: ${PG_CONNECTION_STRING}
+
+  AUTHENTICATION_JWT_SIGNING_KEY: ${AUTHENTICATION_JWT_SIGNING_KEY}
+
+  INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL}
+  CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL}
+
+  GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+  GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
+
+  REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL}
+  LOGGING_FORMAT: ${LOGGING_FORMAT}
+
+  CREATE_ORG_NAME: ${CREATE_ORG_NAME}
+  CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL}
+
+  METABASE_SITE_URL: ${METABASE_SITE_URL}
+  METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY}
+  METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID}
+
+  CONVOY_API_URL: ${CONVOY_API_URL}
+  CONVOY_API_KEY: ${CONVOY_API_KEY}
+  CONVOY_PROJECT_ID: ${CONVOY_PROJECT_ID}
+
+  OPENSANCTIONS_API_HOST: ${OPENSANCTIONS_API_HOST}
+  OPENSANCTIONS_AUTH_METHOD: ${OPENSANCTIONS_AUTH_METHOD}
+  OPENSANCTIONS_API_KEY: ${OPENSANCTIONS_API_KEY}
+
+  SEGMENT_WRITE_KEY: UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ
+x-frontend-environment: &frontend-env
+  NODE_ENV: production
+  PORT: ${APP_PORT:-8080}
+
+  SESSION_SECRET: ${SESSION_SECRET}
+  SESSION_MAX_AGE: ${SESSION_MAX_AGE}
+
+  MARBLE_API_URL_CLIENT: ${MARBLE_API_URL_CLIENT}
+  MARBLE_API_URL_SERVER: ${MARBLE_API_URL_SERVER}
+
+  FIREBASE_PROJECT_ID: ${GOOGLE_CLOUD_PROJECT}
+  FIREBASE_API_KEY: ${FIREBASE_API_KEY}
+  FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN}
+  FIREBASE_APP_ID: ${FIREBASE_APP_ID}
+
+  SEGMENT_WRITE_KEY: AnqbZOIJ8TvCbQUhXLqin1tXXnxHX0CE
+
 services:
+  # NB: the docker compose file includes a postgres image for the sake of completeness, but we strongly
+  # suggest using a production-grade database to run Marble in a production environment
   db:
     container_name: marble-postgres
     image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${PG_PASSWORD:-marble}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-changeme}
       POSTGRES_DB: marble
       PGDATA: /data/postgres
       PGPORT: ${PG_PORT:-5432}
@@ -21,9 +87,9 @@ services:
       interval: 2s
       timeout: 1s
       retries: 5
-  api:
+  api: &backend
+    <<: *backend-image-version
     container_name: marble-api
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.37.0
     platform: linux/amd64
     restart: always
     depends_on:
@@ -39,60 +105,28 @@ services:
     ports:
       - ${HOST_API_PORT:-8080}:${API_PORT:-8080}
     volumes:
-      - marble-tempfiles:/tempFiles
-      # - ./local_shared:/shared # uncomment and adapt this line if you need to inject a service account key into the container
+      # adapt this line so that the left-hand side is the address of a folder containing:
+      # - the service account key
+      # - optionally the JWT signing RSA key in .pem format
+      - ./local_shared:/shared
     environment:
-      ENV: ${ENV:-}
-      LICENSE_KEY: ${LICENSE_KEY:-LICENSE_KEY}
-      PORT: ${API_PORT:-}
-      PG_HOSTNAME: ${PG_HOSTNAME:-}
-      PG_PORT: ${PG_PORT:-}
-      PG_USER: postgres
-      PG_PASSWORD: ${PG_PASSWORD:-}
-      AUTHENTICATION_JWT_SIGNING_KEY: ${AUTHENTICATION_JWT_SIGNING_KEY:-}
-      INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL:-}
-      CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL:-}
-      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_SERVER:-}
-      MARBLE_APP_HOST: ${MARBLE_APP_HOST:-localhost:${HOST_APP_PORT:-3000}}
-      # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
-      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-test-project}
-      GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS:-}
-      REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL:-}
-      LOGGING_FORMAT: ${LOGGING_FORMAT:-}
-      CREATE_GLOBAL_ADMIN_EMAIL: ${CREATE_GLOBAL_ADMIN_EMAIL:-}
-      CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
-      CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
-      SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY_BACKEND:-UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ}
-      METABASE_SITE_URL: ${METABASE_SITE_URL:-}
-      METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-}
-      METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-}
+      <<: [*shared-env, *backend-env]
   cron:
+    <<: *backend
     container_name: marble-api-cron
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.37.0
-    platform: linux/amd64
-    restart: always
     depends_on:
       - api
     entrypoint: ["./app", "--worker"]
-    volumes:
-      - marble-tempfiles:/tempFiles
-    environment:
-      ENV: ${ENV:-}
-      PG_HOSTNAME: ${PG_HOSTNAME:-}
-      PG_PORT: ${PG_PORT:-}
-      PG_USER: postgres
-      PG_PASSWORD: ${PG_PASSWORD:-}
-      INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL:-}
-      REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL:-}
-      LOGGING_FORMAT: ${LOGGING_FORMAT:-}
+    healthcheck:
+      disable: true
+    ports: []
   app:
+    <<: *frontend-image-version
     container_name: marble-app
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.37.0
     platform: linux/amd64
     restart: always
     depends_on:
       - api
-      - firebase_auth
     healthcheck:
       test: curl --fail http://localhost:${APP_PORT:-8080}/healthcheck || exit 1
       interval: 10s
@@ -100,28 +134,12 @@ services:
       retries: 1
       start_period: 30s
     ports:
-      - ${HOST_APP_PORT:-3000}:8080
+      - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
     environment:
-      ENV: ${ENV:-development}
-      NODE_ENV: ${NODE_ENV:-production}
-      SESSION_SECRET: ${SESSION_SECRET:-placeholder}
-      SESSION_MAX_AGE: ${SESSION_MAX_AGE:-43200}
-      MARBLE_API_DOMAIN_CLIENT: ${MARBLE_API_DOMAIN_CLIENT:-http://localhost:8080}
-      MARBLE_API_DOMAIN_SERVER: ${MARBLE_API_DOMAIN_SERVER:-http://api:8080}
-      MARBLE_APP_DOMAIN: ${MARBLE_APP_DOMAIN:-http://localhost:${HOST_APP_PORT:-8080}}
-      FIREBASE_AUTH_EMULATOR_HOST: ${FIREBASE_AUTH_EMULATOR_HOST_CLIENT:-}
-      FIREBASE_API_KEY: ${FIREBASE_API_KEY:-placeholder}
-      FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN:-placeholder}
-      FIREBASE_PROJECT_ID: ${GOOGLE_CLOUD_PROJECT:-placeholder}
-      FIREBASE_APP_ID: ${FIREBASE_APP_ID:-placeholder}
-      SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
-  firebase_auth:
-    container_name: firebase-auth
-    image: europe-west1-docker.pkg.dev/marble-infra/marble/firebase-emulator:latest
-    restart: always
-    ports:
-      - ${FIREBASE_AUTH_EMULATOR_PORT:-9099}:9099
-      - 4000:4000
+      <<: [*shared-env, *frontend-env]
+
+  # NB: the docker compose file includes an elasticsearch image for the sake of completeness, but we strongly
+  # suggest using a production-grade instance to run Marble in a production environment
   elasticsearch:
     container_name: marble-es
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
@@ -147,11 +165,9 @@ services:
       - elasticsearch
     ports:
       - ${YENTE_PORT:-8000}:${YENTE_PORT:-8000}
-    volumes:
-      - ./contrib/yente-datasets.yml:/app/manifests/default.yml
     environment:
       YENTE_INDEX_TYPE: elasticsearch
-      YENTE_INDEX_URL: "${YENTE_ELASTICSEARCH_HOST:-http://marble-es:9200}"
+      YENTE_INDEX_URL: "${YENTE_ELASTICSEARCH_URL}"
       YENTE_UPDATE_TOKEN: ""
 
 volumes:
@@ -159,4 +175,3 @@ volumes:
     driver: local
   marble-es:
     driver: local
-  marble-tempfiles:

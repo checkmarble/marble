@@ -12,7 +12,7 @@ data:
   PG_USER: {{ .Values.configMap.pgUser }}
   PG_PASSWORD: !!str {{ .Values.configMap.pgPassword }}
 
-  MARBLE_APP_HOST: {{ .Values.configMap.marbleAppHost }}
+  MARBLE_APP_URL: {{ .Values.configMap.marbleAppUrl }}
   
   AUTHENTICATION_JWT_SIGNING_KEY: {{ .Values.configMap.authJwtSignKey }}
   INGESTION_BUCKET_URL: !!str {{ .Values.configMap.ingestionBucketUrl }}

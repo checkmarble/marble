@@ -10,10 +10,10 @@ data:
   SESSION_SECRET: !!str {{ .Values.configMap.sessionSecret }}
   SESSION_MAX_AGE: !!str {{ .Values.configMap.sessionMaxAge }}
 
-  MARBLE_API_DOMAIN_CLIENT: !!str {{ .Values.configMap.marbleApiDomainClient }}
+  MARBLE_API_URL_CLIENT: !!str {{ .Values.configMap.marbleApiUrlClient }}
   
-  MARBLE_API_DOMAIN_SERVER:  !!str {{ .Values.configMap.marbleApiDomainServer }}
-  MARBLE_APP_DOMAIN: !!str {{ .Values.configMap.marbleAppDomain }}
+  MARBLE_API_URL_SERVER:  !!str {{ .Values.configMap.marbleApiUrlServer }}
+  MARBLE_APP_URL: !!str {{ .Values.configMap.marbleAppUrl }}
 
   FIREBASE_AUTH_EMULATOR_HOST: !!str {{ .Values.configMap.firebaseAuthEmulatorHost }}
 
