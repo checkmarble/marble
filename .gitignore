@@ -12,3 +12,4 @@
 .secrets
 key.json
 .env
+.env.dev

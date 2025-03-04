@@ -106,7 +106,7 @@ resource "google_cloud_run_v2_service" "backend" {
       }
 
       env {
-        name  = "MARBLE_APP_HOST"
+        name  = "MARBLE_APP_URL"
         value = local.environment.frontend.domain
       }
 

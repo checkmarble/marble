@@ -1,45 +1,176 @@
-### 🔧 **How to Install Marble**
+# Marble Installation Guide
+
+## Overview
+
+Welcome to Marble! This guide will help you get started with installing and deploying Marble. Choose the path that best matches your needs:
+
+- 🚀 [Quick Start](#quick-start) - Get up and running quickly
+- 💻 [Local Development](./test_run.md) - Set up a development environment
+- 🌐 [Production Deployment](./production_run.md) - Deploy for production use
+- 🏗️ [Architecture Overview](#architecture-overview) - Understand Marble's components
+
+## Quick Start
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Git
+- 4GB RAM minimum
+- 10GB disk space
+
+### Basic Installation
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd marble
+
+# 2. Copy example environment file
+cp .env.dev.example .env.dev
+
+# 3. Start Marble
+docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up
+```
+
+## Architecture Overview
+
+### Core Components
+
+Marble consists of three main services:
+
+1. **Backend API** (Go + Gin)
+
+   - REST API server
+   - Business logic
+   - Database interactions
+
+2. **Worker** (Go)
+
+   - Background tasks
+   - Scheduled jobs
+   - Data processing
+
+3. **Frontend** (TypeScript + Remix)
+   - Web interface
+   - User interactions
+   - API integration
+
+### System Architecture
+
+The standard Marble deployment architecture:
+![Deployment Architecture](https://github.com/user-attachments/assets/80d7a9d3-10d0-4a14-ac14-d6badcc5393d)
+
+For a detailed view of component interactions:
+![Functional Architecture](https://github.com/user-attachments/assets/d9b85e87-532c-4efc-9367-b63eaf93a2da)
+
+## Deployment Options
+
+### 1. Local Development
+
+Best for:
+
+- Testing features
+- Quick evaluation
+  → [Local Setup Guide](./test_run.md)
+
+### 2. Production Server
+
+Best for:
+
+- Production deployments
+- Custom infrastructure
+- Self-hosted installations
+  → [Production Guide](./production_run.md)
+
+### 3. Cloud Deployment
+
+Best for:
+
+- Scalable deployments
+- Managed services
+- Cloud-native architecture
+  → [Production Guide](./production_run.md)
+
+## Configuration
+
+### Environment Files
+
+**Simple template for local run**
+
+- `.env.dev.example` - Development configuration template
+- `docker-compose-dev.yaml` - Development container setup
+
+**Complete template for production run**
+
+- `.env.example` - Production configuration template
+- `docker-compose.yaml` - Container orchestration
+
+## Version Management
+
+### Release schedule
+
+A new version of the Marble application is released about every week, usuallly in the beginning of the week.
+
+Every release on the [Marble repository](https://github.com/checkmarble/marble) consists in a pair of versions for the backend and frontend containers. For example, version 0.36.0 of Marble uses the backend container v0.36.1 and frontend container v0.36.1. Refer to the versions used in the `docker-compose.yaml` file to know which versions to run together in a given release.
+
+Most new features are released as minor versions (according to semantic versioning), while releases that only contain bug fixes or dependency upgrades may be released as patch versions.
+
+If the release makes important changes to the Marble interface, the configuration options, or the API, this is emphasized in the release note attached to the release.
+
+We recommend you update your Marble version at least every few weeks.
+
+### Upgrading Marble
+
+1. Check out new version
+2. Run migrations:
+
+   ```bash
+   # Option 1: Restart backend container
+   docker compose restart api
+
+   # Option 2: Run migration only
+   docker compose run --rm api --migrate
+   ```
+
+   The database migrations are designed such that you can safely run the migration for version N+1 while still serving version N, and upgrade the backend and frontend containers after the migration is done. Some migrations may take a while to run, if new indexes need to be created or if some existing data needs to be migrated to a new format. Most migrations are expected to run very quickly.
+
+   The same migration SHOULD NOT be run in several processes/containers in parallel.
+
+3. Upgrade the backend and frontend containers:
+
+   ```bash
+   # Stop all containers
+   docker compose down
+
+   # Start with new versions
+   docker compose -f docker-compose.yaml --env-file ./env up -d
+   ```
+
+4. Best practices:
+
+   - Test in staging first
+   - Schedule during low traffic
+
+### Version Support
+
+- Latest version: Check releases page
+- Support policy: We only support the latest version. You should upgrade regularly to stay on a supported version.
+- Migration path: You must upgrade versions one at a time in sequence (e.g. v0.35 -> v0.36 -> v0.37). Skipping versions is not recommended.
+
+## Getting Help
+
+- 📖 [Product Documentation](https://docs.checkmarble.com/)
+- 🔧 [Troubleshooting Guides](./test_run.md#troubleshooting)
+- 📋 [Issue tracker](https://github.com/checkmarble/marble/issues)
+- 💬 [Community support](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw)
+
+## Additional Resources
+
+- [Environment Variables Guide](../.env.example)
+- [Docker Configuration](../docker-compose.yaml)
+- [Version support policy](./version_support_policy.md)
+- [Create a first organization and user](./first_connection.md)
 
 ---
 
-> The following instructions are for a docker-compose setup. You can also take inspiration from the terraform templates provided in the repository to create a serverless GCP deployment of Marble, inspired by Marble's own cloud deployment.
-
-Simply clone this repository and run `docker compose --env-file .env.example up` (customize the .env-example file or provide your own copy).
-It will run out of the box with the firebase auth emulator. If you wish to run Marble open-source in production, you will need to create a firebase auth app.
-
-The first time you run the code, you should enter an organization name and organization admin user email to create using the `CREATE_ORG_NAME` and `CREATE_ORG_ADMIN_EMAIL` environment variables. Unless using the firebase emulator, you must enter an actual email address that you own so that you may verify it and login with firebase. You can always create new organizations later using the same procedure.
-
-> `CREATE_GLOBAL_ADMIN_EMAIL` is optional. It is useful if you want to access cross organization data. If you provide it, the user will be created as a global admin. It must be different from `CREATE_ORG_ADMIN_EMAIL`.
-
-**In a local demo setup:**
-
-> In a local test setup (meaning if you are running with the firebase auth emulator), the License key is not required. You can leave it empty. The full feature set is available.
-
-- just run the docker-compose as it is, it should work
-- give the firebase emulator a moment to get started, it's a bit slow when first launched
-- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
-
-**In a production setup:**
-
-- set the `FIREBASE_AUTH_EMULATOR_HOST_SERVER` and `FIREBASE_AUTH_EMULATOR_HOST_CLIENT` env variables to empty strings in your .env file, or remove them.
-- create a Firebase project and a Firebase app, and set the relevant env variables (`FIREBASE_API_KEY` to `FIREBASE_APP_ID` as well as `GOOGLE_CLOUD_PROJECT`) in your .env file
-- create a service account json key in the GCP interface, mount it in the docker container and set the path to the key in the `GOOGLE_APPLICATION_CREDENTIALS` env variable (see below)
-- if you plan to use the batch ingestion feature or the case manager with file storing feature, you need to create a pair of storage buckets (GCP cloud storage, AWS S3, Azure storage account), pass the url to the bucket in the `INGESTION_BUCKET_URL` and `CASE_MANAGER_BUCKET_URL` env variables (see details in the .env.example - you can use the same bucket for both), and make sure that any information necessary for the client to automatically authenticate is present (using env variables, credential files, or automatic credentials discovery from a metadata server)
-- create a Firebase user with the email you provided in the `CREATE_ORG_ADMIN_EMAIL` environment variable (you can do this on the Marble login page by using the SSO button or sign up with email)
-- if you have a license key, set it in the `LICENSE_KEY` env variable in your .env file
-
-**GCP & Firebase authentication:**
-
-In a production setup, you need to authenticate to GCP to use Firebase (as well as Cloud Storage if you are using it as a storage bucket). If you are not running the container directly in a GCP environment, here is how you could do this:
-
-- create a volume attached to the marble-api container
-- place the json service account key for GCP in the local shared folder (or otherwise inject it into the docker container, depending on how you run Marble)
-- set the `GOOGLE_APPLICATION_CREDENTIALS` variable equal to the path to the service account key
-
-#### **How to upgrade your Marble version**
-
-You upgrade your Marble version by checking out the release of your choice, and simply running it. By running the docker image with the options `"--server", "--migrations"`, you execute the database migrations of the version and then start the server again.
-
-If you are running in a production environment, remember that while the migrations are running, your server will not be responding. You should preferably upgrade your version outside of the busy hours of the week.
-
-You should always increase the version of Marble one version at a time, giving the time to version N to migrate and deploy before you upgrade to version N+1.
+> 💡 **Tip**: Start with the [Local Development Guide](./test_run.md) to get familiar with Marble before moving to production.

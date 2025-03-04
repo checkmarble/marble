@@ -35,9 +35,9 @@ configMap:
   nodeEnv: "production"
   sessionSecret: "placeholder"
   sessionMaxAge: 43200
-  marbleApiDomainClient: "http://localhost:8080"
-  marbleApiDomainServer: "http://marble-backend.checkmarble.svc.cluster.local:8090"
-  marbleAppDomain: "http://localhost:8080"
+  marbleApiUrlClient: "http://localhost:8080"
+  marbleApiUrlServer: "http://marble-backend.checkmarble.svc.cluster.local:8090"
+  marbleAppUrl: "http://localhost:8080"
   firebaseAuthEmulatorHost: "firebase-auth:9099"
   firebaseApiKey: "placeholder"
   firebaseAuthDomain: "placeholder"

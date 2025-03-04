@@ -1,0 +1,167 @@
+name: marble
+
+x-backend-image-version: &backend-image-version
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.37.0
+x-frontend-image-version: &frontend-image-version
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.37.0
+
+x-shared-environment: &shared-env
+  ENV: development
+  MARBLE_APP_URL: http://localhost:${HOST_APP_PORT:-3000}
+x-backend-environment: &backend-env
+  LICENSE_KEY: ${LICENSE_KEY:-LICENSE_KEY}
+  PORT: 8080
+
+  PG_HOSTNAME: db
+  PG_PORT: ${PG_PORT:-5432}
+  PG_USER: postgres
+  PG_PASSWORD: changeme
+
+  INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL:-}
+  CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL:-}
+
+  FIREBASE_AUTH_EMULATOR_HOST: firebase-auth:9099
+
+  # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
+  GOOGLE_CLOUD_PROJECT: test-project
+
+  CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
+  CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
+
+  SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY_BACKEND:-UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ}
+
+  METABASE_SITE_URL: ${METABASE_SITE_URL:-}
+  METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-}
+  METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-}
+
+  CONVOY_API_KEY: ${CONVOY_API_KEY:-}
+  CONVOY_API_URL: ${CONVOY_API_URL:-}
+  CONVOY_PROJECT_ID: ${CONVOY_PROJECT_ID:-}
+x-frontend-environment: &frontend-env
+  NODE_ENV: production
+  SESSION_SECRET: ${SESSION_SECRET:-}
+  SESSION_MAX_AGE: 43200
+
+  MARBLE_API_URL_CLIENT: http://localhost:${HOST_API_PORT:-8080}
+  MARBLE_API_URL_SERVER: http://api:${HOST_API_PORT:-8080}
+
+  FIREBASE_AUTH_EMULATOR_HOST: localhost:9099
+
+  SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
+
+services:
+  db:
+    container_name: marble-postgres
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: marble
+      PGDATA: /data/postgres
+      PGPORT: ${PG_PORT:-5432}
+    ports:
+      - ${PG_PORT:-5432}:${PG_PORT:-5432}
+    volumes:
+      - marble-db:/data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 1s
+      retries: 5
+  api: &backend
+    <<: *backend-image-version
+    container_name: marble-api
+    platform: linux/amd64
+    restart: always
+    depends_on:
+      - db
+      - yente
+    entrypoint: ["./app", "--server", "--migrations"]
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080/liveness || exit 1
+      interval: 10s
+      timeout: 60s
+      retries: 1
+      start_period: 30s
+    ports:
+      - ${HOST_API_PORT:-8080}:8080
+    volumes:
+      - marble-tempfiles:/tempFiles
+    environment:
+      <<: [*shared-env, *backend-env]
+  cron:
+    <<: *backend
+    container_name: marble-api-cron
+    depends_on:
+      - api
+    entrypoint: ["./app", "--worker"]
+    healthcheck:
+      disable: true
+    ports: []
+  app:
+    <<: *frontend-image-version
+    container_name: marble-app
+    platform: linux/amd64
+    restart: always
+    depends_on:
+      - api
+      - firebase_auth
+    healthcheck:
+      test: curl --fail http://localhost:8080/healthcheck || exit 1
+      interval: 10s
+      timeout: 60s
+      retries: 1
+      start_period: 30s
+    ports:
+      - ${HOST_APP_PORT:-3000}:8080
+    environment:
+      <<: [*shared-env, *frontend-env]
+  firebase_auth:
+    container_name: firebase-auth
+    image: europe-west1-docker.pkg.dev/marble-infra/marble/firebase-emulator:latest
+    restart: always
+    ports:
+      - 9099:9099
+      - 4000:4000
+  elasticsearch:
+    container_name: marble-es
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    ports:
+      - ${ES_PORT:-9200}:${ES_PORT:-9200}
+    environment:
+      - node.name=es
+      - cluster.name=marble-es
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - marble-es:/usr/share/elasticsearch/data
+  yente:
+    container_name: marble-yente
+    image: ghcr.io/opensanctions/yente:4.2.1
+    depends_on:
+      - elasticsearch
+    ports:
+      - ${YENTE_PORT:-8000}:${YENTE_PORT:-8000}
+    volumes:
+      # This configuration file will load only a reduced into the elastic search index.
+      # This is only a convenience for development purposes, and should be removed or adapted
+      # for production environments.
+      - ./contrib/yente-datasets.yml:/app/manifests/default.yml
+    environment:
+      YENTE_INDEX_TYPE: elasticsearch
+      YENTE_INDEX_URL: ${YENTE_ELASTICSEARCH_HOST:-http://marble-es:9200}
+      YENTE_UPDATE_TOKEN: ""
+
+volumes:
+  marble-db:
+    driver: local
+  marble-es:
+    driver: local
+  marble-tempfiles:
