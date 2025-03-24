@@ -60,6 +60,9 @@ Marble consists of three main services:
 The standard Marble deployment architecture:
 ![Deployment Architecture](https://github.com/user-attachments/assets/80d7a9d3-10d0-4a14-ac14-d6badcc5393d)
 
+An example of Marble's own hosted deployment (simplified):
+![Marble SaaS deployment](https://github.com/user-attachments/assets/03f135e2-aef4-44a0-90cd-ffc15bdf6bbc)
+
 For a detailed view of component interactions:
 ![Functional Architecture](https://github.com/user-attachments/assets/d9b85e87-532c-4efc-9367-b63eaf93a2da)
 
