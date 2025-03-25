@@ -23,9 +23,9 @@ jobs:
         id: set_chart_version
         run: |
           if [[ "${GITHUB_REF_NAME}" =~ ^v ]]; then
-            echo "chart_version=${GITHUB_REF_NAME:1}" >> $GITHUB_ENV
+            echo "chart_version=${GITHUB_REF_NAME:1}" >> $GITHUB_OUTPUT
           else
-            echo "chart_version=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+            echo "chart_version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
