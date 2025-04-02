@@ -160,14 +160,34 @@ services:
       - marble-es:/usr/share/elasticsearch/data
   yente:
     container_name: marble-yente
-    image: ghcr.io/opensanctions/yente:4.2.1
+    image: ghcr.io/opensanctions/yente:4.2.3
     depends_on:
       - elasticsearch
+    command:
+      [
+        "uvicorn",
+        "--host=0.0.0.0",
+        "--workers=${YENTE_API_WORKERS:-4}",
+        "yente.asgi:app",
+      ]
     ports:
       - ${YENTE_PORT:-8000}:${YENTE_PORT:-8000}
     environment:
       YENTE_INDEX_TYPE: elasticsearch
-      YENTE_INDEX_URL: "${YENTE_ELASTICSEARCH_URL}"
+      YENTE_INDEX_URL: ${YENTE_ELASTICSEARCH_HOST:-http://marble-es:9200}
+      YENTE_QUERY_CONCURRENCY: ${YENTE_QUERY_CONCURRENCY:-50}
+      YENTE_UPDATE_TOKEN: ""
+      YENTE_AUTO_REINDEX: false
+  yente-indexer:
+    container_name: marble-yente-indexer
+    image: ghcr.io/opensanctions/yente:4.2.3
+    depends_on:
+      - elasticsearch
+    command: ["yente", "reindex"]
+    environment:
+      YENTE_INDEX_TYPE: elasticsearch
+      YENTE_INDEX_URL: ${YENTE_ELASTICSEARCH_HOST:-http://marble-es:9200}
+      YENTE_QUERY_CONCURRENCY: "50"
       YENTE_UPDATE_TOKEN: ""
 
 volumes:
