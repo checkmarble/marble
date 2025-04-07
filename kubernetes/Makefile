@@ -1,15 +1,15 @@
 APPLICATION_NAME := marble-application
-APPLICATION_VERSION := $(shell cat .versions| grep -w "APPLICATION-VERSION" | cut -d: -d'=' -f2)
+APPLICATION_VERSION ?= $(shell cat .versions| grep -w "APPLICATION-VERSION" | cut -d: -d'=' -f2)
 NAMESPACE := checkmarble
 ## BACKEND VERSION CONFIGURATION
 MARBLE_BACKEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend
-MARBLE_BACKEND_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-IMG" | cut -d: -d'=' -f2)
 MARBLE_BACKEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-BACK-VERSION" | cut -d: -d'=' -f2)
+MARBLE_BACKEND_VERSION := v$(MARBLE_BACKEND_APP_VERSION)
 
 ## FRONTEND VERSION CONFIGURATION
 MARBLE_FRONTEND_IMAGE := europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend
-MARBLE_FRONTEND_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-IMG" | cut -d: -d'=' -f2)
 MARBLE_FRONTEND_APP_VERSION := $(shell cat .versions| grep -w "MARBLE-FRONT-VERSION" | cut -d: -d'=' -f2)
+MARBLE_FRONTEND_VERSION := v$(MARBLE_FRONTEND_APP_VERSION)
 
 .PHONY: create_cluster
 create_cluster:
@@ -38,6 +38,8 @@ update_dependencies:
 	@yq -i '.dependencies |= map(select(.name == "marble-cron").version="$(MARBLE_BACKEND_APP_VERSION)")' marble/Chart.yaml
 	@yq -i '.dependencies |= map(select(.name == "marble-front").version="$(MARBLE_FRONTEND_APP_VERSION)")' marble/Chart.yaml
 	@yq -i '.version="$(APPLICATION_VERSION)"' marble/Chart.yaml
+	@yq -i '.global.deployment.marbleBack.version="$(MARBLE_BACKEND_VERSION)"' marble/values.yaml
+	@yq -i '.global.deployment.marbleFront.version="$(MARBLE_FRONTEND_VERSION)"' marble/values.yaml
 	@helm dependency update ./marble
 
 .PHONY: pack

@@ -24,11 +24,11 @@ dependencies:
     version: 0.1.0
     repository: file://./marble-postgres
   - name: "marble-api"
-    version: 0.2.2
+    version: 0.0.0 # placeholder, replaced in the makefile
     repository: file://./marble-backend
   - name: "marble-cron"
-    version: 0.2.2
+    version: 0.0.0 # placeholder, replaced in the makefile
     repository: file://./marble-cron
   - name: "marble-front"
-    version: 0.2.1
+    version: 0.0.0 # placeholder, replaced in the makefile
     repository: file://./marble-front

@@ -67,12 +67,12 @@ jobs:
       - name: Update dependencies
         run: |
           cd kubernetes
-          make update_dependencies
+          make update_dependencies APPLICATION_VERSION=${{ steps.set_chart_version.outputs.chart_version }}
 
       - name: Helm package
         run: |
           cd kubernetes
-          make pack
+          make pack APPLICATION_VERSION=${{ steps.set_chart_version.outputs.chart_version }}
 
       - name: Helm push
         run: |
