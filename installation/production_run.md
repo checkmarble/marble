@@ -131,6 +131,10 @@ Options:
 
 > ⚠️ **Note**: While development docker-compose includes Elasticsearch, use a production-grade service for deployment.
 
+It is recommended to deploy the Yente API with multiple workers (see the `docker-compose.yaml` to see how) and disable the indexing process on those with `YENTE_AUTO_REINDEX=false`) so it doesn't impact production workloads and is not duplicated across workers.
+
+Once automatic background indexing is disabled, you will need to run it (with `yente reindex`) separately through a different container or a scheduled task (cron or systemd timer).
+
 ## Deployment Architecture
 
 ### Components
