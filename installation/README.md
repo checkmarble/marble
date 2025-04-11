@@ -158,6 +158,7 @@ We recommend you update your Marble version at least every few weeks.
 
 - Latest version: Check releases page
 - Support policy: We only support the latest version. You should upgrade regularly to stay on a supported version.
+- Marble app versions guide: see [versions documentation](./versions.md)
 - Migration path: You must upgrade versions one at a time in sequence (e.g. v0.35 -> v0.36 -> v0.37). Skipping versions is not recommended.
 
 ## Getting Help
