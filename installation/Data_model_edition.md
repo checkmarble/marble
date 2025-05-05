@@ -1,6 +1,7 @@
 # Data model edition
 You can add as many fields, tables, or relations as needed directly from Marble. However, to delete any of these elements, you’ll need to make the changes directly in your Marble PostgreSQL database.
 
+BE AWARE : removing fields or objects used in existing scenarios may generate errors and crashes. Do not remove fields and objects use in a scenario without also deleting the scenario. 
 
 ## Delete a table
 **1. Find the table**
