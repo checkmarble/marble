@@ -9,6 +9,7 @@ x-shared-environment: &shared-env
   ENV: ${ENV}
   MARBLE_APP_URL: ${MARBLE_APP_URL}
   SENTRY_DSN: ${SENTRY_DSN}
+  DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
 x-backend-environment: &backend-env
   LICENSE_KEY: ${LICENSE_KEY}
 
@@ -46,8 +47,6 @@ x-backend-environment: &backend-env
   OPENSANCTIONS_API_HOST: ${OPENSANCTIONS_API_HOST}
   OPENSANCTIONS_AUTH_METHOD: ${OPENSANCTIONS_AUTH_METHOD}
   OPENSANCTIONS_API_KEY: ${OPENSANCTIONS_API_KEY}
-
-  SEGMENT_WRITE_KEY: UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ
 x-frontend-environment: &frontend-env
   NODE_ENV: production
   PORT: ${APP_PORT:-8080}
@@ -62,8 +61,6 @@ x-frontend-environment: &frontend-env
   FIREBASE_API_KEY: ${FIREBASE_API_KEY}
   FIREBASE_AUTH_DOMAIN: ${FIREBASE_AUTH_DOMAIN}
   FIREBASE_APP_ID: ${FIREBASE_APP_ID}
-
-  SEGMENT_WRITE_KEY: AnqbZOIJ8TvCbQUhXLqin1tXXnxHX0CE
 
 services:
   # NB: the docker compose file includes a postgres image for the sake of completeness, but we strongly

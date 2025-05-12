@@ -8,6 +8,7 @@ x-frontend-image-version: &frontend-image-version
 x-shared-environment: &shared-env
   ENV: development
   MARBLE_APP_URL: http://localhost:${HOST_APP_PORT:-3000}
+  DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
 x-backend-environment: &backend-env
   LICENSE_KEY: ${LICENSE_KEY:-LICENSE_KEY}
   PORT: 8080
@@ -29,8 +30,6 @@ x-backend-environment: &backend-env
   CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
 
-  SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY_BACKEND:-UgkImFmHmBZAWh5fxIKBY3QtvlcBrhqQ}
-
   METABASE_SITE_URL: ${METABASE_SITE_URL:-}
   METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-}
   METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-}
@@ -50,8 +49,6 @@ x-frontend-environment: &frontend-env
   FIREBASE_API_KEY: placeholder
   # default value of FIREBASE_PROJECT_ID must be kept if working with the emulator (and the emulator is running in the docker image below)
   FIREBASE_PROJECT_ID: test-project
-
-  SEGMENT_WRITE_KEY: ${SEGMENT_WRITE_KEY:-hC8qrY2OLhUpl1Xycw523tbuClxlQR6u}
 
 services:
   db:
