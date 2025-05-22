@@ -5,7 +5,7 @@ resource "aws_ecs_task_definition" "app" {
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.ecs_exec_role.arn
   network_mode       = "bridge"
-  memory             = 256
+  memory             = 1024
 
   container_definitions = jsonencode([{
     name         = "app",
@@ -59,6 +59,7 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_HOSTNAME", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 0)}" },
         { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
         { name = "PG_USER", value = "postgres" },
+        # { name = "INGESTION_BUCKET_URL", value = "-" },
         { name = "PG_PASSWORD", value = "${random_string.rds-db-password.result}" },
         { name = "GOOGLE_APPLICATION_CREDENTIALS", value = "/config/credentials.json" },
         { name = "GOOGLE_CLOUD_PROJECT", value = local.environment.firebase.projectId },

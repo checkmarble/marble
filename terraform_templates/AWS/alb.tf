@@ -27,6 +27,9 @@ resource "aws_security_group" "http" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags                   = {
+    Name = "RiskTool - LB - Prod"
+  }
 }
 
 resource "aws_lb" "main" {

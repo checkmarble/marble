@@ -54,6 +54,9 @@ resource "aws_security_group" "rds" {
     protocol        = "tcp"
     security_groups = [aws_security_group.ecs_node_sg.id]
   }
+  tags                   = {
+    Name = "RiskTool - DB - Prod"
+  }
 }
 
 resource "aws_db_subnet_group" "marble_rds_subnet_group" {
@@ -68,13 +71,14 @@ resource "aws_db_subnet_group" "marble_rds_subnet_group" {
 resource "aws_db_instance" "rds-marble" {
 
   identifier                  = "rds-marble-${terraform.workspace}"
-  instance_class              = "db.t4g.small"
-  allocated_storage           = 10
+  instance_class              = "db.t4g.large"
+  allocated_storage           = 150
   engine                      = "postgres"
   engine_version              = "15"
   publicly_accessible         = true
   allow_major_version_upgrade = true
-
+  max_allocated_storage  = 1000 
+  
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.marble_rds_subnet_group.name
   parameter_group_name   = aws_db_parameter_group.pg-marble.name
@@ -96,6 +100,7 @@ resource "aws_db_instance" "rds-marble" {
 
   # Enable performance insights
   performance_insights_enabled = true
+  apply_immediately = true
 }
 
 

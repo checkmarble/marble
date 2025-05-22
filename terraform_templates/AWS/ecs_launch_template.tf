@@ -7,7 +7,7 @@ data "aws_ssm_parameter" "ecs_node_ami" {
 resource "aws_launch_template" "ecs_ec2" {
   name_prefix            = "marble-ecs-ec2-"
   image_id               = data.aws_ssm_parameter.ecs_node_ami.value
-  instance_type          = "t3.small"
+  instance_type          = "t3.medium"
   vpc_security_group_ids = [aws_security_group.ecs_node_sg.id]
   key_name =  var.aws_key_pair
 
