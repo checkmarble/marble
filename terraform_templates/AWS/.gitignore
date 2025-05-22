@@ -1,0 +1,4 @@
+# Ignore sensitive and private config files
+config/environments.private.json
+config/credentials.json
+config/private.key
