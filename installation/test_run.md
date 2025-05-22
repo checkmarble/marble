@@ -40,7 +40,9 @@ The development environment includes everything needed to run Marble locally:
 
 ### Basic Setup
 
-The `.env.dev.example` provides a minimal configuration that works out of the box:
+The `.env.dev.example` provides a minimal configuration that works out of the box.
+
+If you need to modify this configuration, note that the `.env` files are not inherited by the containers created by Docker Compose directly. Only select variables from the files are passed to the containers. If you need to add new variables (for example, if you want to configure file storage to point at your own S3 bucket), you will also need to edit the Docker Compose file to pass those variables to the appropriate container.
 
 ### Optional Features
 
