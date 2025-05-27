@@ -63,7 +63,32 @@ Supported Providers:
 Configuration details are available in `.env.example`.
 The .env file expects two different buckets for the two purposes, but you may use the same bucket for both.
 
-### 3. Firebase Authentication
+### 3. Google Cloud service account
+
+Marble requires valid service account credentials in order to provide the following features:
+
+ - Authentication via Firebase (mandatory)
+ - Blob storage on Google Cloud Storage (if applicable)
+
+This service account **must** have the following roles or permissions:
+
+ - Role: `Storage Object User` on the configured buckets to store and retrieve blobs
+ - Permission: `iam.serviceAccounts.signBlob` to generate pre-signed download URLs
+   This permission is provided by the `Service Account Token Creator` role, but we recommend creating a custom role containing the required permission only.
+
+_Note:_ depending on whether you are hosted on GCP, the service account might need extra permissions to accomodate your setup.
+
+#### Provide the credentials to Marble
+
+Marble supports two ways to retrieve the service account's credentials:
+
+ - **Recommended:** Marble is able to retrieve the service account (and associated configuration) from the [Application Default Credentials (ADC)](https://cloud.google.com/docs/authentication/application-default-credentials). If you have properly configured the system on which Marble runs, it should be able to automatically use the configured service account. \
+   If Marble is running on Google Cloud Platform, the service account is pulled from the environment, depending on how you configured your infrastructure.
+ - Alternatively, you can download a file-based service account key and provide the path to it in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
+
+By default, it will be assumed that the service account's Google Cloud project is the project where your Firebase tenant lives. If that is the case, no further configuration is required. If, on the other hand, your Firebase project and Google Cloud project are separate, you will need to specify the name of your Firebase project in the `FIREBASE_PROJECT_ID` environment variable.
+
+### 4. Firebase Authentication
 
 #### Setup Steps
 
@@ -75,9 +100,6 @@ The .env file expects two different buckets for the two purposes, but you may us
 2. **Configure Authentication**
 
    - Enable Firebase Authentication
-   - Go to Project overview → project settings → Service Accounts → Generate new private key
-   - Create service account
-   - Download service account key
 
 3. **Configure Domain**
 
@@ -102,7 +124,7 @@ The .env file expects two different buckets for the two purposes, but you may us
 
 > 💡 **Cost**: Firebase Auth free tier should be sufficient, but credit card required for project setup.
 
-### 4. Convoy (Webhook Gateway)
+### 5. Convoy (Webhook Gateway)
 
 Options:
 
@@ -120,7 +142,7 @@ Setup Steps:
    CONVOY_PROJECT_ID=your-project-id
    ```
 
-### 5. Yente + Elasticsearch
+### 6. Yente + Elasticsearch
 
 Purpose: Sanctions screening and search functionality
 
@@ -201,11 +223,13 @@ Reference the following files for detailed configuration:
 
 2. **API URL Configuration**
 
-   - Frontend needs two API URLs configured:
-     - `MARBLE_API_URL_CLIENT`: URL for browser requests (public URL)
-       - Example: `https://api.yourdomain.com`
+   - Frontend needs one API URLs configured:
      - `MARBLE_API_URL_SERVER`: URL for container-to-container requests
        - Example: `http://api:8080` (Docker internal network)
+     - `MARBLE_API_URL_CLIENT`: URL for browser requests (public URL)
+       - Example: `https://api.yourdomain.com`
+
+
    - Incorrect configuration leads to:
      - Failed API calls
      - CORS errors
@@ -218,21 +242,36 @@ Reference the following files for detailed configuration:
    - Verify DNS resolution works
    - Test internal container networking
 
-4. **Firebase Configuration**
+4. **Invalid Google Cloud Service Account**
 
-   - Service Account Key:
+Check Marble's startup logs for messages related to Google Cloud Platform's authentication, they may be able to point your to a potential misconfiguration:
 
-     - ⚠️ Backend service will fail to start without accessible Firebase service account key
-     - Exception: On GCP, automatic service account discovery may work
-     - Generate key in Firebase Console → Project Settings → Service Accounts
-     - Mount key file to container and set `GOOGLE_APPLICATION_CREDENTIALS`
-     - Example: `GOOGLE_APPLICATION_CREDENTIALS=/secrets/firebase-key.json`
+For example, a good configuration would look like this:
 
-   - Required Environment Variables:
-     - `GOOGLE_CLOUD_PROJECT`: Firebase project ID
-     - `FIREBASE_API_KEY`: Web API key from Firebase Console
-     - `FIREBASE_AUTH_DOMAIN`: Auth domain from Firebase settings
-     - `FIREBASE_APP_ID`: Application ID from Firebase Console
+```
+2025-05-27T14:12:41+02:00 INFO successfully authenticated in GCP principal=marble-dev@my-projectiam.gserviceaccount.com project=my-project
+2025-05-27T14:12:41+02:00 INFO FIREBASE_PROJECT_ID was not provided, falling back to Google Cloud project project=my-project
+2025-05-27T14:12:41+02:00 INFO firebase project configured project=my-project
+```
+
+Those lines indicate:
+
+ - The authenticated service account is `marble-dev@my-project.iam.gserviceaccount.com project=my-project`
+ - The detected Google Cloud Project is `my-project`
+ - The assumed Firebase project is also `my-project`
+
+You can verify that those value match your environment if you encounter any issue.
+
+5. **Firebase Configuration**
+
+  - Service account:
+    - Check that the detected Google Cloud project and service account match your environment
+
+  - Required environment variables:
+    - `FIREBASE_API_KEY`: Web API key from Firebase Console
+
+  - If you plan on using Single-Sign On (SSO) with Firebase (to delegate authentication to another Identity Provider), you will need to configure the following directives:
+    - `FIREBASE_AUTH_DOMAIN`: Auth domain from Firebase settings
 
 ## Next Steps
 
