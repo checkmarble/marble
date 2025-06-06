@@ -157,7 +157,7 @@ services:
       - marble-es:/usr/share/elasticsearch/data
   yente:
     container_name: marble-yente
-    image: ghcr.io/opensanctions/yente:4.2.3
+    image: ghcr.io/opensanctions/yente:4.3.1
     depends_on:
       - elasticsearch
     command:
@@ -177,7 +177,7 @@ services:
       YENTE_AUTO_REINDEX: false
   yente-indexer:
     container_name: marble-yente-indexer
-    image: ghcr.io/opensanctions/yente:4.2.3
+    image: ghcr.io/opensanctions/yente:4.3.1
     depends_on:
       - elasticsearch
     command: ["yente", "reindex"]
