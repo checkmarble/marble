@@ -145,7 +145,7 @@ services:
       - marble-es:/usr/share/elasticsearch/data
   yente:
     container_name: marble-yente
-    image: ghcr.io/opensanctions/yente:4.2.1
+    image: ghcr.io/opensanctions/yente:4.3.1
     depends_on:
       - elasticsearch
     ports:
