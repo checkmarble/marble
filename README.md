@@ -1,3 +1,4 @@
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
 ![GITHUB](https://github.com/checkmarble/marble/assets/130587542/f5b6e99c-9e26-4c92-a6d4-37d7ea4b900e)
 
 Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
