@@ -1,5 +1,8 @@
 name: Notify Slack on release
 
+permissions:
+  contents: read
+
 on:
   release:
     types: [published]
