@@ -1,5 +1,5 @@
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
-![GITHUB](https://github.com/checkmarble/marble/assets/130587542/f5b6e99c-9e26-4c92-a6d4-37d7ea4b900e)
+![GITHUB](https://github.com/user-attachments/assets/f8408864-d603-4ecd-a066-0da96ab9b8b9)
 
 Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
 
@@ -18,8 +18,9 @@ Marble is developed with compliance requirements in mind, ensuring that everythi
 - Privacy: Your data never has to leave your infrastructure.
 
 NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with :)
+
 <br>
-<img width="600" alt="Rule example" src="https://github.com/checkmarble/marble/assets/130587542/e4016997-9329-49ed-b62f-266b911367e2" class="center">
+<img width="1000" alt="Rule example" src="https://github.com/user-attachments/assets/498ce248-6f85-40a0-b1dc-ea6efe7425f9" class="center">
 <br><br>
 
 ### **🔖 License**
