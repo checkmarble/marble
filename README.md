@@ -52,7 +52,7 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 |                 Workflows                  |            ❌            |         ✅         |
 |                    SSO                     |            ❌            |         ✅         |
 |              Role management               |            ❌            |         ✅         |
-|                  Webhooks                  |       Partial            |         ✅         |
+|                  Webhooks                  |            ❌            |         ✅         |
 |                 Test mode                  |            ❌            |         ✅         |
 |           Sanction checks                  |            ❌            |         ✅         |
 | Direct tech support with SLA & hot patches |            ❌            |         ✅         |
