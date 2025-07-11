@@ -1,45 +1,34 @@
-name: Notify Slack on release
-
-permissions:
-  contents: read
+name: Post Release Notes to Slack
 
 on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
-  slack_notify:
+  slackNotify:
     runs-on: ubuntu-latest
     steps:
-      - name: Format and send Slack message
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Run Slack release script
+        run: node .github/workflows/scripts/slack_release.js
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          REPO: ${{ github.repository }}
-          TAG: ${{ github.event.release.tag_name }}
-          TITLE: ${{ github.event.release.name }}
-          URL: ${{ github.event.release.html_url }}
-          RAW_BODY: ${{ github.event.release.body }}
-        run: |
-          # Transform markdown to Slack format
-          CLEANED_BODY=$(echo "$RAW_BODY" \
-            | sed -E 's/^### (.*)$/*\1*/' \
-            | sed -E 's/^## (.*)$/*\1*/' \
-            | sed -E 's/^# (.*)$/*\1*/' \
-            | sed -E 's/^- (.*)$/• \1/' \
-            | sed -E 's/\r//' \
-          )
-
-          SLACK_MESSAGE="🚀 *New release!*
-
-          ➡️ $TITLE
-          🔗 $URL
-
-          $CLEANED_BODY"
-
-          # Generate the JSON
-          echo '{}' | jq --arg text "$SLACK_MESSAGE" '.text = $text' > payload.json
-
-          cat payload.json
-          curl -X POST -H 'Content-type: application/json' \
-            --data @payload.json \
-            "$SLACK_WEBHOOK_URL"
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+          RELEASE_TITLE: ${{ github.event.release.name || github.event.release.tag_name }}
