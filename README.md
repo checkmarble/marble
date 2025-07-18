@@ -14,7 +14,7 @@ Marble is developed with compliance requirements in mind, ensuring that everythi
 **Open-source, open architecture:**
 
 - Composable: Connect Marble to any of your internal systems or tools, such as transaction databases, KYC solutions, or 3rd party data providers.
-- Pricing: We offer a free open source self-hosted option and a licensed option with premium features which can be deployed Self-hosted or SaaS.
+- Pricing: We offer a free open source self-hosted option and a licensed option with Enterprise features which can be deployed Self-hosted or SaaS.
 - Privacy: With the Self-hosted option, your data never has to leave your infrastructure.
 
 NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble :)
@@ -41,13 +41,13 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 
 *See full licence for details*<br><br>
 
-### **✨ Feature Comparision : Open-source vs Marble License**
+### **✨ Feature Comparision : Open-source vs Enterprise**
 
 ---
 
 #### Fraud & Compliance Monitoring Solution
 
-| Features | Open-source | Marble Licence |
+| Features | Open-source | Enterprise |
 | :----------------------------------------  | :----------------------: | :----------------: |
 | Flexible Data Model |            ✅            |         ✅         |
 | Flexible No Code Rule engine *- Any geography, transfer methods, ...* |            ✅            |         ✅         |
@@ -67,7 +67,7 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 | ✨ AI Smart-Filtering for Screening |            ❌            |         Screening Add-on         |
 
 #### Case Management solution
-| Features               | Open-source | Marble Licence |
+| Features               | Open-source | Enterprise |
 | :----------------------------------------  | :----------------------: | :----------------: |
 | 360 case overview *- Customer data, transaction history, comments...* |            ✅            |         ✅         |
 | Manual triage in custom inboxes |            ✅            |         ✅         |
@@ -82,7 +82,7 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 | ✨ AI SAR generation |            ❌            |         AI Add-on         |
 
 #### Support
-| Developement, Maintenance, Integration and Support Services | Open-source | Marble Licence |
+| Developement, Maintenance, Integration and Support Services | Open-source | Enterprise |
 | :----------------------------------------  | :----------------------: | :----------------: |
 | Weekly updates |            ✅            |         ✅         |
 | Slack Community |            ✅            |         ✅         |
@@ -93,7 +93,7 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 | Custom SLA |            ❌            |         On demand         |
 | EBA subcontracting framework contract |            ❌            |         On demand         |
 
-#### About Premium features
+#### About Enterprise features
 
 The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense. As long as you are running Marble locally with a test setup (using the Firebase auth emulator for end user authentication), you will see all the features, but you will be restricted if you authenticate with a real Firebase auth app.
 
