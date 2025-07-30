@@ -29,6 +29,7 @@ x-backend-environment: &backend-env
 
   CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
+  CREATE_GLOBAL_ADMIN_EMAIL: ${CREATE_GLOBAL_ADMIN_EMAIL:-}
 
   METABASE_SITE_URL: ${METABASE_SITE_URL:-}
   METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-}
@@ -45,7 +46,7 @@ x-frontend-environment: &frontend-env
   MARBLE_API_URL_CLIENT: http://localhost:${HOST_API_PORT:-8080}
   MARBLE_API_URL_SERVER: http://api:8080
 
-  FIREBASE_AUTH_EMULATOR_HOST: localhost:9099
+  FIREBASE_AUTH_EMULATOR_HOST: firebase-auth:9099
   FIREBASE_API_KEY: placeholder
   # default value of FIREBASE_PROJECT_ID must be kept if working with the emulator (and the emulator is running in the docker image below)
   FIREBASE_PROJECT_ID: test-project

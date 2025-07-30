@@ -1,7 +1,5 @@
 locals {
-
   environments = {
-
     production = {
       # TO CONFIGURE
       firebase : {
@@ -13,10 +11,10 @@ locals {
         messagingSenderId : "...",
         appId : "..."
       }
-      
+
       licence_key = ""
 
-      session : {
+      session: {
         secret  = "...", // Change It
         max_age = "43200"
       }
@@ -54,6 +52,14 @@ locals {
         domain             = "..." // Your API Domain (ex. api.xxx.xxx)
         url                = "..." // Your API URL (ex. https://marble-api.xxx.xxx)
         max_instance_count = 3
+      }
+
+      database = {
+        host     = "..."
+        port     = "5432"
+        username = "username"
+        password = "password"
+        name     = "database"
       }
 
       cron = {

@@ -2,7 +2,7 @@
 */*terraform.tfstate.d*/*
 **/.terraform/*
 **/.terraform.lock.hcl
-
+**/locals_environments.prod.tf
 **/config/*
 /kubernetes/**/*.tgz
 
