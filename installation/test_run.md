@@ -13,7 +13,18 @@ This guide explains how to quickly set up a local development environment for Ma
    cd marble
    ```
 
-2. **Start the Environment**
+2. **Configure Firebase Auth Emulator**
+
+   The Firebase Auth emulator runs in a Docker container and needs to be accessible via the hostname `firebase-auth`. Add this entry to your `/etc/hosts` file:
+
+   ```bash
+   # Add this line to /etc/hosts (requires sudo/admin privileges)
+   echo "127.0.0.1 firebase-auth" | sudo tee -a /etc/hosts
+   ```
+
+   > ⚠️ **Important**: This step is required for the Firebase Auth emulator to work properly. Without this, authentication will fail.
+
+3. **Start the Environment**
    ```bash
    docker compose -f docker-compose-dev.yaml  --env-file .env.dev.example up
    ```
@@ -85,6 +96,11 @@ You can enhance your development environment by configuring:
    - Wait for complete startup
    - Check emulator logs
    - Verify port accessibility
+   - Ensure `firebase-auth` is added to `/etc/hosts` (see step 2 above)
+   - Check that `127.0.0.1 firebase-auth` resolves correctly:
+     ```bash
+     ping firebase-auth
+     ```
 
 ### Logs and Debugging
 

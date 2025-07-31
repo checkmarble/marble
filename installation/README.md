@@ -28,9 +28,14 @@ cd marble
 # 2. Copy example environment file
 cp .env.dev.example .env.dev
 
-# 3. Start Marble
+# 3. Configure Firebase Auth Emulator (required for local development)
+echo "127.0.0.1 firebase-auth" | sudo tee -a /etc/hosts
+
+# 4. Start Marble
 docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up
 ```
+
+> ⚠️ **Important**: Step 3 is required for the Firebase Auth emulator to work properly. Without this, authentication will fail in the local development environment.
 
 ## Architecture Overview
 
