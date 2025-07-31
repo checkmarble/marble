@@ -4,8 +4,9 @@ resource "aws_ecs_task_definition" "app" {
   family             = "marble"
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.ecs_exec_role.arn
-  network_mode       = "bridge"
-  memory             = 1024
+  network_mode       = "awsvpc"
+  cpu                = 2048
+  memory             = 4096
 
   container_definitions = jsonencode([{
     name         = "app",
@@ -49,7 +50,7 @@ resource "aws_ecs_task_definition" "app" {
       essential    = true,
       portMappings = [{ containerPort = 8080, hostPort = 8080 }],
 
-      entryPoint : ["./app", "--server", "--migrations"],
+      entryPoint : ["/bin/sh", "-c", "echo $GOOGLE_CREDENTIALS_JSON > /tmp/credentials.json && ./app --server --migrations"],
 
       environment = [
         { name = "DEPLOYMENT_VERSION", value = "0.0.2" },
@@ -60,7 +61,8 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_PORT", value = local.environment.database.port },
         { name = "PG_USER", value = local.environment.database.username },
         { name = "PG_PASSWORD", value = local.environment.database.password },
-        { name = "GOOGLE_APPLICATION_CREDENTIALS", value = "/config/credentials.json" },
+        { name = "GOOGLE_APPLICATION_CREDENTIALS", value = "/tmp/credentials.json" },
+        { name = "GOOGLE_CREDENTIALS_JSON", value = "${file("config/credentials.json")}" },
         { name = "GOOGLE_CLOUD_PROJECT", value = local.environment.firebase.projectId },
         { name = "CREATE_GLOBAL_ADMIN_EMAIL", value = local.environment.org.global },
         { name = "CREATE_ORG_NAME", value = local.environment.org.name },
@@ -82,12 +84,7 @@ resource "aws_ecs_task_definition" "app" {
           "awslogs-group"         = aws_cloudwatch_log_group.ecs.name,
           "awslogs-stream-prefix" = "marble-api"
         }
-      },
-
-      mountPoints : [
-        { "sourceVolume" : "config-volume", "containerPath" : "/config" }
-      ]
-
+      }
 
       # depends_on = [aws_db_instance.rds-marble]
     },
@@ -96,7 +93,7 @@ resource "aws_ecs_task_definition" "app" {
       image     = local.environment.backend.image,
       essential = true,
 
-      entryPoint : ["./app", "--worker"],
+      entryPoint : ["/bin/sh", "-c", "echo $GOOGLE_CREDENTIALS_JSON > /tmp/credentials.json && ./app --worker"],
 
       environment = [
         { name = "ENV", value = "production" },
@@ -105,7 +102,10 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_PORT", value = local.environment.database.port },
         { name = "PG_USER", value = local.environment.database.username },
         { name = "PG_PASSWORD", value = local.environment.database.password },
-        # { name = "INGESTION_BUCKET_URL", value = "data-ingestion-bucket" },
+        { name = "GOOGLE_APPLICATION_CREDENTIALS", value = "/tmp/credentials.json" },
+        { name = "GOOGLE_CREDENTIALS_JSON", value = "${file("config/credentials.json")}" },
+        { name = "GOOGLE_CLOUD_PROJECT", value = local.environment.firebase.projectId },
+        { name = "INGESTION_BUCKET_URL", value = local.environment.cron.s3 },
         # { name = "AWS_REGION", value = var.aws_region },
         # { name = "AWS_ACCESS_KEY", value = var.aws_access_key_id },
         # { name = "AWS_SECRET_KEY", value = var.aws_secret_access_key },
@@ -122,15 +122,10 @@ resource "aws_ecs_task_definition" "app" {
           "awslogs-group"         = aws_cloudwatch_log_group.ecs.name,
           "awslogs-stream-prefix" = "marble-cron"
         }
-      },
+      }
 
       # depends_on = [aws_db_instance.rds-marble]
     }
   ])
-
-  volume {
-    name      = "config-volume"
-    host_path = "/tmp"
-  }
 
 }

@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {
   tags                 = { Name = "marble-vpc" }
 }
 
-# Create Public Subnet 
+# Create Public Subnet
 resource "aws_subnet" "public" {
   count                   = local.azs_count
   vpc_id                  = aws_vpc.main.id

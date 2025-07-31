@@ -25,16 +25,12 @@ resource "aws_ecs_service" "app" {
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
   desired_count   = 1
+  launch_type     = "FARGATE"
 
-  capacity_provider_strategy {
-    capacity_provider = aws_ecs_capacity_provider.main.name
-    base              = 1
-    weight            = 100
-  }
-
-  ordered_placement_strategy {
-    type  = "spread"
-    field = "attribute:ecs.availability-zone"
+  network_configuration {
+    subnets          = aws_subnet.public[*].id
+    security_groups  = [aws_security_group.ecs_task.id]
+    assign_public_ip = true
   }
 /*
   lifecycle {

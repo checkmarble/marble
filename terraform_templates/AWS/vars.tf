@@ -5,7 +5,7 @@
  variable "aws_profile" {
   type        = string
   description = "Default AWS Profile to use"
-  default     = "pixpay" // TO BE CHANGED
+  default     = "rattrap" // TO BE CHANGED
 }
 
 variable "aws_region" {
@@ -30,5 +30,5 @@ variable "aws_key_pair" {
 variable "domain" {
   type        = string
   description = "Domain associated with the site (An SSL Certificate must be associated to this domain *)"
-  default     = "*.pixpay.app" // TO BE CHANGED
+  default     = "*.rattrap.com" // TO BE CHANGED
 }
