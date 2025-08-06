@@ -77,7 +77,7 @@ resource "aws_db_instance" "rds-marble" {
   engine_version              = "15"
   publicly_accessible         = true
   allow_major_version_upgrade = true
-  max_allocated_storage  = 1000 
+  max_allocated_storage  = 3000 
   
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.marble_rds_subnet_group.name

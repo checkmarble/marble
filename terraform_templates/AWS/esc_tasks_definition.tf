@@ -73,6 +73,9 @@ resource "aws_ecs_task_definition" "app" {
         { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env },
         { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
         { name = "SEGMENT_WRITE_KEY", value = local.environment.segment_write_key.backend },
+        { name = "CONVOY_API_URL", value = local.environment.convoy.url },
+        { name = "CONVOY_API_KEY", value = local.environment.convoy.key },
+        { name = "CONVOY_PROJECT_ID", value = local.environment.convoy.project_id },
         { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "${file("config/private.key")}" }
       ]
 
