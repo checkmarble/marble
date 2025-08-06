@@ -1,4 +1,5 @@
-![GITHUB](https://github.com/checkmarble/marble/assets/130587542/f5b6e99c-9e26-4c92-a6d4-37d7ea4b900e)
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
+![GITHUB](https://github.com/user-attachments/assets/f8408864-d603-4ecd-a066-0da96ab9b8b9)
 
 Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
 
@@ -13,15 +14,21 @@ Marble is developed with compliance requirements in mind, ensuring that everythi
 **Open-source, open architecture:**
 
 - Composable: Connect Marble to any of your internal systems or tools, such as transaction databases, KYC solutions, or 3rd party data providers.
-- Pricing: Our self-hosted version is free. Our cloud version is priced like a SaaS and is surprisingly cheaper than market leaders.
-- Privacy: Your data never has to leave your infrastructure.
+- Pricing: We offer a free open source self-hosted option and a licensed option with Enterprise features which can be deployed Self-hosted or SaaS.
+- Privacy: With the Self-hosted option, your data never has to leave your infrastructure.
 
-NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with :)
+NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble :)
 <br>
-<img width="600" alt="Rule example" src="https://github.com/checkmarble/marble/assets/130587542/e4016997-9329-49ed-b62f-266b911367e2" class="center">
+<img width="600" alt="Rule example" src="https://github.com/user-attachments/assets/498ce248-6f85-40a0-b1dc-ea6efe7425f9" class="center">
 <br><br>
 
-### **🔖 License**
+
+### 👋 We are happy to help !
+
+Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
+
+
+### **🔖 Open Source License**
 
 ---
 
@@ -34,38 +41,61 @@ The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-
 
 *See full licence for details*<br><br>
 
-### **✨Features**
+### **✨ Feature Comparision : Open-source vs Enterprise**
 
 ---
 
-**Open-source vs licensed**
+#### Fraud & Compliance Monitoring Solution
 
-|                                            | Open-source (Elastic V2) | Licenced by Marble |
-| :----------------------------------------: | :----------------------: | :----------------: |
-|         Scenario and rule builder          |            ✅            |         ✅         |
-|             Real time & batch              |            ✅            |         ✅         |
-|                Audit trail                 |            ✅            |         ✅         |
-|                Case manager                |            ✅            |         ✅         |
-|          Decision & Ingestion API          |            ✅            |         ✅         |
-|                   Lists                    |            ✅            |         ✅         |
-|                 Workflows                  |            ❌            |         ✅         |
-|                    SSO                     |            ❌            |         ✅         |
-|              Role management               |            ❌            |         ✅         |
-|                  Webhooks                  |       Partial            |         ✅         |
-|                 Test mode                  |            ❌            |         ✅         |
-|           Sanction checks                  |            ❌            |         ✅         |
-| Direct tech support with SLA & hot patches |            ❌            |         ✅         |
-|       Rule snoozing by end customer        |            ❌            |         ✅         |
-|             Community support              |            ✅            |         ✅         |
-| Rights to use for 3rd party services       |            ❌            |         ✅         |
+| Features | Open-source | Enterprise |
+| :----------------------------------------  | :----------------------: | :----------------: |
+| Flexible Data Model |            ✅            |         ✅         |
+| Flexible No Code Rule engine *- Any geography, transfer methods, ...* |            ✅            |         ✅         |
+| Unlimited scenarios |            ✅            |         ✅         |
+| Risk scoring |            ✅            |         ✅         |
+| Real time & Batch runs |            ✅            |         ✅         |
+| Ingestion & Decision API |            ✅            |         ✅         |
+| KPIs & Dashboards |            ✅            |         ✅         |
+| Audit trail |            ✅            |         ✅         |
+| Unlimited number of users |            ✅            |         ✅         |
+| SSO |       ❌            |         ✅         |
+| Role Management |            ❌            |         ✅         |
+| Webhooks |            ❌            |         ✅         |
+| Sandbox test mode |            ❌            |         ✅         |
+| Customer Screening against Lists |            ❌            |         Screening Add-on         |
+| Payments Screening against Lists |            ❌            |         Screening Add-on         |
+| ✨ AI Smart-Filtering for Screening |            ❌            |         Screening Add-on         |
 
----
+#### Case Management solution
+| Features               | Open-source | Enterprise |
+| :----------------------------------------  | :----------------------: | :----------------: |
+| 360 case overview *- Customer data, transaction history, comments...* |            ✅            |         ✅         |
+| Manual triage in custom inboxes |            ✅            |         ✅         |
+| SAR planning & tracking |            ✅            |         ✅         |
+| Automatic grouping in custom inboxes |            ❌            |         ✅         |
+| Automatic alert grouping in cases |            ❌            |         ✅         |
+| Custom Workflows |            ❌            |         ✅         |
+| Escalation rules |            ❌            |         ✅         |
+| Rule snoozing |            ❌            |         ✅         |
+| Case snoozing |            ❌            |         ✅         |
+| ✨ AI Analyst |       ❌            |         AI Add-on         |
+| ✨ AI SAR generation |            ❌            |         AI Add-on         |
 
-#### Premium features
+#### Support
+| Developement, Maintenance, Integration and Support Services | Open-source | Enterprise |
+| :----------------------------------------  | :----------------------: | :----------------: |
+| Weekly updates |            ✅            |         ✅         |
+| Slack Community |            ✅            |         ✅         |
+| Dedicated Solution Engineer |            ❌            |         ✅         |
+| Priority support & Hotfix |            ❌            |         ✅         |
+| Slack private channel |            ❌            |         ✅         |
+| Rule building assistance |            ❌            |         On demand         |
+| Custom SLA |            ❌            |         On demand         |
+| EBA subcontracting framework contract |            ❌            |         On demand         |
 
-The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense (in our cloud offering or on-premise). You can find the list of available features in our [pricing page](https://www.checkmarble.com/pricing).
+#### About Enterprise features
 
-As long as you are runnig Marble locally with a test setup (using the Firebase auth emulator for end user authentication), you will see all the features, but you will be restricted if you authenticate with a real Firebase auth app.
+The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense. As long as you are running Marble locally with a test setup (using the Firebase auth emulator for end user authentication), you will see all the features, but you will be restricted if you authenticate with a real Firebase auth app.
 
 ### 💭 **Example Use Cases**
 
@@ -82,12 +112,6 @@ Marble's incredible flexibility is due to its fully open data model. Here are so
 - Embedded in financial SaaS: fine control of expenses for end users.
 
 Feel free to try other use cases and let us know! We'd love to hear from you.
-
-### :running: **Roadmap**
-
----
-
-We're transparent on what we're working on, see [here](https://github.com/checkmarble/marble/tree/main/roadmap)
 
 ### 🕵 **How to use Marble**
 
@@ -141,9 +165,5 @@ We want to create an open environment and appreciate all types of contributions 
 - Help with bugs and features on our Issues page
 - Submit a feature request or bug report
   <br><br>
-
-### Contact us
-
-Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
 
 Made with :heart: in :fr: by Marble

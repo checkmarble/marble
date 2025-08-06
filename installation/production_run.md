@@ -75,9 +75,8 @@ The .env file expects two different buckets for the two purposes, but you may us
 2. **Configure Authentication**
 
    - Enable Firebase Authentication
-   - Go to Project overview → project settings → Service Accounts → Generate new private key
-   - Create service account
-   - Download service account key
+   - Go to Project overview → project settings → Service Accounts → Generate new private key (or if you are using GCP to deploy Marble, create a service account with the relevant permissions, and give it specifically the permission to list and edit Firebase Auth users)
+   - Optionally (but preferably), use the [Marble password reset email](../contrib/firebase_email_reset_mail.html) as a custom template for Firebase auth password reset (Adjust the app URL !). This can be configured at https://console.firebase.google.com/u/0/project/{projectId}/authentication/emails under the "password reset" section.
 
 3. **Configure Domain**
 

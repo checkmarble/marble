@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.42.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.47.4
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.42.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.47.4
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
@@ -125,7 +125,12 @@ services:
     depends_on:
       - api
     healthcheck:
-      test: curl --fail http://localhost:${APP_PORT:-8080}/healthcheck || exit 1
+      test:
+        - CMD
+        - /nodejs/bin/node
+        - --input-type=module
+        - -e
+        - "process.exit((await fetch('http://localhost:${APP_PORT:-8080}/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
@@ -157,7 +162,7 @@ services:
       - marble-es:/usr/share/elasticsearch/data
   yente:
     container_name: marble-yente
-    image: ghcr.io/opensanctions/yente:4.2.3
+    image: ghcr.io/opensanctions/yente:4.3.1
     depends_on:
       - elasticsearch
     command:
@@ -177,7 +182,7 @@ services:
       YENTE_AUTO_REINDEX: false
   yente-indexer:
     container_name: marble-yente-indexer
-    image: ghcr.io/opensanctions/yente:4.2.3
+    image: ghcr.io/opensanctions/yente:4.3.1
     depends_on:
       - elasticsearch
     command: ["yente", "reindex"]
