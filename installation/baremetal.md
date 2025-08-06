@@ -62,7 +62,7 @@ Add the Firebase service account JSON key into the configuration directory and g
 Generate a 4096-bit RSA private key to be used as a signing secret for session tokens:
 
 ```bash
-# openssl genrsa -out /etc/marble/jwtsignignkey.key
+# openssl genrsa -out /etc/marble/jwtsigningkey.key
 # chown root:marble /etc/marble/jwtsigningkey.key && chmod 740 /etc/marble/jwtsigningkey.key
 ```
 
