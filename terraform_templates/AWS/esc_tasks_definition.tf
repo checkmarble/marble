@@ -5,7 +5,7 @@ resource "aws_ecs_task_definition" "app" {
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.ecs_exec_role.arn
   network_mode       = "bridge"
-  memory             = 256
+  memory             = 1024
 
   container_definitions = jsonencode([{
     name         = "app",
@@ -59,20 +59,23 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_HOSTNAME", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 0)}" },
         { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
         { name = "PG_USER", value = "postgres" },
+        { name = "INGESTION_BUCKET_URL", value = "-" },
         { name = "PG_PASSWORD", value = "${random_string.rds-db-password.result}" },
         { name = "GOOGLE_APPLICATION_CREDENTIALS", value = "/config/credentials.json" },
         { name = "GOOGLE_CLOUD_PROJECT", value = local.environment.firebase.projectId },
         { name = "CREATE_GLOBAL_ADMIN_EMAIL", value = local.environment.org.global },
         { name = "CREATE_ORG_NAME", value = local.environment.org.name },
         { name = "CREATE_ORG_ADMIN_EMAIL", value = local.environment.org.admin },
-        { name = "MARBLE_APP_URL", value = local.environment.frontend.domain },
-        { name = "MARBLE_BACKOFFICE_HOST", value = local.environment.backend.domain },
+        { name = "MARBLE_APP_URL", value = local.environment.frontend.url },
         { name = "SESSION_SECRET", value = local.environment.session.secret },
         { name = "SESSION_MAX_AGE", value = local.environment.session.max_age },
         { name = "LICENSE_KEY", value = local.environment.licence_key },
         { name = "SENTRY_ENVIRONMENT", value = local.environment.sentry.backend.env },
         { name = "SENTRY_DSN", value = local.environment.sentry.backend.dsn },
         { name = "SEGMENT_WRITE_KEY", value = local.environment.segment_write_key.backend },
+        { name = "CONVOY_API_URL", value = local.environment.convoy.url },
+        { name = "CONVOY_API_KEY", value = local.environment.convoy.key },
+        { name = "CONVOY_PROJECT_ID", value = local.environment.convoy.project_id },
         { name = "AUTHENTICATION_JWT_SIGNING_KEY", value = "${file("config/private.key")}" }
       ]
 
@@ -95,7 +98,7 @@ resource "aws_ecs_task_definition" "app" {
     {
       name      = "cron",
       image     = local.environment.backend.image,
-      essential = true,
+      essential = false,
 
       entryPoint : ["./app", "--worker"],
 
@@ -106,7 +109,7 @@ resource "aws_ecs_task_definition" "app" {
         { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
         { name = "PG_USER", value = "postgres" },
         { name = "PG_PASSWORD", value = "${random_string.rds-db-password.result}" },
-        # { name = "INGESTION_BUCKET_URL", value = "data-ingestion-bucket" },
+        { name = "INGESTION_BUCKET_URL", value = "-" },
         { name = "AWS_REGION", value = var.aws_region },
         { name = "AWS_ACCESS_KEY", value = var.aws_access_key_id },
         { name = "AWS_SECRET_KEY", value = var.aws_secret_access_key },
