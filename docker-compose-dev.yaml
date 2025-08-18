@@ -53,7 +53,7 @@ x-frontend-environment: &frontend-env
 services:
   db:
     container_name: marble-postgres
-    image: postgres:17
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: postgres
