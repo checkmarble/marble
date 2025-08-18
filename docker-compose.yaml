@@ -67,7 +67,7 @@ services:
   # suggest using a production-grade database to run Marble in a production environment
   db:
     container_name: marble-postgres
-    image: postgres:17
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: postgres
