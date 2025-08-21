@@ -3,7 +3,7 @@ name: marble
 x-backend-image-version: &backend-image-version
   image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.49.0
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.49.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.49.1
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
