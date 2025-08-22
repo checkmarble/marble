@@ -27,6 +27,9 @@ resource "aws_security_group" "http" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags                   = {
+    Name = "RiskTool - LB - Prod"
+  }
 }
 
 resource "aws_lb" "main" {
@@ -47,10 +50,10 @@ resource "aws_lb_target_group" "app" {
     enabled             = true
     path                = "/healthcheck"
     matcher             = 200
-    interval            = 30
-    timeout             = 5
+    interval            = 60
+    timeout             = 30
     healthy_threshold   = 2
-    unhealthy_threshold = 3
+    unhealthy_threshold = 5
   }
 }
 
@@ -65,10 +68,10 @@ resource "aws_lb_target_group" "api" {
     enabled             = true
     path                = "/liveness"
     matcher             = 200
-    interval            = 10
-    timeout             = 5
+    interval            = 60  # Augmente l'intervalle à 60s
+    timeout             = 30  # Augmente le timeout à 30s
     healthy_threshold   = 2
-    unhealthy_threshold = 3
+    unhealthy_threshold = 5  # Plus tolérant aux échecs
   }
   lifecycle {
     create_before_destroy = true
