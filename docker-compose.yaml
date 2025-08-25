@@ -139,6 +139,17 @@ services:
       - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
     environment:
       <<: [*shared-env, *frontend-env]
+  worker-monitor:
+    container_name: marble-worker-monitor
+    image: ghcr.io/riverqueue/riverui:latest
+    ports:
+      - ${WORKER_MONITOR_PORT:-8081}:8080
+    environment:
+      DATABASE_URL: "postgresql://postgres:${PG_PASSWORD:-changeme}@db:${PG_PORT:-5432}/marble"
+      RIVER_BASIC_AUTH_USER: ${RIVER_BASIC_AUTH_USER:-}
+      RIVER_BASIC_AUTH_PASS: ${RIVER_BASIC_AUTH_PASS:-}
+    depends_on:
+      - db
 
   # NB: the docker compose file includes an elasticsearch image for the sake of completeness, but we strongly
   # suggest using a production-grade instance to run Marble in a production environment
