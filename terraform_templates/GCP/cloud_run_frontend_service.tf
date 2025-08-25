@@ -95,11 +95,6 @@ resource "google_cloud_run_v2_service" "frontend" {
         value = local.environment.backend.url
       }
 
-      env {
-        name  = "MARBLE_API_URL_CLIENT"
-        value = local.environment.backend.url
-      }
-
       ports {
         name           = "http1"
         container_port = 8080

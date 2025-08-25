@@ -200,9 +200,7 @@ Reference the following files for detailed configuration:
 
 2. **API URL Configuration**
 
-   - Frontend needs two API URLs configured:
-     - `MARBLE_API_URL_CLIENT`: URL for browser requests (public URL)
-       - Example: `https://api.yourdomain.com`
+   - Frontend needs one API URL configured:
      - `MARBLE_API_URL_SERVER`: URL for container-to-container requests
        - Example: `http://api:8080` (Docker internal network)
    - Incorrect configuration leads to:
