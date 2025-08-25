@@ -22,7 +22,6 @@ resource "aws_ecs_task_definition" "app" {
       { name = "MARBLE_APP_URL", value = local.environment.frontend.url },
       { name = "MARBLE_API_URL", value = local.environment.backend.url },
       { name = "MARBLE_API_URL_SERVER", value = local.environment.backend.url },
-      { name = "MARBLE_API_URL_CLIENT", value = local.environment.backend.url },
       { name = "FIREBASE_API_KEY", value = local.environment.firebase.apiKey },
       { name = "FIREBASE_AUTH_DOMAIN", value = local.environment.firebase.authDomain },
       { name = "FIREBASE_PROJECT_ID", value = local.environment.firebase.projectId },
