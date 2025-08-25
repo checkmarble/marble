@@ -173,8 +173,6 @@ Copy the [example configuration](https://github.com/checkmarble/marble-frontend/
 - `ENV` should be set to `production`.
 Note that this will require setting up TLS certificates to access the frontend. If prototyping without TLS, set this to `development`.
 - Set a random, high-entropy `SESSION_SECRET`.
-- `MARBLE_API_URL_CLIENT` should be the internal HTTP base the frontend uses to reach the API.
-If installed on the same machine, this can be `http://127.0.0.1:8080`.
 - `MARBLE_API_URL_SERVER` should be the external HTTP base your users’ browsers can use to reach the API.
 - `MARBLE_APP_URL` should be set to the external HTTP base your users’ browsers can use to reach the frontend.
 - Set the different Firebase configuration settings with the information retrieved from your Firebase account.

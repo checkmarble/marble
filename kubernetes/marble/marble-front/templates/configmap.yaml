@@ -10,8 +10,6 @@ data:
   SESSION_SECRET: !!str {{ .Values.configMap.sessionSecret }}
   SESSION_MAX_AGE: !!str {{ .Values.configMap.sessionMaxAge }}
 
-  MARBLE_API_URL_CLIENT: !!str {{ .Values.configMap.marbleApiUrlClient }}
-  
   MARBLE_API_URL_SERVER:  !!str {{ .Values.configMap.marbleApiUrlServer }}
   MARBLE_APP_URL: !!str {{ .Values.configMap.marbleAppUrl }}
 
