@@ -225,7 +225,7 @@ Reference the following files for detailed configuration:
 
 2. **API URL Configuration**
 
-   - Frontend needs one API URLs configured:
+   - Frontend needs one API URL configured:
 
      - `MARBLE_API_URL_SERVER`: URL for container-to-container requests
        - Example: `http://api:8080` (Docker internal network)
