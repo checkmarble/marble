@@ -9,3 +9,5 @@ For a given release of the Marble app (= release tag on the https://github.com/c
 
 - `x-backend-image-version` and `x-frontend-image-version` can be found at the top of the docker-compose.yaml file of the repository
 - the relevant version tags can also be found in the `kubernetes/.versions` file
+
+When upgrading, always starts with the backend and wait for the eventual migrations to run. Then update the front-end and the worker.
