@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.49.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.50.1
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.49.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.50.1
 
 x-shared-environment: &shared-env
   ENV: development
@@ -145,7 +145,7 @@ services:
       - marble-es:/usr/share/elasticsearch/data
   yente:
     container_name: marble-yente
-    image: ghcr.io/opensanctions/yente:4.3.1
+    image: ghcr.io/opensanctions/yente:4.5.1
     depends_on:
       - elasticsearch
     ports:
