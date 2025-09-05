@@ -11,6 +11,8 @@ These decisions can trigger events in your systems, introduce friction, or restr
 
 Marble is developed with compliance requirements in mind, ensuring that everything is versioned and auditable without any time limitations.
 
+See it in action: [Watch a demo](https://www.checkmarble.com/watch-a-demo)
+
 **Open-source, open architecture:**
 
 - Composable: Connect Marble to any of your internal systems or tools, such as transaction databases, KYC solutions, or 3rd party data providers.
