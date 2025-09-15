@@ -108,7 +108,12 @@ services:
       - api
       - firebase_auth
     healthcheck:
-      test: curl --fail http://localhost:8080/healthcheck || exit 1
+      test:
+        - CMD
+        - /nodejs/bin/node
+        - --input-type=module
+        - -e
+        - "process.exit((await fetch('http://localhost:${APP_PORT:-8080}/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
