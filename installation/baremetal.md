@@ -206,7 +206,7 @@ And start the frontend service by running:
 
 ```bash
 # systemctl daemon-reload
-# systmctl enable --now marble-front
+# systemctl enable --now marble-front
 ```
 
 ### Check that the frontend is runing
