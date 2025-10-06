@@ -1,7 +1,7 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.52.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.52.1
 x-frontend-image-version: &frontend-image-version
   image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.52.0
 
@@ -47,6 +47,14 @@ x-backend-environment: &backend-env
   OPENSANCTIONS_API_HOST: ${OPENSANCTIONS_API_HOST}
   OPENSANCTIONS_AUTH_METHOD: ${OPENSANCTIONS_AUTH_METHOD}
   OPENSANCTIONS_API_KEY: ${OPENSANCTIONS_API_KEY}
+
+  OFFLOADING_ENABLED: ${OFFLOADING_ENABLED}
+  OFFLOADING_BUCKET_URL: ${OFFLOADING_BUCKET_URL}
+  OFFLOADING_JOB_INTERVAL: ${OFFLOADING_JOB_INTERVAL}
+  OFFLOADING_BEFORE: ${OFFLOADING_BEFORE}
+  OFFLOADING_BATCH_SIZE: ${OFFLOADING_BATCH_SIZE}
+  OFFLOADING_SAVE_POINTS: ${OFFLOADING_SAVE_POINTS}
+  OFFLOADING_WRITES_PER_SEC: ${OFFLOADING_WRITES_PER_SEC}
 x-frontend-environment: &frontend-env
   NODE_ENV: production
   PORT: ${APP_PORT:-8080}

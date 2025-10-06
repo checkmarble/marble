@@ -52,6 +52,8 @@ Purpose:
 
 - Store CSV files for batch ingestion
 - Store documents for case management
+- Offload detailed data on rule execution from the main database, which would otherwise use up a lot of storage volume for nothing
+- Parquet data storage for analytics queries
 
 Supported Providers:
 
@@ -62,6 +64,8 @@ Supported Providers:
 
 Configuration details are available in `.env.example`.
 The .env file expects two different buckets for the two purposes, but you may use the same bucket for both.
+
+> ⚠️ **Note**: We strongly suggest you configure data offloading to run in production. See [data offloading](./data_offloading.md)
 
 ### 3. Firebase Authentication
 
