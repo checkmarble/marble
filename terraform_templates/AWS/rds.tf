@@ -48,13 +48,34 @@ resource "aws_security_group" "rds" {
   vpc_id      = aws_vpc.main.id
   name        = "rds-sg"
   description = "Allow inbound for Postgres from EC2 SG"
+  
+  # Accès depuis les instances ECS
   ingress {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
     security_groups = [aws_security_group.ecs_node_sg.id]
   }
-  tags                   = {
+  
+  # Accès depuis Export Server
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["13.36.223.66/32"]
+    description = "Export Server"
+  }
+  
+  # Accès depuis Bureau
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["84.14.164.14/32"]
+    description = "Bureau"
+  }
+  
+  tags = {
     Name = "RiskTool - DB - Prod"
   }
 }
