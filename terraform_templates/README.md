@@ -42,7 +42,83 @@ The GCP terraform files are largely inspired from Marble's internal cloud deploy
   - Create a folder named config (gitignored) under `terraform_templates/AWS`
   - Copy in this folder the file credentials.json (Downloaded from Google console and associated to your service account)
   - Genrate a RSA Private key (2048 Bits) and copy its content into a file named private.key
-- Run `terraform apply` in `terraform_templates/AWS`
+  - Copy all your environment variables and secrets in a file named `environments.private.json` in the `config` folder (see example structure below)
+
+#### Example: `config/environments.private.json`
+```json
+locals {
+
+  environments = {
+
+    production = {
+      # TO CONFIGURE
+      firebase : {
+        // Copy the JSON Configuration File from Firebase Console
+        apiKey : "...",
+        authDomain : "...",
+        projectId : "...",
+        storageBucket : "...",
+        messagingSenderId : "...",
+        appId : "..."
+      }
+      
+      licence_key = ""
+
+      session : {
+        secret  = "...", // Change It
+        max_age = "43200"
+      }
+
+      org : {
+        global = "...@...", // Gloabl Admin Email Address
+        name   = "...", // Organization name
+        admin  = "...@..." // Organization Admin Email Address
+      }
+
+      segment_write_key = {
+        frontend = "bEDdodQ5CBrUFeaHvVClSf0BfuWYyzeN",
+        backend  = "JeAT8VCKjBs7gVrFY23PG7aSMPqcvNFE"
+      }
+
+      sentry = {
+        frontend = {
+          dsn = "...",
+          env = "prod"
+        }
+        backend  = {
+          dsn  =  "...",
+          env   =  "prod"
+        }
+      }
+
+      frontend = {
+        image  = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:latest"
+        domain = "..." // Your Application Domain (ex. app.xxx.xxx)
+        url    = "..." // Your Application URL (ex. https://marble-app.xxx.xxx)
+      }
+
+      backend = {
+        image              = "europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:latest"
+        domain             = "..." // Your API Domain (ex. api.xxx.xxx)
+        url                = "..." // Your API URL (ex. https://marble-api.xxx.xxx)
+        max_instance_count = 3
+      }
+
+      cron = {
+        s3 = "" // S3 for file ingestion ??
+      }
+    }
+
+  }
+}
+
+```
+- Le fichier `locals_environments.tf` charge désormais ces données via :
+  ```hcl
+  locals {
+    environments = jsondecode(file("${path.module}/config/environments.private.json")).environments
+  }
+  ```
 
 At the end of the deployment, you should be able to access the application at the URL provided by terraform and set the domain as CNAME record both for your application domain and you api domain
 
