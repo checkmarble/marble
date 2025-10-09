@@ -87,12 +87,18 @@ The .env file expects two different buckets for the two purposes, but you may us
    - Go to Authentication → Settings → Authorized Domains
    - Add your Marble application domain (should use https)
 
-4. **Optional: Configure sign-in with Google/Microsoft**
+4. **Add an app to your project**
+
+   - From your project homepage, go to Add app → Web
+   - Choose a name and click on Register app
+   - In the Firebase SDK section, keep "Use npm" ticked and click on Continue to console
+
+5. **Optional: Configure sign-in with Google/Microsoft**
 
    - [Google Sign-in](https://firebase.google.com/docs/auth/web/google-signin)
    - [Microsoft Sign-in](https://firebase.google.com/docs/auth/web/microsoft-oauth)
 
-5. **Environment Setup**
+6. **Environment Setup**
 
    #### Backend
 
@@ -102,6 +108,16 @@ The .env file expects two different buckets for the two purposes, but you may us
    #### Frontend
 
    - Configure Firebase variables (see `.env.example`)
+  
+   Here is where you can find the values for all these backend and frontend variables:
+   - **FIREBASE_PROJECT_ID:** Project settings → General → Project ID
+   - **FIREBASE_API_KEY:** Project settings → General → Web API Key
+   - **FIREBASE_AUTH_DOMAIN:** Project settings → General → scroll down to the SDK setup and configuration section of your web app → authDomain value
+   - **FIREBASE_APP_ID:** Project settings → General → SDK setup and configuration section of your web app → appId value
+  
+7. **Optional: Custom onboarding email**
+
+   - You can set up a custom onboarding email that will be sent when you add a user to your Marble instance, as described in [Firebase onboarding email](./firebase_onboarding_email.md)
 
 > 💡 **Cost**: Firebase Auth free tier should be sufficient, but credit card required for project setup.
 
