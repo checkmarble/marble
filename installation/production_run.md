@@ -140,6 +140,10 @@ By default, it will be assumed that the service account's Google Cloud project i
    - **FIREBASE_API_KEY:** Project settings → General → Web API Key
    - **FIREBASE_AUTH_DOMAIN:** Project settings → General → scroll down to the SDK setup and configuration section of your web app → authDomain value
    - **FIREBASE_APP_ID:** Project settings → General → SDK setup and configuration section of your web app → appId value
+  
+7. **Optional: Custom onboarding email**
+
+   - You can set up a custom onboarding email that will be sent when you add a user to your Marble instance, as described in [Firebase onboarding email](./firebase_onboarding_email.md)
 
 > 💡 **Cost**: Firebase Auth free tier should be sufficient, but credit card required for project setup.
 
