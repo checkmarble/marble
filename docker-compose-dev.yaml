@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.52.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.2
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.52.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.0
 
 x-shared-environment: &shared-env
   ENV: development
@@ -23,6 +23,7 @@ x-backend-environment: &backend-env
   CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL:-}
 
   FIREBASE_AUTH_EMULATOR_HOST: firebase-auth:9099
+  FIREBASE_API_KEY: placeholder
 
   # default value of GOOGLE_CLOUD_PROJECT must be kept if working with the emulator (and the emulator is running in the docker image below)
   GOOGLE_CLOUD_PROJECT: test-project
@@ -42,12 +43,9 @@ x-frontend-environment: &frontend-env
   SESSION_SECRET: ${SESSION_SECRET:-}
   SESSION_MAX_AGE: 43200
 
-  MARBLE_API_URL_SERVER: http://api:8080
+  MARBLE_API_URL: http://api:8080
 
-  FIREBASE_AUTH_EMULATOR_HOST: localhost:9099
-  FIREBASE_API_KEY: placeholder
-  # default value of FIREBASE_PROJECT_ID must be kept if working with the emulator (and the emulator is running in the docker image below)
-  FIREBASE_PROJECT_ID: test-project
+  TEST_FIREBASE_AUTH_EMULATOR_HOST: localhost:9099
 
 services:
   db:
