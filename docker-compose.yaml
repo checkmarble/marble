@@ -1,19 +1,19 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.52.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.2
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.52.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.0
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
-  MARBLE_APP_URL: ${MARBLE_APP_URL}
   SENTRY_DSN: ${SENTRY_DSN}
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
 x-backend-environment: &backend-env
   LICENSE_KEY: ${LICENSE_KEY}
 
   PORT: ${API_PORT:-8080}
+  MARBLE_APP_URL: ${MARBLE_APP_URL}
 
   PG_HOSTNAME: ${PG_HOSTNAME}
   PG_PORT: ${PG_PORT}
@@ -30,13 +30,14 @@ x-backend-environment: &backend-env
   GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
   GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
 
+  FIREBASE_API_KEY: ${FIREBASE_API_KEY}
+  FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID}
+
   REQUEST_LOGGING_LEVEL: ${REQUEST_LOGGING_LEVEL}
   LOGGING_FORMAT: ${LOGGING_FORMAT}
 
   CREATE_ORG_NAME: ${CREATE_ORG_NAME}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL}
-
-  FIREBASE_API_KEY: ${FIREBASE_API_KEY}
 
   METABASE_SITE_URL: ${METABASE_SITE_URL}
   METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY}
@@ -64,7 +65,7 @@ x-frontend-environment: &frontend-env
   SESSION_SECRET: ${SESSION_SECRET}
   SESSION_MAX_AGE: ${SESSION_MAX_AGE}
 
-  MARBLE_API_URL_SERVER: ${MARBLE_API_URL_SERVER}
+  MARBLE_API_URL: ${MARBLE_API_URL}
 
 services:
   # NB: the docker compose file includes a postgres image for the sake of completeness, but we strongly

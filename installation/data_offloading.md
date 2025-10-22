@@ -15,7 +15,8 @@ The `OFFLOADING_JOB_INTERVAL`, `OFFLOADING_BEFORE`, `OFFLOADING_BATCH_SIZE`, `OF
 
 ### Storage classes
 
-Old decisions are likely to be rarely consulted. For further cost savings, we recommend you configure your blob storage bucket to automatically move the data to long-term storage classes using lifecycle rules. Objects are stored by decision status prefix (`offloading/decision_rules/{status}` where `status` is one of `error`, `hit`, `no_hit`), so it is possible in most blob storage solutions to configure different lifecycle rules for rules that did or did not result in a hit.
+The objects thus stored have a small size, even if they are cumbersome to store in a relational database. We strongly suggest that you write the objects to the "standard" object class, and do not use any lifecycle rules other than (optionally) deleting objects after a given time. Deleting the objects under `{bucket}/offloading/decision_rules` will not cause any errors in the application.
 
-Data offloaded to Google Cloud Storage may further use the custom time metadata attribute instead of the object's creation time for lifecycle rules.
-As an example, Marble's managed environment moves objects to "Nearline" storage class after a month, "Coldline" after 3 months and "Archive" after a year.
+Specifically, moving objects to "archive" type storage classes is dangerous because the per-operation cost greatly exceeds the storage cost.
+
+Objects are stored by decision status prefix (`offloading/decision_rules/{status}` where `status` is one of `error`, `hit`, `no_hit`), so it is possible in most blob storage solutions to configure different lifecycle rules for rules that did or did not result in a hit.
