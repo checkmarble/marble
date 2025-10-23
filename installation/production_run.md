@@ -22,6 +22,7 @@ Before starting a production deployment, ensure you have:
 - Firebase project
 - Convoy instance if you need webhooks
 - Yente+Elasticsearch setup if you need sanction checks
+- We do not recommend usage of docker compose for a production-ready deployment of Marble
 
 ## Detailed Dependencies Setup
 
@@ -208,7 +209,9 @@ The Marble platform consists of three services:
 
 ## App Configuration
 
-Reference the following files for detailed configuration:
+You will find a complete guide of environment variables to pass to the Marble app in [our documentation](https://docs.checkmarble.com/docs/technical-configuration#/).
+
+Alternatively, you can also inspire yourself from the docker compose example:
 
 - `.env.example`: Environment variables
 - `docker-compose.yaml`: Service configuration
