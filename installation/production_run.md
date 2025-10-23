@@ -272,3 +272,7 @@ You can verify that those value match your environment if you encounter any issu
 
 - [Deployment Architecture](./README.md#system-architecture)
 - [Version Upgrade Guide](./README.md#version-management)
+
+5. **Sign-in fields inactive**
+
+The app's sign-in fields may be inactive without further error if the app fails to hydrate on the browser side. Because Marble uses server-side rendering, such errors may happen if you inject additional js files (for example using Cloudflare's rocket loader) in a layer "between" the server-side render and the browser-side render.
