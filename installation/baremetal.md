@@ -70,20 +70,21 @@ Copy the [example configuration](https://github.com/checkmarble/marble-backend/b
 
 - Set the `PG_*` variables to point to your PostgresSQL instance.
 - Set the `GOOGLE_CLOUD_PROJECT` to the ID of your Firebase project.
-- The `GOOGLE_APPLICATION_CREDENTIALS` should contain the path to the JSON private key file downloaded from Firebase.
+- The `GOOGLE_APPLICATION_CREDENTIALS` should contain the path to the JSON private key file downloaded from Firebase/GCP.
+- Set `FIREBASE_API_KEY` with the information retrieved from your Firebase account.
 - Set `AUTHENTICATION_JWT_SIGNING_KEY_FILE` to point to the generated RSA private key at `/etc/marble/jwtsigningkey.pem`.
 - `*_BUCKET_URL`should point to buckets in your blob storage platform (S3, Azure Blob or GCS).
-If you are using Minio, use a URL such as `s3://<bucket>?awssdk=v1&endpoint=minio.domain.com&region=us-east-1&s3ForcePathStyle=true`. In this case, you may also add `disableSSL=true` if your MinIO instance is in cleartext.
-You might have to add provider-specific configuration, for example for authentication (for S3 and MinIO, for example, set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
-- Set the `CREATE_*` variables to specify your initial organization and admin user.
+  If you are using Minio, use a URL such as `s3://<bucket>?awssdk=v1&endpoint=minio.domain.com&region=us-east-1&s3ForcePathStyle=true`. In this case, you may also add `disableSSL=true` if your MinIO instance is in cleartext.
+  You might have to add provider-specific configuration, for example for authentication (for S3 and MinIO, for example, set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`).
+- Set the `CREATE_*` variables to specify your initial organization and admin user - this needs to be run only once and can be omitted after the first run.
 - Set your `LICENCE_KEY`.
-- Set `MARBLE_APP_URL` to the URL used to access the frontend.
+- Set `MARBLE_APP_URL` to the external HTTP base your users’ browsers can use to reach the frontend.
 
 ### Service configuration
 
 Marble’s backend is composed of five discrete services, three of which are scheduled tasks. Those can be configured with the following systemd units:
 
-#### API *(persistent service)*
+#### API _(persistent service)_
 
 ```bash
 # /etc/systemd/system/marble-api.service
@@ -103,7 +104,7 @@ ExecStart=/opt/marble/api/marble-backend -server
 WantedBy=multi-user.target
 ```
 
-#### Worker *(persistent service)*
+#### Worker _(persistent service)_
 
 ```bash
 # /etc/systemd/system/marble-worker.service
@@ -123,7 +124,7 @@ ExecStart=/opt/marble/api/marble-backend -worker
 WantedBy=multi-user.target
 ```
 
-#### Database migrator *(manual run only)*
+#### Database migrator _(manual run only)_
 
 ```bash
 # /etc/systemd/system/marble-migrate.service
@@ -170,16 +171,12 @@ $  curl http://127.0.0.1:8080/liveness
 Copy the [example configuration](https://github.com/checkmarble/marble-frontend/blob/main/packages/app-builder/.env.example) file into `/etc/marble/front.conf`and edit the relevant settings. Among others:
 
 - `NODE_ENV` must be set to `production`.
-- `ENV` should be set to `production`.
-Note that this will require setting up TLS certificates to access the frontend. If prototyping without TLS, set this to `development`.
 - Set a random, high-entropy `SESSION_SECRET`.
-- `MARBLE_API_URL_SERVER` should be the external HTTP base your users’ browsers can use to reach the API.
-- `MARBLE_APP_URL` should be set to the external HTTP base your users’ browsers can use to reach the frontend.
-- Set the different Firebase configuration settings with the information retrieved from your Firebase account.
+- `MARBLE_API_URL` should be the internal HTTP base your frontend service can use to reach the API.
 
 ### Service configuration
 
-Drop this `systemd`unit file in ``/etc/systemd/system/marble-front.service``:
+Drop this `systemd`unit file in `/etc/systemd/system/marble-front.service`:
 
 #### Frontend
 
@@ -200,7 +197,6 @@ ExecStart=/opt/marble/front/node_modules/@remix-run/serve/dist/cli.js ./build/se
 [Install]
 WantedBy=multi-user.target
 ```
-
 
 And start the frontend service by running:
 
