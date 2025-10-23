@@ -217,43 +217,25 @@ Reference the following files for detailed configuration:
 
 ### Common Issues
 
-1. **CORS Errors**
+1. **API URL Configuration**
 
-   - Ensure `MARBLE_APP_URL` environment variable is set correctly
-   - Must use `https://` protocol in production
-   - Example: `MARBLE_APP_URL=https://app.yourdomain.com`
-   - Common symptoms:
-     - API requests failing in browser
-     - Console errors about CORS policy
-     - Authentication issues
+- Frontend needs one API URL configured:
 
-2. **API URL Configuration**
-
-<<<<<<< HEAD
-
-- # Frontend needs one API URL configured:
-- Frontend needs one API URLs configured:
-
-  > > > > > > > 32b0710 (Edit production guide to match requirements for IAM.)
-
-       - `MARBLE_API_URL_SERVER`: URL for container-to-container requests
-         - Example: `http://api:8080` (Docker internal network)
-       - `MARBLE_API_URL_CLIENT`: URL for browser requests (public URL)
-         - Example: `https://api.yourdomain.com`
+  - `MARBLE_API_URL`: URL for container-to-container requests
+    - Example: `http://api:8080` (Docker internal network)
 
 - Incorrect configuration leads to:
-  - Failed API calls
-  - CORS errors
-  - Authentication failures
+  - Missing variable means the frontend container will not start
+  - Wrong value, or unreachable network, means the container will start but fail immediately as soon as you try to access the page
 
-3. **Network Connectivity**
+2. **Network Connectivity**
 
    - Confirm services can reach each other
    - Check firewall rules
    - Verify DNS resolution works
    - Test internal container networking
 
-4. **Invalid Google Cloud Service Account**
+3. **Invalid Google Cloud Service Account**
 
 Check Marble's startup logs for messages related to Google Cloud Platform's authentication, they may be able to point your to a potential misconfiguration:
 
@@ -273,13 +255,13 @@ Those lines indicate:
 
 You can verify that those value match your environment if you encounter any issue.
 
-5. **Firebase Configuration**
+4. **Firebase Configuration**
 
 - Service account:
 
   - Check that the detected Google Cloud project and service account match your environment
 
-- Required environment variables:
+- Required environment variables (on the backend container):
 
   - `FIREBASE_API_KEY`: Web API key from Firebase Console
 

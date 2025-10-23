@@ -6,7 +6,6 @@ x-frontend-image-version: &frontend-image-version
   image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.0
 
 x-shared-environment: &shared-env
-  ENV: development
   MARBLE_APP_URL: http://localhost:${HOST_APP_PORT:-3000}
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
 x-backend-environment: &backend-env
