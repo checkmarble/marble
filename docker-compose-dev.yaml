@@ -1,16 +1,16 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.2
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.3
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.1
 
 x-shared-environment: &shared-env
-  MARBLE_APP_URL: http://localhost:${HOST_APP_PORT:-3000}
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
 x-backend-environment: &backend-env
   LICENSE_KEY: ${LICENSE_KEY:-LICENSE_KEY}
   PORT: 8080
+  MARBLE_APP_URL: http://localhost:${HOST_APP_PORT:-3000}
 
   PG_HOSTNAME: db
   PG_PORT: ${PG_PORT:-5432}
@@ -38,7 +38,6 @@ x-backend-environment: &backend-env
   CONVOY_API_URL: ${CONVOY_API_URL:-}
   CONVOY_PROJECT_ID: ${CONVOY_PROJECT_ID:-}
 x-frontend-environment: &frontend-env
-  NODE_ENV: production
   SESSION_SECRET: ${SESSION_SECRET:-}
   SESSION_MAX_AGE: 43200
 

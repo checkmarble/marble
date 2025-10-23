@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.2
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.53.3
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.53.1
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
@@ -59,7 +59,6 @@ x-backend-environment: &backend-env
   OFFLOADING_SAVE_POINTS: ${OFFLOADING_SAVE_POINTS}
   OFFLOADING_WRITES_PER_SEC: ${OFFLOADING_WRITES_PER_SEC}
 x-frontend-environment: &frontend-env
-  NODE_ENV: production
   PORT: ${APP_PORT:-8080}
 
   SESSION_SECRET: ${SESSION_SECRET}
