@@ -135,12 +135,8 @@ By default, it will be assumed that the service account's Google Cloud project i
 
    - Configure Firebase variables (see `.env.example`)
   
-   Here is where you can find the values for all these backend and frontend variables:
-   - **FIREBASE_PROJECT_ID:** Project settings → General → Project ID
-   - **FIREBASE_API_KEY:** Project settings → General → Web API Key
-   - **FIREBASE_AUTH_DOMAIN:** Project settings → General → scroll down to the SDK setup and configuration section of your web app → authDomain value
-   - **FIREBASE_APP_ID:** Project settings → General → SDK setup and configuration section of your web app → appId value
-  
+   You can find you **FIREBASE_API_KEY** from Project settings → General → Web API Key
+
 7. **Optional: Custom onboarding email**
 
    - You can set up a custom onboarding email that will be sent when you add a user to your Marble instance, as described in [Firebase onboarding email](./firebase_onboarding_email.md)
