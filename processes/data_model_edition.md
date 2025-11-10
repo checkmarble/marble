@@ -7,6 +7,7 @@ BE AWARE : removing fields or objects used in existing scenarios may generate er
 ## Delete a table
 
 **1. Find the table**
+
 Get your table id with:
 
 ```
@@ -24,12 +25,15 @@ where parent_table_id='table_id' or child_table_id='table_id'
 ```
 
 If any links are found, **delete the link**:
+
 `delete from data_model_links where id='link_id'`
 
 **3. Delete the table from your data model**
+
 `delete from data_model_tables where id='table_id'`
 
 **4. Delete the actual table**
+
 Find your table in `org-{orgName}.{yourTableName}`
 Then drop it:
 `drop table org-{orgName}.{yourTableName}`
@@ -37,6 +41,7 @@ Then drop it:
 ## Delete a field
 
 **1. Find the field**
+
 Get your field id with:
 
 ```
@@ -55,12 +60,15 @@ where parent_field_id='field_id' or child_field_id='field_id'
 ```
 
 If any links are found, **delete the link**:
+
 `delete from data_model_links where id='link_id'`
 
 **3. Delete the field from your data model**
+
 `delete from data_model_fields where id='field_id'`
 
 **4. Delete the actual field in the table**
+
 Find your table in `org-{orgName}.{yourTableName}`
 Then drop the field:  
 `alter table org-{orgName}.{yourTableName} drop
@@ -71,6 +79,7 @@ column {yourFieldName}`
 Below is the example to change a value from numeric to string.
 
 **1. Find the field**
+
 Find your field id with:
 
 ```
@@ -81,6 +90,7 @@ where t.name = 'your_table_name'
 ```
 
 **2. Update the field in the Marble DB**
+
 Update the data model to reflect the new type:
 
 ```sql
@@ -92,6 +102,7 @@ where id={fieldId}
 (change to numeric would be `set type='Float'`)
 
 **3. Update the column type in the ingested data schema**
+
 Alter table to change the column type:
 
 ```sql
@@ -101,6 +112,7 @@ alter table "your_table_name" alter column "column_name" type text;
 (change to numeric would be `alter column "column_name" type float8`)
 
 **4. Send the field as string in the decisions, ingestion API**
+
 Make sure to adapt the API interactions accordingly.
 
 **NB:** Remember to perform these actions on all linked tables. Ensure that existing scenarios that use the field do not break, especially if they involve comparisons with values of the old type.
