@@ -1,22 +1,28 @@
 # Data model edition
+
 You can add as many fields, tables, or relations as needed directly from Marble. However, to delete any of these elements, you’ll need to make the changes directly in your Marble PostgreSQL database.
 
-BE AWARE : removing fields or objects used in existing scenarios may generate errors and crashes. Do not remove fields and objects use in a scenario without also deleting the scenario. 
+BE AWARE : removing fields or objects used in existing scenarios may generate errors and crashes. Do not remove fields and objects use in a scenario without also deleting the scenario.
 
 ## Delete a table
+
 **1. Find the table**
 Get your table id with:
+
 ```
 select *`
 from data_model_tables as t
 where t.name = 'your_table_name'
 ```
+
 **2. Check that the table is not used in any links**
+
 ```
 select *
 from data_model_links
 where parent_table_id='table_id' or child_table_id='table_id'
 ```
+
 If any links are found, **delete the link**:
 `delete from data_model_links where id='link_id'`
 
@@ -25,24 +31,29 @@ If any links are found, **delete the link**:
 
 **4. Delete the actual table**
 Find your table in `org-{orgName}.{yourTableName}`
-Then drop it: 
+Then drop it:
 `drop table org-{orgName}.{yourTableName}`
 
 ## Delete a field
+
 **1. Find the field**
 Get your field id with:
+
 ```
 select *
 from data_model_tables as t
 inner join data_model_fields as f on (f.table_id=t.id)
 where t.name = 'your_table_name'
 ```
+
 **2. Check that the table is not used in any links**
+
 ```
 select *
 from data_model_links
 where parent_field_id='field_id' or child_field_id='field_id'
 ```
+
 If any links are found, **delete the link**:
 `delete from data_model_links where id='link_id'`
 
@@ -54,3 +65,42 @@ Find your table in `org-{orgName}.{yourTableName}`
 Then drop the field:  
 `alter table org-{orgName}.{yourTableName} drop
 column {yourFieldName}`
+
+## Change a field type
+
+Below is the example to change a value from numeric to string.
+
+**1. Find the field**
+Find your field id with:
+
+```
+select *
+from data_model_tables as t
+inner join data_model_fields as f on (f.table_id=t.id)
+where t.name = 'your_table_name'
+```
+
+**2. Update the field in the Marble DB**
+Update the data model to reflect the new type:
+
+```sql
+update data_model_fields
+set type='String'
+where id={fieldId}
+```
+
+(change to numeric would be `set type='Float'`)
+
+**3. Update the column type in the ingested data schema**
+Alter table to change the column type:
+
+```sql
+alter table "your_table_name" alter column "column_name" type text;
+```
+
+(change to numeric would be `alter column "column_name" type float8`)
+
+**4. Send the field as string in the decisions, ingestion API**
+Make sure to adapt the API interactions accordingly.
+
+**NB:** Remember to perform these actions on all linked tables. Ensure that existing scenarios that use the field do not break, especially if they involve comparisons with values of the old type.
