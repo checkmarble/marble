@@ -18,6 +18,9 @@ resource "aws_security_group" "ecs_task" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags                   = {
+    Name = "RiskTool - Task - Prod"
+  }
 }
 
 resource "aws_ecs_service" "app" {
