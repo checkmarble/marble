@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.55.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.57.0
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.55.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.57.0
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
@@ -26,6 +26,7 @@ x-backend-environment: &backend-env
 
   INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL}
   CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL}
+  ANALYTICS_BUCKET_URL: ${ANALYTICS_BUCKET_URL}
 
   GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
   GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
@@ -38,10 +39,6 @@ x-backend-environment: &backend-env
 
   CREATE_ORG_NAME: ${CREATE_ORG_NAME}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL}
-
-  METABASE_SITE_URL: ${METABASE_SITE_URL}
-  METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY}
-  METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID}
 
   CONVOY_API_URL: ${CONVOY_API_URL}
   CONVOY_API_KEY: ${CONVOY_API_KEY}
