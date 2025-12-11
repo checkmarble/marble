@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.55.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.57.0
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.55.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.57.0
 
 x-shared-environment: &shared-env
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
@@ -20,6 +20,7 @@ x-backend-environment: &backend-env
 
   INGESTION_BUCKET_URL: ${INGESTION_BUCKET_URL:-}
   CASE_MANAGER_BUCKET_URL: ${CASE_MANAGER_BUCKET_URL:-}
+  ANALYTICS_BUCKET_URL: ${ANALYTICS_BUCKET_URL}
 
   FIREBASE_AUTH_EMULATOR_HOST: firebase-auth:9099
   FIREBASE_API_KEY: placeholder
@@ -29,10 +30,6 @@ x-backend-environment: &backend-env
 
   CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
-
-  METABASE_SITE_URL: ${METABASE_SITE_URL:-}
-  METABASE_JWT_SIGNING_KEY: ${METABASE_JWT_SIGNING_KEY:-}
-  METABASE_GLOBAL_DASHBOARD_ID: ${METABASE_GLOBAL_DASHBOARD_ID:-}
 
   CONVOY_API_KEY: ${CONVOY_API_KEY:-}
   CONVOY_API_URL: ${CONVOY_API_URL:-}
