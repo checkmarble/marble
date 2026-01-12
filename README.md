@@ -119,7 +119,7 @@ Feel free to try other use cases and let us know! We'd love to hear from you.
 
 ---
 
-You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble-copy), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
+You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
 
 ### 🔧 **How to Install Marble**
 
