@@ -1,171 +1,93 @@
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
-![GITHUB](https://github.com/user-attachments/assets/f8408864-d603-4ecd-a066-0da96ab9b8b9)
+![Cover image of Marble, the open source command center for fraud prevention and AML compliance](https://github.com/user-attachments/assets/44e329cf-a9ea-41f3-b27c-209462f7f397)
 
-Marble is an open-source Transaction, Event, and User real-time engine designed to help companies detect money laundering, service abuse or fraud behavior.
+# Marble
+Open source command center for Fraud prevention and AML Compliance
 
-We provide an easy-to-use rule builder that can leverage any type of data, an engine capable of running checks in batch or in real-time, and a case manager to improve operational efficiency.
+*The best alternative to Comply Advantage, Sardine or Flagright.*
 
-Marble is beneficial for payment service providers (PSPs), banking-as-a-service (BaaS) providers, neo banks, marketplaces, telecommunications companies... It allows them to quickly set up and update detection scenarios that generate decisions within minutes.
+For Transaction Monitoring, AML Screening and Case investigation powered by AI. 
+We are Open Source and offer the flexibility to deploy On-Premise or SaaS.
 
-These decisions can trigger events in your systems, introduce friction, or restrict operations in real-time. They can also be investigated within Marble using our case manager or in your own system by utilizing our API.
+Marble is already used by 100+ fast growing fintechs, banks and top crypto exchanges in 15+ countries in the world.
 
-Marble is developed with compliance requirements in mind, ensuring that everything is versioned and auditable without any time limitations.
+[Slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw) - [Website](https://www.checkmarble.com/) - [Demo](https://www.checkmarble.com/watch-a-demo)
 
-See it in action: [Watch a demo](https://www.checkmarble.com/watch-a-demo)
+
+## The fraud & compliance automation platform, bespoke as if built in-house, without the burden
+- Get Real-time Transaction Monitoring tailored to your business
+- Screen Customers, Companies and Payments against global sanction and PEP lists
+- Monitor customers continuously
+- Streamline and automate investigations with AI
+- Designed to adapt to any new activities and regulatory requirements
 
 **Open-source, open architecture:**
+- **Flexible**: Connect Marble to any of your internal systems or tools, such as transaction databases, KYC solutions, or 3rd party data providers.
+- **Pricing**: We offer a free open source self-hosted option and a licensed option with Enterprise features which can be deployed Self-hosted or SaaS.
+- **Privacy**: With the Self-hosted option, your data never has to leave your infrastructure.
 
-- Composable: Connect Marble to any of your internal systems or tools, such as transaction databases, KYC solutions, or 3rd party data providers.
-- Pricing: We offer a free open source self-hosted option and a licensed option with Enterprise features which can be deployed Self-hosted or SaaS.
-- Privacy: With the Self-hosted option, your data never has to leave your infrastructure.
+*NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble* 🙂
 
-NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble :)
-<br>
-<img width="600" alt="Rule example" src="https://github.com/user-attachments/assets/498ce248-6f85-40a0-b1dc-ea6efe7425f9" class="center">
-<br><br>
+See it in action in our [interactive demo](https://www.checkmarble.com/watch-a-demo)
+
+## ✨ Features
+- **Transaction monitoring**: real time or post trade, based on a custom data model that mirrors your data warehouse and integrates with any core banking and 3rd party tools.
+- **Customer and Company Screening**: screen against sanctions, PEP and adverse media lists with high quality lists updated multiple times a day, real-time or scheduled
+- **Continuous Monitoring**: keep your customers continuously checked against the latest lists of your choice, without adding manual workload.
+- **Investigation suite**: investigate alerts in one unified case manager to explore, annotate & act without context switching.
+- **AI Automation & Assistance**: leverage AI to streamline manual tasks in rule building, detection program optimization and investigation.
+- **Reporting & BI**: embedded analytics to monitor performance or detection programe and investigation workflows, direct database access for your BI tools.
+- **Audit Trail**: searchable and unalterable audit logs and audit trails for detection program, Workflows and Case Actions.
+- **Enterprise-grave Governance & security**: Role-based Access Control, SSO with Open ID Connect, IP whitelisting, SOC 2 Type II certification
+- **Community & Support**
+
+## 🚀 Quick start
+Get up and running quickly to have a first sense of what Marble is:
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Git
+- 4GB RAM minimum
+- 10GB disk space
+
+### Basic Installation
+
+```jsx
+# 1. Clone the repository
+git clone <repository-url>
+cd marble
+
+# 2. Copy example environment file
+cp .env.dev.example .env.dev
+
+# 3. Start Marble
+docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up
+```
+
+➡️ Access to the full [Installation guide](https://github.com/checkmarble/marble/tree/main/installation) to install and deploy Marble.
+
+## 💡 Getting the most out of Marble
+- Go through our [interactive demo](https://www.checkmarble.com/watch-a-demo) to see Marble in action;
+- Read the [documentation](https://docs.checkmarble.com/docs/what-is-marble) on how to use Marble to learn more about all the features;
+- Check the [documentation](https://docs.checkmarble.com/reference/intro-getting-started) of our public API
+- Join our [Slack community](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw) if you need help, or want to chat, we’re here to help;
+- Register to [Marble RegTech Digest](https://www.checkmarble.com/newsletter-registration) the monthly newsletter where our experts analyse the future of FinCrime, Regulation, and the tech built to grow with;
+- [Book a quick meeting](https://www.checkmarble.com/talk-to-an-expert) to speak with an expert.
+
+[![Access to Marble interactive demo](https://github.com/user-attachments/assets/4b608da7-7087-4acf-9852-da8a6d7a2a60)](https://www.checkmarble.com/watch-a-demo)
 
 
-### 👋 We are happy to help !
+## 🧑‍💻 Contributions and development environment
+You can follow this [guide](https://github.com/checkmarble/marble/blob/main/installation/test_run.md) to set up a Marble development environment on your machine. It is intended for people willing to contribute to Marble.
 
-Reach out to us on our website, on our [slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw), or ask for a demo [here](https://calendly.com/arnaudschwartz/discover-marble-1).
+We want to create an open environment and appreciate all types of contributions that benefits all current and future users. 
 
-
-### **🔖 Open Source License**
-
----
-
-[Elastic License 2.0 (ELv2)](./LICENSE)
-
-The Elastic Licence V2 grants you a non-exclusive, royalty-free, worldwide, non-sublicensable, non-transferable license to use, copy, distribute, make available, and prepare derivative works of the software, subject to the limitations and conditions below.<br><br>
-**1) You may not provide the software to third parties as a hosted or managed service, where the service provides users with access to any substantial set of the features or functionality of the software.**<br><br>
-2) You may not move, change, disable, or circumvent the license key functionality in the software, and you may not remove or obscure any functionality in the software that is protected by the license key.<br><br>
-3) You may not alter, remove, or obscure any licensing, copyright, or other notices of the licensor in the software. Any use of the licensor’s trademarks is subject to applicable law.<br><br>
-
-*See full licence for details*<br><br>
-
-### **✨ Feature Comparision : Open-source vs Enterprise**
-
----
-
-#### Fraud & Compliance Monitoring Solution
-
-| Features | Open-source | Enterprise |
-| :----------------------------------------  | :----------------------: | :----------------: |
-| Flexible Data Model |            ✅            |         ✅         |
-| Flexible No Code Rule engine *- Any geography, transfer methods, ...* |            ✅            |         ✅         |
-| Unlimited scenarios |            ✅            |         ✅         |
-| Risk scoring |            ✅            |         ✅         |
-| Real time & Batch runs |            ✅            |         ✅         |
-| Ingestion & Decision API |            ✅            |         ✅         |
-| KPIs & Dashboards |            ✅            |         ✅         |
-| Audit trail |            ✅            |         ✅         |
-| Unlimited number of users |            ✅            |         ✅         |
-| SSO |       ❌            |         ✅         |
-| Role Management |            ❌            |         ✅         |
-| Webhooks |            ❌            |         ✅         |
-| Sandbox test mode |            ❌            |         ✅         |
-| Customer Screening against Lists |            ❌            |         Screening Add-on         |
-| Payments Screening against Lists |            ❌            |         Screening Add-on         |
-| ✨ AI Smart-Filtering for Screening |            ❌            |         Screening Add-on         |
-
-#### Case Management solution
-| Features               | Open-source | Enterprise |
-| :----------------------------------------  | :----------------------: | :----------------: |
-| 360 case overview *- Customer data, transaction history, comments...* |            ✅            |         ✅         |
-| Manual triage in custom inboxes |            ✅            |         ✅         |
-| SAR planning & tracking |            ✅            |         ✅         |
-| Automatic grouping in custom inboxes |            ❌            |         ✅         |
-| Automatic alert grouping in cases |            ❌            |         ✅         |
-| Custom Workflows |            ❌            |         ✅         |
-| Escalation rules |            ❌            |         ✅         |
-| Rule snoozing |            ❌            |         ✅         |
-| Case snoozing |            ❌            |         ✅         |
-| ✨ AI Analyst |       ❌            |         AI Add-on         |
-| ✨ AI SAR generation |            ❌            |         AI Add-on         |
-
-#### Support
-| Developement, Maintenance, Integration and Support Services | Open-source | Enterprise |
-| :----------------------------------------  | :----------------------: | :----------------: |
-| Weekly updates |            ✅            |         ✅         |
-| Slack Community |            ✅            |         ✅         |
-| Dedicated Solution Engineer |            ❌            |         ✅         |
-| Priority support & Hotfix |            ❌            |         ✅         |
-| Slack private channel |            ❌            |         ✅         |
-| Rule building assistance |            ❌            |         On demand         |
-| Custom SLA |            ❌            |         On demand         |
-| EBA subcontracting framework contract |            ❌            |         On demand         |
-
-#### About Enterprise features
-
-The core of the decision engine is available in open-source, but some advanced features are only accessible with a lincense. As long as you are running Marble locally with a test setup (using the Firebase auth emulator for end user authentication), you will see all the features, but you will be restricted if you authenticate with a real Firebase auth app.
-
-### 💭 **Example Use Cases**
-
----
-
-Marble's incredible flexibility is due to its fully open data model. Here are some applications already in use with Marble:
-
-- Transaction monitoring for financial institutions (AML & fraud), supporting every type of payment scheme (including the exotic ones: Marble handles any type of data).
-- User/account monitoring.
-- User risk score calculation at onboarding and throughout their lifecycle.
-- Event scoring: adding new beneficiaries, subscribing to new products, etc.
-- Vendor/buyer checks for marketplaces: return abuse, fake transactions, etc.
-- Condition abuse: robocalling for telecom companies, bot management on social networks and apps.
-- Embedded in financial SaaS: fine control of expenses for end users.
-
-Feel free to try other use cases and let us know! We'd love to hear from you.
-
-### 🕵 **How to use Marble**
-
----
-
-You will find a functional documentation of how to use Marble [here](https://docs.checkmarble.com/docs/what-is-marble), and the documentation of our public API [here](https://docs.checkmarble.com/reference/intro-getting-started).
-
-### 🔧 **How to Install Marble**
-
----
-
-Want to deploy Marble on your environement? Check our ressources [here](https://github.com/checkmarble/marble/tree/main/installation)
-
-### 🐧 **Why Open Source?**
-
----
-
-**We need your ⭐️**
-
-Risk management is challenging for many companies. Currently, you can either:
-
-- Build your own risk infrastructure:
-  - It’s a never-ending task.
-  - Building from scratch takes months and often falls short of end-user expectations.
-  - Essential elements like versioning and audit trails are often overlooked.
-  - Risk teams need updates urgently, but development teams need to scope and prioritize first.
-- Or, spend a significant amount to buy a service where:
-  - Setup costs and time are substantial.
-  - You might lack full control over the applied rules.
-  - The scoring algorithm is “proprietary,” meaning you can’t explain it.
-  - There’s limited flexibility to connect your data and product specifics, such as limited payment schemes covered.
-  - Contract renewal is burdensome.
-
-Marble offers a clear third option:
-
-- Start Strong: Benefit from one of the best engines on the market for free. There’s no excuse for not having top-notch monitoring from day one.
-- Privacy: Your data remains yours, always.
-- Total Transparency: The code is open; you can see everything within the engine. You KNOW why an alert is raised every time; you don’t have to guess.
-- Evolutivity: Use any data you want and evolve the model instantly. Adding a new product, even with a never-before-seen payment scheme, takes minutes.
-- Community Driven: Contribute based on your needs: need a custom calculation? A third-party integration? It’s just a commit away.
-  <br><br>
-
-### :sparkling_heart: **Contributing**
-
----
-
-We want to create an open environment and appreciate all types of contributions that benefits all current and future users. Here are some ways you can contribute:
+Here are some ways you can contribute:
 
 - Leave us a ⭐️
-- Give us feedback in our Slack community
-- Help with bugs and features on our Issues page
+- Give us feedback in our [Slack community](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw)
+- Help with bugs and features on our [Issues page](https://github.com/checkmarble/marble/issues)
 - Submit a feature request or bug report
-  <br><br>
 
-Made with :heart: in :fr: by Marble
+Made with ❤️ in 🇫🇷 by Marble
