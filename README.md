@@ -4,9 +4,7 @@
 # Marble
 Open source command center for Fraud prevention and AML Compliance
 
-*The best alternative to Comply Advantage, Sardine or Flagright.*
-
-For Transaction Monitoring, AML Screening and Case investigation powered by AI. 
+*The best alternative to Comply Advantage, Sardine or Flagright* for Transaction Monitoring, AML Screening and Case investigation powered by AI.
 We are Open Source and offer the flexibility to deploy On-Premise or SaaS.
 
 Marble is already used by 100+ fast growing fintechs, banks and top crypto exchanges in 15+ countries in the world.
