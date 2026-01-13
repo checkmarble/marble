@@ -1,13 +1,18 @@
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
-![Cover image of Marble, the open source command center for fraud prevention and AML compliance](https://github.com/user-attachments/assets/44e329cf-a9ea-41f3-b27c-209462f7f397)
+![Cover image of Marble, the open source command center for fraud prevention and AML compliance](https://github.com/user-attachments/assets/fe69dc18-137e-42ae-9bce-31b836d32d9d)
 
 # Marble
-Open source command center for Fraud prevention and AML Compliance
+**The best of Build and Buy: keep full control and build on top.**
 
-*The best alternative to Comply Advantage, Sardine or Flagright* for Transaction Monitoring, AML Screening and Case investigation powered by AI.
-We are Open Source and offer the flexibility to deploy On-Premise or SaaS.
+Marble is the flexible alternative to Comply Advantage, Actimize or Fiserv for Transaction Monitoring, AML Screening and Case investigation powered by AI.
+Our Open Source core provides the flexibility to deploy On-Premise or SaaS.
 
 Marble is already used by 100+ fast growing fintechs, banks and top crypto exchanges in 15+ countries in the world.
+
+> What I like the most about Marble is **Flexibility**. In other tools, you don't understand what is going on behind the scenes which ends up lacking precision and possibilities to troubleshoot your detection programs.  
+> With Marble everything is transparent. You can basically do anything you want, **with all your data**.  
+
+Alexander Legoshin, Founder at Gemba
 
 [Slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw) - [Website](https://www.checkmarble.com/) - [Demo](https://www.checkmarble.com/watch-a-demo)
 
@@ -26,7 +31,8 @@ Marble is already used by 100+ fast growing fintechs, banks and top crypto excha
 
 *NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble* 🙂
 
-See it in action in our [interactive demo](https://www.checkmarble.com/watch-a-demo)
+[<img width="500" alt="See Marble in action in our interactive demo" src="https://github.com/user-attachments/assets/3f31bdab-450d-486b-bc96-1c77799599a5" />](https://www.checkmarble.com/watch-a-demo)
+
 
 ## ✨ Features
 - **Transaction monitoring**: real time or post trade, based on a custom data model that mirrors your data warehouse and integrates with any core banking and 3rd party tools.
@@ -38,6 +44,8 @@ See it in action in our [interactive demo](https://www.checkmarble.com/watch-a-
 - **Audit Trail**: searchable and unalterable audit logs and audit trails for detection program, Workflows and Case Actions.
 - **Enterprise-grave Governance & security**: Role-based Access Control, SSO with Open ID Connect, IP whitelisting, SOC 2 Type II certification
 - **Community & Support**
+
+
 
 ## 🚀 Quick start
 Get up and running quickly to have a first sense of what Marble is:
@@ -65,6 +73,8 @@ docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up
 
 ➡️ Access to the full [Installation guide](https://github.com/checkmarble/marble/tree/main/installation) to install and deploy Marble.
 
+
+
 ## 💡 Getting the most out of Marble
 - Go through our [interactive demo](https://www.checkmarble.com/watch-a-demo) to see Marble in action;
 - Read the [documentation](https://docs.checkmarble.com/docs/what-is-marble) on how to use Marble to learn more about all the features;
@@ -73,18 +83,17 @@ docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up
 - Register to [Marble RegTech Digest](https://www.checkmarble.com/newsletter-registration) the monthly newsletter where our experts analyse the future of FinCrime, Regulation, and the tech built to grow with;
 - [Book a quick meeting](https://www.checkmarble.com/talk-to-an-expert) to speak with an expert.
 
-[![Access to Marble interactive demo](https://github.com/user-attachments/assets/4b608da7-7087-4acf-9852-da8a6d7a2a60)](https://www.checkmarble.com/watch-a-demo)
+
 
 
 ## 🧑‍💻 Contributions and development environment
-You can follow this [guide](https://github.com/checkmarble/marble/blob/main/installation/test_run.md) to set up a Marble development environment on your machine. It is intended for people willing to contribute to Marble.
-
 We want to create an open environment and appreciate all types of contributions that benefits all current and future users. 
 
 Here are some ways you can contribute:
 
 - Leave us a ⭐️
 - Give us feedback in our [Slack community](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw)
+- Follow this [guide](https://github.com/checkmarble/marble/blob/main/installation/test_run.md) to set up a Marble development environment on your machine. It is intended for people willing to contribute to Marble.
 - Help with bugs and features on our [Issues page](https://github.com/checkmarble/marble/issues)
 - Submit a feature request or bug report
 
