@@ -40,7 +40,7 @@ It is already used by 100+ fast growing fintechs, banks and top crypto exchanges
 - **Continuous Monitoring**: keep your customers continuously checked against the latest lists of your choice, without adding manual workload.
 - **Investigation suite**: investigate alerts in one unified case manager to explore, annotate & act without context switching.
 - **AI Automation & Assistance**: leverage AI to streamline manual tasks in rule building, detection program optimization and investigation.
-- **Reporting & BI**: embedded analytics to monitor performance or detection programe and investigation workflows, direct database access for your BI tools.
+- **Reporting & BI**: embedded analytics to monitor performance or detection program and investigation workflows, direct database access for your BI tools.
 - **Audit Trail**: searchable and unalterable audit logs and audit trails for detection program, Workflows and Case Actions.
 - **Enterprise-grave Governance & security**: Role-based Access Control, SSO with Open ID Connect, IP whitelisting, SOC 2 Type II certification
 - **Community & Support**
