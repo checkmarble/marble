@@ -29,9 +29,7 @@ It is already used by 100+ fast growing fintechs, banks and top crypto exchanges
 - **Pricing**: We offer a free open source self-hosted option and a licensed option with Enterprise features which can be deployed Self-hosted or SaaS.
 - **Privacy**: With the Self-hosted option, your data never has to leave your infrastructure.
 
-*NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble* 🙂
-
-[<img width="500" alt="See Marble in action in our interactive demo" src="https://github.com/user-attachments/assets/3f31bdab-450d-486b-bc96-1c77799599a5" />](https://www.checkmarble.com/watch-a-demo)
+[![See Marble in action in our interactive demo](https://github.com/user-attachments/assets/d475c939-2829-409f-92de-b888081ddcbc)](https://www.checkmarble.com/watch-a-demo)
 
 
 ## ✨ Features
@@ -42,10 +40,10 @@ It is already used by 100+ fast growing fintechs, banks and top crypto exchanges
 - **AI Automation & Assistance**: leverage AI to streamline manual tasks in rule building, detection program optimization and investigation.
 - **Reporting & BI**: embedded analytics to monitor performance of detection program and investigation workflows, direct database access for your BI tools.
 - **Audit Trail**: searchable and unalterable audit logs and audit trails for detection program, Workflows and Case Actions.
-- **Enterprise-grave Governance & security**: Role-based Access Control, SSO with Open ID Connect, IP whitelisting, SOC 2 Type II certification
-- **Community & Support**
+- **Enterprise-grave Governance & security**: Role-based Access Control, SSO with Open ID Connect, IP whitelisting, SOC 2 Type II certification. Visit our [Trust center](https://compliance.checkmarble.com/overview) for more details.
+- **Community & Support**: Weekly updates, community support via slack, direct support for licensed users.
 
-
+*NB: We do not provide KYC services. There are plenty of awesome players in the market that you can connect with Marble* 🙂
 
 ## 🚀 Quick start
 Get up and running quickly to have a first sense of what Marble is:
