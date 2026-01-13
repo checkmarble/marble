@@ -1,5 +1,5 @@
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1ybu2.svg)](https://marble.betteruptime.com/)
-![Cover image of Marble, the open source command center for fraud prevention and AML compliance](https://github.com/user-attachments/assets/fe69dc18-137e-42ae-9bce-31b836d32d9d)
+![Cover image of Marble, the open source monitoring platform for fraud prevention and AML compliance](https://github.com/user-attachments/assets/c6d42921-fc76-4d7d-85d4-4ecf212a3ca8)
 
 # Marble
 **The best of Build and Buy: keep full control and build on top.**
@@ -7,17 +7,17 @@
 Marble is the flexible alternative to Comply Advantage, Actimize or Fiserv for Transaction Monitoring, AML Screening and Case investigation powered by AI.
 Our Open Source core provides the flexibility to deploy On-Premise or SaaS.
 
-Marble is already used by 100+ fast growing fintechs, banks and top crypto exchanges in 15+ countries in the world.
+It is already used by 100+ fast growing fintechs, banks and top crypto exchanges in 15+ countries in the world.
 
 > What I like the most about Marble is **Flexibility**. In other tools, you don't understand what is going on behind the scenes which ends up lacking precision and possibilities to troubleshoot your detection programs.  
 > With Marble everything is transparent. You can basically do anything you want, **with all your data**.  
 
-Alexander Legoshin, Founder at Gemba
+*Alexander Legoshin, Founder at Gemba*
 
 [Slack](https://join.slack.com/t/marble-communitysiege/shared_invite/zt-2b8iree6b-ZLwCiafKV9rR0O6FO7Jqcw) - [Website](https://www.checkmarble.com/) - [Demo](https://www.checkmarble.com/watch-a-demo)
 
 
-## The fraud & compliance automation platform, bespoke as if built in-house, without the burden
+## The fraud & compliance monitoring platform, bespoke as if built in-house, without the burden
 - Get Real-time Transaction Monitoring tailored to your business
 - Screen Customers, Companies and Payments against global sanction and PEP lists
 - Monitor customers continuously
