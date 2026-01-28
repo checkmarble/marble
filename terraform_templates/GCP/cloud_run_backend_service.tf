@@ -70,6 +70,11 @@ resource "google_cloud_run_v2_service" "backend" {
         value = "gs://${google_storage_bucket.case_manager.name}"
       }
 
+       env {
+        name  = "FIREBASE_API_KEY"
+        value = data.google_firebase_web_app_config.frontend.api_key
+      }
+
       env {
         name = "AUTHENTICATION_JWT_SIGNING_KEY"
         value_source {

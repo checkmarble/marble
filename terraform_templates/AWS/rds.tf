@@ -71,7 +71,7 @@ resource "aws_security_group" "rds" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["84.14.164.14/32"]
+    cidr_blocks = ["62.23.72.222/32"]
     description = "Bureau"
   }
   
