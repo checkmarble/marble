@@ -1,6 +1,0 @@
-global:
-  deployment:
-    marbleFront:
-      version: v0.0.0 # Placeholder version, will be replaced in the makefile
-    marbleBack:
-      version: v0.0.0 # Placeholder version, will be replaced in the makefile
