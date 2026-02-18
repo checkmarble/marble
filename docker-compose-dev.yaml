@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.60.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.61.0
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.60.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.61.0
 
 x-shared-environment: &shared-env
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
