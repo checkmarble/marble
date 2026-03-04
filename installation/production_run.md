@@ -21,7 +21,7 @@ Before starting a production deployment, ensure you have:
 - Blob storage bucket (GCS, S3...)
 - Firebase project
 - Convoy instance if you need webhooks
-- Yente+Elasticsearch setup if you need sanction checks
+- Motiva+Elasticsearch setup if you need sanction checks
 - We do not recommend usage of docker compose for a production-ready deployment of Marble
 
 ## Detailed Dependencies Setup
@@ -98,47 +98,39 @@ By default, it will be assumed that the service account's Google Cloud project i
 #### Setup Steps
 
 1. **Create Firebase Project**
-
    - Visit [Firebase Console](https://console.firebase.google.com/)
    - Create a new project or use an existing GCP project
 
 2. **Configure Authentication**
-
    - Enable Firebase Authentication
    - Go to Project overview → project settings → Service Accounts → Generate new private key (or if you are using GCP to deploy Marble, create a service account with the relevant permissions, and give it specifically the permission to list and edit Firebase Auth users)
    - Optionally (but preferably), use the [Marble password reset email](../contrib/firebase_email_reset_mail.html) as a custom template for Firebase auth password reset (Adjust the app URL !). This can be configured at https://console.firebase.google.com/u/0/project/{projectId}/authentication/emails under the "password reset" section.
 
 3. **Configure Domain**
-
    - Go to Authentication → Settings → Authorized Domains
    - Add your Marble application domain (should use https)
 
 4. **Add an app to your project**
-
    - From your project homepage, go to Add app → Web
    - Choose a name and click on Register app
    - In the Firebase SDK section, keep "Use npm" ticked and click on Continue to console
 
 5. **Optional: Configure sign-in with Google/Microsoft**
-
    - [Google Sign-in](https://firebase.google.com/docs/auth/web/google-signin)
    - [Microsoft Sign-in](https://firebase.google.com/docs/auth/web/microsoft-oauth)
 
 6. **Environment Setup**
 
    #### Backend
-
    - Mount service account key in backend container (see volumes on the api container in `docker-compose.yaml`)
    - Set GOOGLE_APPLICATION_CREDENTIALS path
 
    #### Frontend
-
    - Configure Firebase variables (see `.env.example`)
-  
+
    You can find you **FIREBASE_API_KEY** from Project settings → General → Web API Key
 
 7. **Optional: Custom onboarding email**
-
    - You can set up a custom onboarding email that will be sent when you add a user to your Marble instance, as described in [Firebase onboarding email](./firebase_onboarding_email.md)
 
 > 💡 **Cost**: Firebase Auth free tier should be sufficient, but credit card required for project setup.
@@ -161,20 +153,18 @@ Setup Steps:
    CONVOY_PROJECT_ID=your-project-id
    ```
 
-### 6. Yente + Elasticsearch
+### 6. Motiva + Elasticsearch
 
 Purpose: Sanctions screening and search functionality
 
 Options:
 
-- Self-hosted Yente + Elasticsearch
+- Self-hosted Motiva + Yente (indexer) + Elasticsearch
 - OpenSanctions managed API
 
 > ⚠️ **Note**: While development docker-compose includes Elasticsearch, use a production-grade service for deployment.
 
-It is recommended to deploy the Yente API with multiple workers (see the `docker-compose.yaml` to see how) and disable the indexing process on those with `YENTE_AUTO_REINDEX=false`) so it doesn't impact production workloads and is not duplicated across workers.
-
-Once automatic background indexing is disabled, you will need to run it (with `yente reindex`) separately through a different container or a scheduled task (cron or systemd timer).
+You will need to run indexing on the yente (with `yente reindex`) on a scheduled task (cron or systemd timer).
 
 ## Deployment Architecture
 
@@ -183,13 +173,11 @@ Once automatic background indexing is disabled, you will need to run it (with `y
 The Marble platform consists of three services:
 
 1. **Marble API**
-
    - Main backend service
    - Handles REST API requests
    - Requires direct database access
 
 2. **Marble Worker**
-
    - Background task processor
    - Uses same container as API
    - Handles scheduled jobs & tasks
@@ -202,13 +190,11 @@ The Marble platform consists of three services:
 ### Deployment Options
 
 1. **Server/VM Deployment**
-
    - Use nginx/reverse proxy
    - Route requests to services
    - Manage SSL termination
 
 2. **Managed Container Service**
-
    - GCP Cloud Run
    - AWS ECS
    - Or similar option at other cloud providers
@@ -235,7 +221,6 @@ Alternatively, you can also inspire yourself from the docker compose example:
 1. **API URL Configuration**
 
 - Frontend needs one API URL configured:
-
   - `MARBLE_API_URL`: URL for container-to-container requests
     - Example: `http://api:8080` (Docker internal network)
 
@@ -244,7 +229,6 @@ Alternatively, you can also inspire yourself from the docker compose example:
   - Wrong value, or unreachable network, means the container will start but fail immediately as soon as you try to access the page
 
 2. **Network Connectivity**
-
    - Confirm services can reach each other
    - Check firewall rules
    - Verify DNS resolution works
@@ -273,11 +257,9 @@ You can verify that those value match your environment if you encounter any issu
 4. **Firebase Configuration**
 
 - Service account:
-
   - Check that the detected Google Cloud project and service account match your environment
 
 - Required environment variables (on the backend container):
-
   - `FIREBASE_API_KEY`: Web API key from Firebase Console
 
 - If you plan on using Single-Sign On (SSO) with Firebase (to delegate authentication to another Identity Provider), you will need to configure the following directives:

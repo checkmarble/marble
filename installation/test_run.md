@@ -49,14 +49,12 @@ If you need to modify this configuration, note that the `.env` files are not inh
 You can enhance your development environment by configuring:
 
 1. **Webhooks Testing**
-
    - Configure Convoy settings
    - See [Production Deployment Guide](./production_run.md)
    - Set webhook endpoints
 
 2. **Sanctions Screening**
-
-   - Enable Yente integration
+   - Enable Motiva integration
    - Configure Elasticsearch
 
 3. **Storage Features**
@@ -76,7 +74,6 @@ You can enhance your development environment by configuring:
    ```
 
 2. **Database Connection**
-
    - Ensure PostgreSQL is running
    - Check connection settings
    - Verify database exists
