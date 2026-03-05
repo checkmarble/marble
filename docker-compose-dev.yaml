@@ -54,8 +54,8 @@ services:
       POSTGRES_DB: marble
       PGDATA: /data/postgres
       PGPORT: ${PG_PORT:-5432}
-    ports:
-      - ${PG_PORT:-5432}:${PG_PORT:-5432}
+    # ports:
+    #   - ${PG_PORT:-5432}:${PG_PORT:-5432}
     volumes:
       - marble-db:/data/postgres
     healthcheck:
@@ -63,21 +63,30 @@ services:
       interval: 2s
       timeout: 1s
       retries: 5
+  migrations:
+    <<: *backend-image-version
+    container_name: marble-db-migrations
+    platform: linux/amd64
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: ["./app", "--migrations"]
+    environment:
+      <<: [*shared-env, *backend-env]
   api: &backend
     <<: *backend-image-version
     container_name: marble-api
     platform: linux/amd64
     restart: always
     depends_on:
-      - db
-      - motiva
-    entrypoint: ["./app", "--server", "--migrations"]
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:8080/liveness || exit 1
-      interval: 10s
-      timeout: 60s
-      retries: 1
-      start_period: 30s
+      db:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+      motiva:
+        condition: service_started
+    entrypoint: ["./app", "--server"]
     ports:
       - 8080:8080
     volumes:
@@ -88,7 +97,8 @@ services:
     <<: *backend
     container_name: marble-api-cron
     depends_on:
-      - api
+      migrations:
+        condition: service_completed_successfully
     entrypoint: ["./app", "--worker"]
     healthcheck:
       disable: true
@@ -99,8 +109,10 @@ services:
     platform: linux/amd64
     restart: always
     depends_on:
-      - api
-      - firebase_auth
+      api:
+        condition: service_started
+      firebase_auth:
+        condition: service_started
     healthcheck:
       test:
         - CMD
@@ -126,8 +138,8 @@ services:
   elasticsearch:
     container_name: marble-es
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
-    ports:
-      - ${ES_PORT:-9200}:${ES_PORT:-9200}
+    # ports:
+    #   - ${ES_PORT:-9200}:${ES_PORT:-9200}
     environment:
       - node.name=es
       - cluster.name=marble-es
@@ -155,7 +167,8 @@ services:
     container_name: marble-yente
     image: ghcr.io/opensanctions/yente:4.5.1
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
     command: ["yente", "reindex"]
     volumes:
       # This configuration file will load only a reduced into the elastic search index.
@@ -169,10 +182,10 @@ services:
     container_name: marble-motiva
     image: ghcr.io/apognu/motiva:v0.6.0
     platform: linux/x86_64
-    ports:
-      - 8000:8000
+    # ports:
+    #   - 8000:8000
     depends_on:
-      marble-yente:
+      yente:
         condition: service_completed_successfully
     environment:
       MANIFEST_URL: "/app/manifests/default.yml"
