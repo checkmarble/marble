@@ -154,7 +154,7 @@ services:
   # suggest using a production-grade instance to run Marble in a production environment
   elasticsearch:
     container_name: marble-es
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.3.1
     # ports:
     #   - ${ES_PORT:-9200}:${ES_PORT:-9200}
     environment:

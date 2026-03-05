@@ -27,9 +27,9 @@ As well as
 
 ### Elasticsearch
 
-- Version 8.14+ is supported and tested
-- Specifically tested on Elasticsearch 8.14
-- Newer minor versions (8.x) expected to work but not explicitly tested
+- Version 9.2+ is supported
+- Specifically tested on Elasticsearch 9.2
+- Newer minor versions (9.x) expected to work but not explicitly tested
 - Major version changes may require updates
 
 ## Version Updates
