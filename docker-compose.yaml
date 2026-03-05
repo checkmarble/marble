@@ -70,14 +70,15 @@ services:
     container_name: marble-postgres
     image: postgis/postgis:16-3.5-alpine
     restart: always
+    platform: linux/amd64
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${PG_PASSWORD:-changeme}
       POSTGRES_DB: marble
       PGDATA: /data/postgres
       PGPORT: ${PG_PORT:-5432}
-    ports:
-      - ${PG_PORT:-5432}:${PG_PORT:-5432}
+    # ports:
+    #   - ${PG_PORT:-5432}:${PG_PORT:-5432}
     volumes:
       - marble-db:/data/postgres
     healthcheck:
@@ -146,8 +147,8 @@ services:
   elasticsearch:
     container_name: marble-es
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
-    ports:
-      - ${ES_PORT:-9200}:${ES_PORT:-9200}
+    # ports:
+    #   - ${ES_PORT:-9200}:${ES_PORT:-9200}
     environment:
       - node.name=es
       - cluster.name=marble-es
@@ -161,6 +162,16 @@ services:
         hard: -1
     volumes:
       - marble-es:/usr/share/elasticsearch/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf http://localhost:9200/_cluster/health || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   yente:
     container_name: marble-yente
     image: ghcr.io/opensanctions/yente:4.5.1
@@ -174,11 +185,11 @@ services:
     container_name: marble-motiva
     image: ghcr.io/apognu/motiva:v0.6.0
     platform: linux/x86_64
-    ports:
-      - ${MOTIVA_PORT:-8000}:8000
+    # ports:
+    #   - 8000:8000
     depends_on:
-      elasticsearch:
-        condition: service_healthy
+      marble-yente:
+        condition: service_completed_successfully
     environment:
       INDEX_URL: ${ELASTICSEARCH_HOST:-http://marble-es:9200}
       ENV: production
