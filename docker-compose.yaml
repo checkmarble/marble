@@ -12,7 +12,6 @@ x-shared-environment: &shared-env
 x-backend-environment: &backend-env
   LICENSE_KEY: ${LICENSE_KEY}
 
-  PORT: ${API_PORT:-8080}
   MARBLE_APP_URL: ${MARBLE_APP_URL}
 
   PG_HOSTNAME: ${PG_HOSTNAME}
@@ -56,8 +55,6 @@ x-backend-environment: &backend-env
   OFFLOADING_SAVE_POINTS: ${OFFLOADING_SAVE_POINTS}
   OFFLOADING_WRITES_PER_SEC: ${OFFLOADING_WRITES_PER_SEC}
 x-frontend-environment: &frontend-env
-  PORT: ${APP_PORT:-8080}
-
   SESSION_SECRET: ${SESSION_SECRET}
   SESSION_MAX_AGE: ${SESSION_MAX_AGE}
 
@@ -111,7 +108,7 @@ services:
         condition: service_started
     entrypoint: ["./app", "--server"]
     ports:
-      - ${HOST_API_PORT:-8080}:${API_PORT:-8080}
+      - ${HOST_API_PORT:-8080}:8080
     volumes:
       # adapt this line so that the left-hand side is the address of a folder containing:
       # - the service account key
@@ -143,13 +140,13 @@ services:
         - /nodejs/bin/node
         - --input-type=module
         - -e
-        - "process.exit((await fetch('http://localhost:${APP_PORT:-8080}/healthcheck')).status == 200 ? 0 : 1)"
+        - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
       start_period: 30s
     ports:
-      - ${HOST_APP_PORT:-3000}:${APP_PORT:-8080}
+      - ${HOST_APP_PORT:-3000}:8080
     environment:
       <<: [*shared-env, *frontend-env]
 
