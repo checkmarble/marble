@@ -47,6 +47,7 @@ services:
     container_name: marble-postgres
     image: postgis/postgis:16-3.5-alpine
     restart: always
+    platform: linux/amd64
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: changeme
@@ -78,7 +79,7 @@ services:
       retries: 1
       start_period: 30s
     ports:
-      - ${HOST_API_PORT:-8080}:8080
+      - 8080:8080
     volumes:
       - marble-tempfiles:/tempFiles
     environment:
@@ -112,7 +113,7 @@ services:
       retries: 1
       start_period: 30s
     ports:
-      - ${HOST_APP_PORT:-3000}:8080
+      - 3000:8080
     environment:
       <<: [*shared-env, *frontend-env]
   firebase_auth:
@@ -140,6 +141,16 @@ services:
         hard: -1
     volumes:
       - marble-es:/usr/share/elasticsearch/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf http://localhost:9200/_cluster/health || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   yente:
     container_name: marble-yente
     image: ghcr.io/opensanctions/yente:4.5.1
@@ -159,10 +170,10 @@ services:
     image: ghcr.io/apognu/motiva:v0.6.0
     platform: linux/x86_64
     ports:
-      - ${MOTIVA_PORT:-8000}:8000
+      - 8000:8000
     depends_on:
-      elasticsearch:
-        condition: service_healthy
+      marble-yente:
+        condition: service_completed_successfully
     environment:
       MANIFEST_URL: "/app/manifests/default.yml"
       INDEX_URL: "http://marble-es:9200"
