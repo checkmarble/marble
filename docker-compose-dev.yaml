@@ -119,7 +119,7 @@ services:
         - /nodejs/bin/node
         - --input-type=module
         - -e
-        - "process.exit((await fetch('http://localhost:${APP_PORT:-8080}/healthcheck')).status == 200 ? 0 : 1)"
+        - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
