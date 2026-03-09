@@ -30,7 +30,7 @@ Before starting a production deployment, ensure you have:
 
 Requirements:
 
-- Version: 15 or higher
+- Version: 16 or higher
 - Database name: `marble`
 - Schema: `marble,public`
 
