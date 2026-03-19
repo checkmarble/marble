@@ -17,7 +17,7 @@ Before starting a production deployment, ensure you have:
 
 ### Required Infrastructure
 
-- Production-grade PostgreSQL database (v15+)
+- Production-grade PostgreSQL database (v16+)
 - Blob storage bucket (GCS, S3...)
 - Firebase project
 - Convoy instance if you need webhooks
