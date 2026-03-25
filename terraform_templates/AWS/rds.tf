@@ -16,6 +16,12 @@ resource "aws_db_parameter_group" "pg-marble" {
     value = "0"
   }
 
+  parameter {
+    name         = "rds.logical_replication"
+    value        = "1"
+    apply_method = "pending-reboot"
+  }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -98,7 +104,7 @@ resource "aws_db_instance" "rds-marble" {
   engine_version              = "15"
   publicly_accessible         = true
   allow_major_version_upgrade = true
-  max_allocated_storage  = 3000 
+  max_allocated_storage  = 5000 
   
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.marble_rds_subnet_group.name
