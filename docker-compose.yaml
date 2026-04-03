@@ -197,7 +197,7 @@ services:
     # ports:
     #   - 8000:8000
     depends_on:
-      marble-yente:
+      yente:
         condition: service_completed_successfully
     environment:
       INDEX_URL: ${ELASTICSEARCH_HOST:-http://marble-es:9200}
