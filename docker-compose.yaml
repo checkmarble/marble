@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.65.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v1.0.4
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.65.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v1.0.7
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
@@ -38,10 +38,6 @@ x-backend-environment: &backend-env
 
   CREATE_ORG_NAME: ${CREATE_ORG_NAME}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL}
-
-  CONVOY_API_URL: ${CONVOY_API_URL}
-  CONVOY_API_KEY: ${CONVOY_API_KEY}
-  CONVOY_PROJECT_ID: ${CONVOY_PROJECT_ID}
 
   OPENSANCTIONS_API_HOST: ${OPENSANCTIONS_API_HOST}
   OPENSANCTIONS_AUTH_METHOD: ${OPENSANCTIONS_AUTH_METHOD}
@@ -79,7 +75,7 @@ services:
     volumes:
       - marble-db:/data/postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 2s
       timeout: 1s
       retries: 5
@@ -91,9 +87,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    entrypoint: ["./app", "--migrations"]
+    entrypoint: [ "./app", "--migrations" ]
     environment:
-      <<: [*shared-env, *backend-env]
+      <<: [ *shared-env, *backend-env ]
   api: &backend
     <<: *backend-image-version
     container_name: marble-api
@@ -106,7 +102,7 @@ services:
         condition: service_completed_successfully
       motiva:
         condition: service_started
-    entrypoint: ["./app", "--server"]
+    entrypoint: [ "./app", "--server" ]
     ports:
       - ${HOST_API_PORT:-8080}:8080
     volumes:
@@ -115,14 +111,14 @@ services:
       # - optionally the JWT signing RSA key in .pem format
       - ./local_shared:/shared
     environment:
-      <<: [*shared-env, *backend-env]
+      <<: [ *shared-env, *backend-env ]
   cron:
     <<: *backend
     container_name: marble-api-cron
     depends_on:
       migrations:
         condition: service_completed_successfully
-    entrypoint: ["./app", "--worker"]
+    entrypoint: [ "./app", "--worker" ]
     healthcheck:
       disable: true
     ports: []
@@ -140,7 +136,8 @@ services:
         - /nodejs/bin/node
         - --input-type=module
         - -e
-        - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
+        - "process.exit((await
+          fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
@@ -148,7 +145,7 @@ services:
     ports:
       - ${HOST_APP_PORT:-3000}:8080
     environment:
-      <<: [*shared-env, *frontend-env]
+      <<: [ *shared-env, *frontend-env ]
 
   # NB: the docker compose file includes an elasticsearch image for the sake of completeness, but we strongly
   # suggest using a production-grade instance to run Marble in a production environment
@@ -171,11 +168,7 @@ services:
     volumes:
       - marble-es:/usr/share/elasticsearch/data
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl -sf http://localhost:9200/_cluster/health || exit 1",
-        ]
+      test: [ "CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -186,7 +179,7 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-    command: ["yente", "reindex"]
+    command: [ "yente", "reindex" ]
     environment:
       YENTE_INDEX_TYPE: elasticsearch
       YENTE_INDEX_URL: ${ELASTICSEARCH_HOST:-http://marble-es:9200}
