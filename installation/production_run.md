@@ -20,7 +20,6 @@ Before starting a production deployment, ensure you have:
 - Production-grade PostgreSQL database (v16+)
 - Blob storage bucket (GCS, S3...)
 - Firebase project
-- Convoy instance if you need webhooks
 - Motiva+Elasticsearch setup if you need sanction checks
 - We do not recommend usage of docker compose for a production-ready deployment of Marble
 
@@ -135,25 +134,7 @@ By default, it will be assumed that the service account's Google Cloud project i
 
 > 💡 **Cost**: Firebase Auth free tier should be sufficient, but credit card required for project setup.
 
-### 5. Convoy (Webhook Gateway)
-
-Options:
-
-- Self-hosted: Follow [Docker installation guide](https://www.getconvoy.io/docs/deployment/install-convoy/docker)
-- Managed: Use [Convoy Cloud](https://www.getconvoy.io/)
-
-Setup Steps:
-
-1. Create webhooks project
-2. Generate API key
-3. Configure in Marble:
-   ```bash
-   CONVOY_API_URL=https://your-convoy-instance/api
-   CONVOY_API_KEY=your-api-key
-   CONVOY_PROJECT_ID=your-project-id
-   ```
-
-### 6. Motiva + Elasticsearch
+### 5. Motiva + Elasticsearch
 
 Purpose: Sanctions screening and search functionality
 
