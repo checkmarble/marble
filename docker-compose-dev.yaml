@@ -55,7 +55,7 @@ services:
     volumes:
       - marble-db:/data/postgres
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 2s
       timeout: 1s
       retries: 5
@@ -67,9 +67,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    entrypoint: [ "./app", "--migrations" ]
+    entrypoint: ["./app", "--migrations"]
     environment:
-      <<: [ *shared-env, *backend-env ]
+      <<: [*shared-env, *backend-env]
   api: &backend
     <<: *backend-image-version
     container_name: marble-api
@@ -82,20 +82,20 @@ services:
         condition: service_completed_successfully
       motiva:
         condition: service_started
-    entrypoint: [ "./app", "--server" ]
+    entrypoint: ["./app", "--server"]
     ports:
       - 8080:8080
     volumes:
       - marble-tempfiles:/tempFiles
     environment:
-      <<: [ *shared-env, *backend-env ]
+      <<: [*shared-env, *backend-env]
   cron:
     <<: *backend
     container_name: marble-api-cron
     depends_on:
       migrations:
         condition: service_completed_successfully
-    entrypoint: [ "./app", "--worker" ]
+    entrypoint: ["./app", "--worker"]
     healthcheck:
       disable: true
     ports: []
@@ -115,8 +115,7 @@ services:
         - /nodejs/bin/node
         - --input-type=module
         - -e
-        - "process.exit((await
-          fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
+        - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
       timeout: 60s
       retries: 1
@@ -124,7 +123,7 @@ services:
     ports:
       - 3000:8080
     environment:
-      <<: [ *shared-env, *frontend-env ]
+      <<: [*shared-env, *frontend-env]
   firebase_auth:
     container_name: firebase-auth
     image: europe-west1-docker.pkg.dev/marble-infra/marble/firebase-emulator:latest
@@ -151,7 +150,11 @@ services:
     volumes:
       - marble-es:/usr/share/elasticsearch/data
     healthcheck:
-      test: [ "CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1" ]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf http://localhost:9200/_cluster/health || exit 1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -162,7 +165,7 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-    command: [ "yente", "reindex" ]
+    command: ["yente", "reindex"]
     volumes:
       # This configuration file will load only a reduced into the elastic search index.
       # This is only a convenience for development purposes, and should be removed or adapted
