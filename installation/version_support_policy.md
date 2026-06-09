@@ -11,14 +11,14 @@
 
 ### Motiva
 
-- We recommend [motiva](https://github.com/apognu/motiva), an open-source, high-performance search engine for screening lists with Marble.
-- Version v0.8 is supported with the current version of Marble.
+- [motiva](https://github.com/apognu/motiva) is an open-source, high-performance search engine for screening lists with Marble.
+- Version v0.9 is supported with the current version of Marble.
 
 ### Yente
 
 - Used for data indexing into Elasticsearch
 - The reference implementation of OpenSanctions' search engine for screening lists.
-- Version 5.x is supported
+- Version 5.4+ is supported
 - Earlier versions are not compatible
 
 ---

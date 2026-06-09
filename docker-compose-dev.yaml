@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v1.1.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v1.2.1
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v1.1.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v1.2.0
 
 x-shared-environment: &shared-env
   DISABLE_SEGMENT: ${DISABLE_SEGMENT:-false}
@@ -176,7 +176,7 @@ services:
       YENTE_INDEX_URL: http://marble-es:9200
   motiva:
     container_name: marble-motiva
-    image: ghcr.io/apognu/motiva:v0.8.1
+    image: ghcr.io/apognu/motiva:v0.9.0
     platform: linux/x86_64
     # ports:
     #   - 8000:8000
