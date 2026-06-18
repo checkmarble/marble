@@ -7,6 +7,7 @@
 
 - An Ubuntu 24.10 system (this guide will assume you wish to deploy Marble on a single machine, feel free to adapt configuration if you deploy on several).
 - PostgreSQL database (≥ 15.0).
+- Redis instance (recommended — set `REDIS_HOST` in the configuration; optional for now but increasingly required).
 - NodeJS
 - Golang
 - Blob storage platform (S3, GCS, Azure Blob or S3-compatible self-hosted)
@@ -79,6 +80,7 @@ Copy the [example configuration](https://github.com/checkmarble/marble-backend/b
 - Set the `CREATE_*` variables to specify your initial organization and admin user - this needs to be run only once and can be omitted after the first run.
 - Set your `LICENCE_KEY`.
 - Set `MARBLE_APP_URL` to the external HTTP base your users’ browsers can use to reach the frontend.
+- Set `REDIS_HOST` (e.g. `localhost:6379`) to point to your Redis instance. If set, both the API and worker must be able to reach it, as they check connectivity on startup. Leave it empty to run without the cache.
 
 ### Service configuration
 

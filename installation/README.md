@@ -55,6 +55,13 @@ Marble consists of three main services:
    - User interactions
    - API integration
 
+In addition, Marble relies on a few supporting services:
+
+- **PostgreSQL** (v16+) — primary datastore and job queue
+- **Redis** — cache used by the backend and worker. Currently optional but increasingly required as more features depend on it; we recommend configuring it. See [Production Deployment](./production_run.md#6-redis) for details.
+- **Elasticsearch + Motiva** — only needed for sanctions screening
+- **Blob storage** (GCS / S3 / Azure) and a **Firebase project** for authentication
+
 ### System Architecture
 
 The standard Marble deployment architecture:
