@@ -20,6 +20,7 @@ Before starting a production deployment, ensure you have:
 - Production-grade PostgreSQL database (v16+)
 - Blob storage bucket (GCS, S3...)
 - Firebase project
+- Redis instance (recommended — see [Redis](#6-redis) below)
 - Motiva+Elasticsearch setup if you need sanction checks
 - We do not recommend usage of docker compose for a production-ready deployment of Marble
 
@@ -146,6 +147,26 @@ Options:
 > ⚠️ **Note**: While development docker-compose includes Elasticsearch, use a production-grade service for deployment.
 
 You will need to run indexing on the yente (with `yente reindex`) on a scheduled task (cron or systemd timer).
+
+### 6. Redis
+
+Purpose: Cache used by the Marble backend and worker (for example, to cache the data model and user lookups).
+
+Redis is currently **optional but increasingly required** as more features come to depend on it, so we recommend provisioning it for any new deployment.
+
+Behaviour:
+
+- If `REDIS_HOST` is left empty, the cache is disabled and Marble runs without it.
+- If `REDIS_HOST` is set, Marble checks connectivity to Redis on startup and **will fail to start if it cannot reach it**. Make sure both the `api` and `worker` containers can reach the instance.
+
+Configuration:
+
+- `REDIS_HOST`: host and port of the Redis instance (e.g. `redis:6379`)
+- `REDIS_KEY`: password/auth key, if your instance requires authentication
+- `REDIS_TLS`: set to `true` to connect over TLS
+- `REDIS_TLS_SKIP_VERIFY`: set to `true` to skip TLS certificate verification (not recommended)
+
+> ⚠️ **Note**: The provided `docker-compose.yaml` includes a Redis container and sets `REDIS_HOST` automatically for the sake of completeness. For production, use a managed/production-grade Redis instead (e.g. GCP Memorystore, AWS ElastiCache).
 
 ## Deployment Architecture
 

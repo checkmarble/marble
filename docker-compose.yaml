@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v1.2.1
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v1.3.3
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v1.2.0
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v1.3.0
 
 x-shared-environment: &shared-env
   ENV: ${ENV}
@@ -50,6 +50,8 @@ x-backend-environment: &backend-env
   OFFLOADING_BATCH_SIZE: ${OFFLOADING_BATCH_SIZE}
   OFFLOADING_SAVE_POINTS: ${OFFLOADING_SAVE_POINTS}
   OFFLOADING_WRITES_PER_SEC: ${OFFLOADING_WRITES_PER_SEC}
+
+  REDIS_HOST: "redis:6379"
 x-frontend-environment: &frontend-env
   SESSION_SECRET: ${SESSION_SECRET}
   SESSION_MAX_AGE: ${SESSION_MAX_AGE}
@@ -188,7 +190,7 @@ services:
       YENTE_INDEX_URL: ${ELASTICSEARCH_HOST:-http://marble-es:9200}
   motiva:
     container_name: marble-motiva
-    image: ghcr.io/apognu/motiva:v0.9.0
+    image: ghcr.io/apognu/motiva:v0.9.2
     platform: linux/x86_64
     # ports:
     #   - 8000:8000
@@ -198,6 +200,14 @@ services:
     environment:
       INDEX_URL: ${ELASTICSEARCH_HOST:-http://marble-es:9200}
       ENV: production
+  redis:
+    container_name: redis
+    image: redis:8-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 1s
+      retries: 5
 
 volumes:
   marble-db:

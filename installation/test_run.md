@@ -32,6 +32,7 @@ The development environment includes everything needed to run Marble locally:
 ### Development Dependencies
 
 - PostgreSQL database
+- Redis cache
 - Firebase Auth Emulator
 - Elasticsearch instance
 - Object storage emulation
