@@ -96,6 +96,11 @@ resource "google_cloud_run_v2_service" "frontend" {
       }
 
       env {
+        name  = "MARBLE_API_URL"
+        value = local.environment.backend.url
+      }
+
+      env {
         name  = "MARBLE_API_URL_CLIENT"
         value = local.environment.backend.url
       }

@@ -16,6 +16,12 @@ resource "aws_db_parameter_group" "pg-marble" {
     value = "0"
   }
 
+  parameter {
+    name         = "rds.logical_replication"
+    value        = "1"
+    apply_method = "pending-reboot"
+  }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -48,13 +54,34 @@ resource "aws_security_group" "rds" {
   vpc_id      = aws_vpc.main.id
   name        = "rds-sg"
   description = "Allow inbound for Postgres from EC2 SG"
+  
+  # Accès depuis les instances ECS
   ingress {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
     security_groups = [aws_security_group.ecs_node_sg.id]
   }
-  tags                   = {
+  
+  # Accès depuis Export Server
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["13.36.223.66/32"]
+    description = "Export Server"
+  }
+  
+  # Accès depuis Bureau
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["62.23.72.222/32"]
+    description = "Bureau"
+  }
+  
+  tags = {
     Name = "RiskTool - DB - Prod"
   }
 }
@@ -77,7 +104,7 @@ resource "aws_db_instance" "rds-marble" {
   engine_version              = "15"
   publicly_accessible         = true
   allow_major_version_upgrade = true
-  max_allocated_storage  = 3000 
+  max_allocated_storage  = 5000 
   
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.marble_rds_subnet_group.name

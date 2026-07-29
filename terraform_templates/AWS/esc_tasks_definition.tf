@@ -56,6 +56,7 @@ resource "aws_ecs_task_definition" "app" {
       environment = [
         { name = "ENV", value = "production" },
         { name = "NODE_ENV", value = "production" },
+        { name = "FIREBASE_API_KEY", value = local.environment.firebase.apiKey },
         { name = "PG_HOSTNAME", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 0)}" },
         { name = "PG_PORT", value = "${element(split(":", aws_db_instance.rds-marble.endpoint), 1)}" },
         { name = "PG_USER", value = "postgres" },
