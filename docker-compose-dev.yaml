@@ -1,9 +1,9 @@
 name: marble
 
 x-backend-image-version: &backend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.47.4
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-backend:v0.59.0
 x-frontend-image-version: &frontend-image-version
-  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.47.4
+  image: europe-west1-docker.pkg.dev/marble-infra/marble/marble-frontend:v0.59.1
 
 x-shared-environment: &shared-env
   ENV: development
@@ -53,7 +53,7 @@ x-frontend-environment: &frontend-env
 services:
   db:
     container_name: marble-postgres
-    image: postgres:15
+    image: postgres:16
     restart: always
     environment:
       POSTGRES_USER: postgres
