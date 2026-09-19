@@ -136,10 +136,11 @@ See [Ingesting data](https://docs.checkmarble.com/docs/ingesting-data) for the f
 
 5. **Sign-in page returns a 500 error**
 
-   The frontend requires `SESSION_SECRET` to be at least 32 characters long. If it is too short, every request to `/sign-in` fails with `Password string too short (min 32 characters required)`. Generate a suitable value and recreate the `app` container:
+   The frontend requires `SESSION_SECRET` to be at least 32 characters long. If it is too short, every request to `/sign-in` fails with `Password string too short (min 32 characters required)`. Generate a suitable value, replace `SESSION_SECRET` in your env file with it, then recreate the `app` container using that same file:
 
    ```bash
    openssl rand -base64 32
+   # Copy the printed value into SESSION_SECRET in your env file (e.g. .env.dev.example or your own .env.dev), then:
    docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up -d --force-recreate app
    ```
 
