@@ -101,10 +101,11 @@ services:
       firebase_auth:
         condition: service_started
     healthcheck:
+      # The frontend image runs on bun and ships no node binary or shell, so the probe
+      # must be an exec-form call to bun itself.
       test:
         - CMD
-        - /nodejs/bin/node
-        - --input-type=module
+        - /usr/local/bin/bun
         - -e
         - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
