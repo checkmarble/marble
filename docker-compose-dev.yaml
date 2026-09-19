@@ -162,6 +162,11 @@ services:
     environment:
       YENTE_INDEX_TYPE: elasticsearch
       YENTE_INDEX_URL: http://marble-es:9200
+      # yente defaults to /app/manifests/commercial.yml, which pulls the full OpenSanctions
+      # database from delivery.opensanctions.com and requires a delivery token.
+      # Point it at the reduced dev manifest mounted above, which uses the public catalog.
+      YENTE_MANIFEST: ${YENTE_MANIFEST:-/app/manifests/default.yml}
+      OPENSANCTIONS_DELIVERY_TOKEN: ${OPENSANCTIONS_DELIVERY_TOKEN:-}
   motiva:
     container_name: marble-motiva
     image: ghcr.io/apognu/motiva:v0.10.1

@@ -35,6 +35,7 @@ The development environment includes everything needed to run Marble locally:
 - Redis cache
 - Firebase Auth Emulator
 - Elasticsearch instance
+- yente (indexes sanctions data into Elasticsearch) and Motiva (screening API)
 - Object storage emulation
 
 ## Configuration
@@ -57,6 +58,21 @@ You can enhance your development environment by configuring:
    - Set up local storage
    - Or connect to cloud storage
 
+### Sanctions Screening Data
+
+The `yente` container runs once at startup to index sanctions data into Elasticsearch, and Motiva then serves screening queries against that index.
+
+By default, the dev stack indexes the reduced, **public** `us_sanctions` catalog defined in `contrib/datasets.yml`, which requires no credentials. That manifest is mounted into the container at `/app/manifests/default.yml`, and `docker-compose-dev.yaml` sets `YENTE_MANIFEST` to point at it.
+
+> ⚠️ **Important**: yente defaults `YENTE_MANIFEST` to `/app/manifests/commercial.yml`, which pulls the full OpenSanctions database from `delivery.opensanctions.com` and requires a delivery token. If `YENTE_MANIFEST` is not set explicitly, the mounted dev manifest is silently ignored and indexing fails with an authentication error.
+
+To index the full OpenSanctions database instead:
+
+1. Sign up on the [OpenSanctions customer portal](https://www.opensanctions.org/) and copy the token from the *Data delivery service* section (see the [yente delivery docs](https://yente.followthemoney.tech/delivery/)).
+2. In your env file, set `OPENSANCTIONS_DELIVERY_TOKEN` and switch `YENTE_MANIFEST` to `/app/manifests/commercial.yml`.
+
+Delivery tokens are per-account secrets; there is no shared or public value, so never commit one to the repository.
+
 ## Troubleshooting
 
 ### Common Issues
@@ -78,6 +94,16 @@ You can enhance your development environment by configuring:
    - Wait for complete startup
    - Check emulator logs
    - Verify port accessibility
+
+4. **Sanctions indexing fails to authenticate**
+
+   If the `yente` container exits with `Failed to authenticate to delivery.opensanctions.com with delivery token`, it is using the commercial manifest instead of the bundled dev one. Check that `YENTE_MANIFEST` is set on the `yente` service (it defaults to `/app/manifests/default.yml` in `docker-compose-dev.yaml`), or provide a delivery token as described in [Sanctions Screening Data](#sanctions-screening-data).
+
+   ```bash
+   docker compose -f docker-compose-dev.yaml --env-file .env.dev.example logs yente
+   ```
+
+   A healthy run ends with `Index update complete.` and the container exiting with code 0. Motiva only starts once yente has completed successfully.
 
 ### Logs and Debugging
 
