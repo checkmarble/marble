@@ -19,6 +19,17 @@ This guide explains how to quickly set up a local development environment for Ma
    ```
    > 💡 **Tip**: Create your own `.env.dev` file based on `.env.dev.example` for custom configuration.
 
+3. **Log In**
+
+   Once the `app` and `firebase_auth` containers are healthy, open [http://localhost:3000](http://localhost:3000). You will be redirected to the sign-in page.
+
+   The Firebase Auth emulator is preconfigured with an admin user for the seeded `Zorg` organization:
+
+   - Email: `jbe@zorg.com`
+   - Password: `very-secret`
+
+   This has been verified end-to-end: signing in against the emulator returns a Firebase ID token, exchanging it at the backend's `/token` endpoint returns a Marble access token with the `ADMIN` role for the seeded organization, and that token is accepted by the API.
+
 ## Included Components
 
 The development environment includes everything needed to run Marble locally:
@@ -104,6 +115,15 @@ Delivery tokens are per-account secrets; there is no shared or public value, so 
    ```
 
    A healthy run ends with `Index update complete.` and the container exiting with code 0. Motiva only starts once yente has completed successfully.
+
+5. **Sign-in page returns a 500 error**
+
+   The frontend requires `SESSION_SECRET` to be at least 32 characters long. If it is too short, every request to `/sign-in` fails with `Password string too short (min 32 characters required)`. Generate a suitable value and recreate the `app` container:
+
+   ```bash
+   openssl rand -base64 32
+   docker compose -f docker-compose-dev.yaml --env-file .env.dev.example up -d --force-recreate app
+   ```
 
 ### Logs and Debugging
 
