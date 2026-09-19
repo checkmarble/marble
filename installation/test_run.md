@@ -84,6 +84,24 @@ To index the full OpenSanctions database instead:
 
 Delivery tokens are per-account secrets; there is no shared or public value, so never commit one to the repository.
 
+### Ingesting Data via API
+
+Before any data can be ingested, at least one table must exist in your organization's data model. In the app, this is done from the **Your Data** section in the sidebar (its **Data model** tab) by creating a table and adding fields; every table automatically gets the two required fields, `object_id` (string, unique per row) and `updated_at` (timestamp, used to reconcile successive versions of the same object).
+
+Once a table exists, ingest data with your own script or tool by calling the versioned ingestion API:
+
+1. Sign in to the app and generate an API key from **Settings > API Keys** (or `POST /apikeys` while authenticated with your session token). Treat this key as a secret local to your machine; never commit it.
+2. Send batches of up to 100 objects per call to `POST /v1/ingest/{objectType}/batch`, authenticated with the `X-API-KEY` header. Each object must include `object_id` and `updated_at`, plus any other fields declared on the table; unknown fields are rejected.
+
+```bash
+curl -X POST "http://localhost:8080/v1/ingest/<table_name>/batch" \
+  -H "X-API-KEY: <your_api_key>" \
+  -H "Content-Type: application/json" \
+  --data-binary @batch.json
+```
+
+See [Ingesting data](https://docs.checkmarble.com/docs/ingesting-data) for the full data model and validation rules (timestamp format, versioning behavior, etc).
+
 ## Troubleshooting
 
 ### Common Issues
