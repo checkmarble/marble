@@ -12,7 +12,7 @@
 ### Motiva
 
 - [motiva](https://github.com/apognu/motiva) is an open-source, high-performance search engine for screening lists with Marble.
-- Version v0.10 is supported with the current version of Marble.
+- Version v0.11 is supported with the current version of Marble.
 
 ### Yente
 
