@@ -101,10 +101,11 @@ services:
       firebase_auth:
         condition: service_started
     healthcheck:
+      # The frontend image runs on bun and ships no node binary or shell, so the probe
+      # must be an exec-form call to bun itself.
       test:
         - CMD
-        - /nodejs/bin/node
-        - --input-type=module
+        - /usr/local/bin/bun
         - -e
         - "process.exit((await fetch('http://localhost:8080/healthcheck')).status == 200 ? 0 : 1)"
       interval: 10s
@@ -161,6 +162,11 @@ services:
     environment:
       YENTE_INDEX_TYPE: elasticsearch
       YENTE_INDEX_URL: http://marble-es:9200
+      # yente defaults to /app/manifests/commercial.yml, which pulls the full OpenSanctions
+      # database from delivery.opensanctions.com and requires a delivery token.
+      # Point it at the reduced dev manifest mounted above, which uses the public catalog.
+      YENTE_MANIFEST: ${YENTE_MANIFEST:-/app/manifests/default.yml}
+      OPENSANCTIONS_DELIVERY_TOKEN: ${OPENSANCTIONS_DELIVERY_TOKEN:-}
   motiva:
     container_name: marble-motiva
     image: ghcr.io/apognu/motiva:v0.11.0
