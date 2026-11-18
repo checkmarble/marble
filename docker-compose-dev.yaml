@@ -23,6 +23,10 @@ x-backend-environment: &backend-env
   FIREBASE_PROJECT_ID: test-project
   CREATE_ORG_NAME: ${CREATE_ORG_NAME:-}
   CREATE_ORG_ADMIN_EMAIL: ${CREATE_ORG_ADMIN_EMAIL:-}
+  SCREENING_OPENSANCTIONS_API_HOST: ${SCREENING_OPENSANCTIONS_API_HOST:-}
+  SCREENING_OPENSANCTIONS_AUTH_METHOD: ${SCREENING_OPENSANCTIONS_AUTH_METHOD:-}
+  SCREENING_OPENSANCTIONS_API_KEY: ${SCREENING_OPENSANCTIONS_API_KEY:-}
+  SCREENING_OPENSANCTIONS_SCOPE: ${SCREENING_OPENSANCTIONS_SCOPE:-}
   REDIS_HOST: "redis:6379"
 x-frontend-environment: &frontend-env
   SESSION_SECRET: ${SESSION_SECRET:-}
@@ -159,6 +163,9 @@ services:
       # for production environments.
       - ./contrib/datasets.yml:/app/manifests/default.yml
     environment:
+      # yente reads /app/manifests/commercial.yml unless YENTE_MANIFEST says otherwise,
+      # so point it at the manifest mounted above (motiva already reads it via MANIFEST_URL).
+      YENTE_MANIFEST: /app/manifests/default.yml
       YENTE_INDEX_TYPE: elasticsearch
       YENTE_INDEX_URL: http://marble-es:9200
   motiva:

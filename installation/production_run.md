@@ -148,6 +148,8 @@ Options:
 
 You will need to run indexing on the yente (with `yente reindex`) on a scheduled task (cron or systemd timer).
 
+Which datasets get indexed is set by a yente manifest: point yente at it with `YENTE_MANIFEST` and motiva with `MANIFEST_URL` (both must read the same file). Marble matches against the dataset or collection named by `SCREENING_OPENSANCTIONS_SCOPE` on the api and worker (`default` if unset), so a dataset you add to the manifest is only screened if it is part of that collection. [`contrib/datasets.yml`](../contrib/datasets.yml) has a commented example that adds affiliates of US restricted parties (companies that listed parties own 50% or more, or control without a 50% share) next to `us_sanctions` in a `us_screening` collection. Each affiliate record carries its verdict per rule in the `summary` property (`definitely`, `possibly` or `control_only`), so analysts can tell a 50% case from control without a 50% share. To pin a version instead of following the daily file, use a dated release URL such as `https://github.com/Mattbusel/us-restricted-parties/releases/download/data-2026-11-18/affiliates.ftm.json`.
+
 ### 6. Redis
 
 Purpose: Cache used by the Marble backend and worker (for example, to cache the data model and user lookups).
