@@ -4,3 +4,23 @@ catalogs:
     resource_name: entities.ftm.json
 datasets: []
 
+# Optional: also screen against affiliates of US restricted parties, i.e. companies that
+# listed parties (OFAC SDN, BIS Entity List and others on the trade.gov Consolidated
+# Screening List) own 50% or more, plus companies they control without a 50% share,
+# each with its ownership path and a verdict per rule in the `summary` property. The
+# file is rebuilt daily from the CSL and GLEIF ownership data (CC BY 4.0):
+# https://github.com/Mattbusel/us-restricted-parties/blob/main/docs/affiliates.md
+#
+# To enable it, replace `datasets: []` above with the block below and set
+# SCREENING_OPENSANCTIONS_SCOPE=us_screening for the Marble api and worker.
+#
+# datasets:
+#   - name: us_restricted_affiliates
+#     title: Affiliates of US restricted parties (derived, evidence not determination)
+#     entities_url: https://github.com/Mattbusel/us-restricted-parties/releases/latest/download/affiliates.ftm.json
+#   - name: us_screening
+#     title: US sanctions plus affiliates of US restricted parties
+#     datasets:
+#       - us_sanctions
+#       - us_restricted_affiliates
+
